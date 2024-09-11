@@ -1,5 +1,7 @@
 // ignore_for_file: avoid_print
 
+// impo
+import 'package:clone_freelancer_mobile/views/User/profile_page.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:clone_freelancer_mobile/constant/const.dart';
@@ -81,17 +83,37 @@ class _HomePageState extends State<HomePage> {
                                     ),
                                   ),
                                 )
-                              : SizedBox(
-                                  width: 50,
-                                  height: 50,
-                                  child: ClipRRect(
-                                    borderRadius: BorderRadius.circular(100),
-                                    child: Image.asset(
-                                      'assets/images/blank_image.png',
-                                      fit: BoxFit.cover,
-                                    ),
-                                  ),
+                              // : SizedBox(
+                              //     width: 50,
+                              //     height: 50,
+                              //     child: ClipRRect(
+                              //       borderRadius: BorderRadius.circular(100),
+                              //       child: Image.asset(
+                              //         'assets/images/blank_image.png',
+                              //         fit: BoxFit.cover,
+                              //       ),
+                              //     ),
+                              //   ),
+                         : SizedBox(
+                            width: 50,
+                            height: 50,
+                            child: GestureDetector(
+                              onTap: () {
+                                // Navigasi ke ProfilePage ketika gambar di klik
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(builder: (context) => ProfilePage()),
+                                );
+                              },
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(100),
+                                child: Image.asset(
+                                  'assets/images/blank_image.png',
+                                  fit: BoxFit.cover,
                                 ),
+                              ),
+                            ),
+                          ),
                           const SizedBox(
                             width: 16,
                           ),
@@ -130,16 +152,18 @@ class _HomePageState extends State<HomePage> {
                       ),
                       Row(
                         children: [
+                          // Melakukan comment pada bagian source code ini untuk menghilangkan tombol search pada
+                          // bagian atas yang membingungkan
                           // IconButton(
                           //   onPressed: () {},
                           //   icon: const Icon(Icons.notifications_outlined),
                           // ),
-                          IconButton(
-                            onPressed: () {
-                              navigationController.selectedIndex.value = 2;
-                            },
-                            icon: const Icon(Icons.search_outlined),
-                          ),
+                          // IconButton(
+                          //   onPressed: () {
+                          //     navigationController.selectedIndex.value = 2;
+                          //   },
+                          //   icon: const Icon(Icons.search_outlined),
+                          // ),
                         ],
                       ),
                     ],
