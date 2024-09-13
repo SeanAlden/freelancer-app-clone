@@ -52,6 +52,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Colors.purple,
         title: const Center(
           child: Text(
             "Home",
@@ -94,66 +95,132 @@ class _HomePageState extends State<HomePage> {
                               //       ),
                               //     ),
                               //   ),
-                         : SizedBox(
-                            width: 50,
-                            height: 50,
-                            child: GestureDetector(
-                              onTap: () {
-                                // Navigasi ke ProfilePage ketika gambar di klik
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(builder: (context) => ProfilePage()),
-                                );
-                              },
-                              child: ClipRRect(
-                                borderRadius: BorderRadius.circular(100),
-                                child: Image.asset(
-                                  'assets/images/blank_image.png',
-                                  fit: BoxFit.cover,
+                              : SizedBox(
+                                  width: 50,
+                                  height: 50,
+                                  child: GestureDetector(
+                                    onTap: () {
+                                      // Navigasi ke ProfilePage ketika gambar di klik
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                ProfilePage()),
+                                      );
+                                    },
+                                    child: ClipRRect(
+                                      borderRadius: BorderRadius.circular(100),
+                                      child: Image.asset(
+                                        'assets/images/blank_image.png',
+                                        fit: BoxFit.cover,
+                                      ),
+                                    ),
+                                  ),
                                 ),
-                              ),
-                            ),
-                          ),
                           const SizedBox(
                             width: 16,
                           ),
+                          // Pada bagian ini, ketika setiap elemen di klik (seperti gambar profile, dan nama user) maka akan mengarahkan user ke profile page
                           Column(
+                            // bagian column untuk mengatur bagian atas
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text(
-                                "Hello,",
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .titleSmall
-                                    ?.copyWith(color: Colors.grey[600]),
+                              GestureDetector(
+                                onTap: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => ProfilePage()),
+                                  );
+                                },
+                                child: Text(
+                                  "Hello,",
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .titleSmall
+                                      ?.copyWith(color: Colors.grey[600]),
+                                ),
                               ),
                               box.read('token') != null
-                                  ? Text(
-                                      box.read('user')['name'],
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .titleLarge
-                                          ?.copyWith(
-                                            fontWeight: FontWeight.bold,
-                                          ),
+                                  ? GestureDetector(
+                                      onTap: () {
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  ProfilePage()),
+                                        );
+                                      },
+                                      child: Text(
+                                        box.read('user')['name'],
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .titleLarge
+                                            ?.copyWith(
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                      ),
                                     )
-                                  : Text(
-                                      "Guest",
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .titleLarge
-                                          ?.copyWith(
-                                            fontWeight: FontWeight.bold,
-                                          ),
+                                  : GestureDetector(
+                                      // onTap: () {
+                                      //   Navigator.push(
+                                      //     context,
+                                      //     MaterialPageRoute(
+                                      //         builder: (context) =>
+                                      //             ProfilePage()),
+                                      //   );
+                                      // },
+                                      child: Text(
+                                        "Guest",
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .titleLarge
+                                            ?.copyWith(
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                      ),
                                     ),
                             ],
                           ),
+
+                          // Column(
+                          //   crossAxisAlignment: CrossAxisAlignment.start,
+                          //   children: [
+                          //     Text(
+                          //       "Hello,",
+                          //       style: Theme.of(context)
+                          //           .textTheme
+                          //           .titleSmall
+                          //           ?.copyWith(color: Colors.grey[600]),
+                          //     ),
+                          //     box.read('token') != null
+                          //         ? Text(
+                          //             box.read('user')['name'],
+                          //             style: Theme.of(context)
+                          //                 .textTheme
+                          //                 .titleLarge
+                          //                 ?.copyWith(
+                          //                   fontWeight: FontWeight.bold,
+                          //                 ),
+                          //           )
+                          //         : Text(
+                          //             "Guest",
+                          //             style: Theme.of(context)
+                          //                 .textTheme
+                          //                 .titleLarge
+                          //                 ?.copyWith(
+                          //                   fontWeight: FontWeight.bold,
+                          //                 ),
+                          //           ),
+                          //   ],
+                          // ),
                         ],
                       ),
                       Row(
                         children: [
                           // Melakukan comment pada bagian source code ini untuk menghilangkan tombol search pada
                           // bagian atas yang membingungkan
+
                           // IconButton(
                           //   onPressed: () {},
                           //   icon: const Icon(Icons.notifications_outlined),
@@ -602,6 +669,15 @@ class _HomePageState extends State<HomePage> {
                                               );
                                             },
                                           ),
+                                        ),
+                                        const SizedBox(
+                                          height: 32,
+                                        ),
+                                        Text(
+                                          "News",
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .headlineSmall,
                                         ),
                                       ],
                                     )

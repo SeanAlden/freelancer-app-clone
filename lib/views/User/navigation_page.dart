@@ -44,9 +44,19 @@ class _NavigationPageState extends State<NavigationPage> {
       icon: Icon(Icons.mail_outline),
       label: 'Inbox',
     ),
+    // BottomNavigationBarItem(
+    //   icon: Icon(Icons.search),
+    //   label: 'Favorite',
+    // ),
+    // mengganti search icon pada bagian bawah dengan icon QRIS
     BottomNavigationBarItem(
-      icon: Icon(Icons.search),
-      label: 'Favorite',
+      icon: ImageIcon(
+        AssetImage(
+            'assets/images/qris.png',
+            ),
+            size: 50, // Ganti dengan path file gambar Anda
+      ),
+      label: 'QRIS',
     ),
     BottomNavigationBarItem(
       icon: Icon(Icons.list_alt_outlined),
