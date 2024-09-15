@@ -4,6 +4,7 @@ import 'package:clone_freelancer_mobile/controllers/auth_controller.dart';
 import 'package:get/get.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 
+// Kelas ResetPassword adalah StatefulWidget untuk halaman reset password yang menerima parameter email
 class ResetPassword extends StatefulWidget {
   const ResetPassword({super.key, required this.email});
   final String email;
@@ -12,24 +13,31 @@ class ResetPassword extends StatefulWidget {
   State<ResetPassword> createState() => _ResetPasswordState();
 }
 
+// State dari ResetPassword untuk mengelola status halaman
 class _ResetPasswordState extends State<ResetPassword> {
+  // Menginisialisasi controller untuk autentikasi
   final AuthenticationController _authenticationController =
       Get.put(AuthenticationController());
+  // Menginisialisasi TextEditingController untuk input PIN
   TextEditingController pinController = TextEditingController();
+  // GlobalKey untuk validasi form
   final _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      // AppBar standar untuk halaman
       appBar: AppBar(),
       body: Center(
         child: Padding(
+          // Memberikan padding horizontal untuk form
           padding: const EdgeInsets.symmetric(horizontal: 30),
           child: Form(
-            key: _formKey,
+            key: _formKey, // Mengaitkan form dengan _formKey untuk validasi
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center, // Konten berada di tengah secara vertikal
               children: [
+                // Menampilkan judul halaman
                 Text(
                   'Reset Password',
                   style: Theme.of(context).textTheme.headlineLarge?.copyWith(
@@ -39,16 +47,18 @@ class _ResetPasswordState extends State<ResetPassword> {
                 const SizedBox(
                   height: 16,
                 ),
+                // Menampilkan teks yang menginformasikan pengguna bahwa kode verifikasi telah dikirim
                 RichText(
                   textAlign: TextAlign.center,
                   text: TextSpan(
                     children: [
                       TextSpan(
-                        text: "We sent a verifivation code to ",
+                        text: "We sent a verification code to ",
                         style: Theme.of(context).textTheme.titleSmall?.copyWith(
                               color: Colors.grey[600],
                             ),
                       ),
+                      // Menampilkan email yang dimasukkan oleh pengguna
                       TextSpan(
                         text: widget.email,
                         style: Theme.of(context).textTheme.titleSmall?.copyWith(
@@ -61,22 +71,25 @@ class _ResetPasswordState extends State<ResetPassword> {
                 const SizedBox(
                   height: 30,
                 ),
+                // PinCodeTextField untuk memasukkan kode verifikasi (PIN)
                 PinCodeTextField(
                   appContext: context,
-                  length: 4,
+                  length: 4, // Panjang kode PIN adalah 4 digit
                   pinTheme: PinTheme(
-                    shape: PinCodeFieldShape.underline,
-                    selectedColor: const Color(0xff6571ff),
-                    inactiveColor: Colors.grey,
+                    shape: PinCodeFieldShape.underline, // Bentuk underline untuk setiap kotak PIN
+                    selectedColor: const Color(0xff6571ff), // Warna untuk kotak terpilih
+                    inactiveColor: Colors.grey, // Warna untuk kotak tidak aktif
                   ),
-                  controller: pinController,
-                  keyboardType: TextInputType.number,
+                  controller: pinController, // Controller untuk mengatur input teks
+                  keyboardType: TextInputType.number, // Menggunakan keyboard angka
+                  // Memanggil checkCode ketika kode verifikasi selesai diinput
                   onCompleted: (value) async {
                     await _authenticationController.checkCode(
                       email: widget.email,
                       token: pinController.text.trim(),
                     );
                   },
+                  // Validator untuk memastikan PIN diinput dan panjangnya 4 digit
                   validator: (v) {
                     if (v == null || v.isEmpty) {
                       return 'Please enter a valid PIN code.';
@@ -92,9 +105,11 @@ class _ResetPasswordState extends State<ResetPassword> {
                 ),
                 Row(
                   children: [
+                    // Tombol "Continue" untuk melanjutkan proses setelah input PIN divalidasi
                     Expanded(
                       child: ElevatedButton(
                         onPressed: () async {
+                          // Validasi form, jika valid, memeriksa kode verifikasi
                           if (_formKey.currentState!.validate()) {
                             await _authenticationController.checkCode(
                               email: widget.email,
@@ -103,6 +118,7 @@ class _ResetPasswordState extends State<ResetPassword> {
                           }
                         },
                         style: ButtonStyle(
+                          // Membuat tombol dengan sudut membulat
                           shape:
                               MaterialStateProperty.all<RoundedRectangleBorder>(
                             RoundedRectangleBorder(
@@ -110,7 +126,9 @@ class _ResetPasswordState extends State<ResetPassword> {
                             ),
                           ),
                         ),
+                        // Obx digunakan untuk mengamati perubahan status isLoading di AuthenticationController
                         child: Obx(() {
+                          // Menampilkan CircularProgressIndicator jika isLoading = true
                           return _authenticationController.isLoading.value
                               ? const Center(
                                   child: CircularProgressIndicator(
@@ -128,6 +146,7 @@ class _ResetPasswordState extends State<ResetPassword> {
                 const SizedBox(
                   height: 30,
                 ),
+                // RichText dengan opsi untuk mengirim ulang email verifikasi
                 RichText(
                   textAlign: TextAlign.center,
                   text: TextSpan(
@@ -138,12 +157,14 @@ class _ResetPasswordState extends State<ResetPassword> {
                               color: Colors.grey[600],
                             ),
                       ),
+                      // TextSpan interaktif dengan TapGestureRecognizer untuk memicu pengiriman ulang email
                       TextSpan(
                         text: 'Click Here',
                         style: Theme.of(context).textTheme.titleSmall?.copyWith(
                               color: const Color(0xff6571ff),
                             ),
                         recognizer: TapGestureRecognizer()
+                          // Saat diklik, mengirim ulang email verifikasi
                           ..onTap = () async {
                             await _authenticationController.forgot(
                               email: widget.email,

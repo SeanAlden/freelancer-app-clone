@@ -5,6 +5,7 @@ import 'package:clone_freelancer_mobile/views/Auth/forgot_password.dart';
 import 'package:clone_freelancer_mobile/views/Auth/signup.dart';
 import 'package:get/get.dart';
 
+// Widget LoginPage merupakan halaman login
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
 
@@ -13,13 +14,21 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  // Menggunakan controller untuk mengambil input email dan password dari user
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+
+  // Variabel untuk menyembunyikan atau menampilkan password
   bool _obscureText = true;
+
+  // Memanggil AuthenticationController menggunakan GetX untuk mengelola logika autentikasi
   final AuthenticationController _authenticationController =
       Get.put(AuthenticationController());
+
+  // GlobalKey digunakan untuk memvalidasi form
   final _formKey = GlobalKey<FormState>();
 
+  // Fungsi untuk toggle visibilitas password
   void _togglePasswordVisibility() {
     setState(() {
       _obscureText = !_obscureText;
@@ -29,17 +38,19 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(), // Membuat AppBar kosong di bagian atas
       body: Center(
         child: Form(
-          key: _formKey,
+          key: _formKey, // Menggunakan _formKey untuk memvalidasi input form
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 30),
+            padding: const EdgeInsets.symmetric(
+                horizontal: 30), // Padding untuk menyesuaikan jarak
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisAlignment:
+                  MainAxisAlignment.center, // Konten di tengah secara vertikal
               children: [
                 Text(
-                  'Login',
+                  'Login', // Judul halaman Login
                   style: Theme.of(context).textTheme.headlineLarge?.copyWith(
                         color: Colors.black,
                       ),
@@ -47,8 +58,10 @@ class _LoginPageState extends State<LoginPage> {
                 const SizedBox(
                   height: 30,
                 ),
+                // TextFormField untuk input email
                 TextFormField(
-                  keyboardType: TextInputType.emailAddress,
+                  keyboardType: TextInputType
+                      .emailAddress, // Menentukan tipe input sebagai email
                   controller: _emailController,
                   obscureText: false,
                   decoration: InputDecoration(
@@ -56,8 +69,10 @@ class _LoginPageState extends State<LoginPage> {
                       borderRadius: BorderRadius.circular(16.0),
                     ),
                     labelText: 'Email',
-                    prefixIcon: const Icon(Icons.mail_outline),
+                    prefixIcon: const Icon(
+                        Icons.mail_outline), // Icon pada bagian kiri input
                   ),
+                  // Validator untuk memastikan email tidak kosong
                   validator: (value) {
                     if (value == null || value.trim().isEmpty) {
                       return 'Please enter your email';
@@ -68,22 +83,26 @@ class _LoginPageState extends State<LoginPage> {
                 const SizedBox(
                   height: 20,
                 ),
+                // TextFormField untuk input password
                 TextFormField(
                   controller: _passwordController,
-                  obscureText: _obscureText,
+                  obscureText: _obscureText, // Tampilkan/hide password
                   decoration: InputDecoration(
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(16.0),
                     ),
                     labelText: 'Password',
-                    prefixIcon: const Icon(Icons.lock_outline),
+                    prefixIcon: const Icon(
+                        Icons.lock_outline), // Icon kunci untuk password
                     suffixIcon: IconButton(
                       icon: Icon(
                         _obscureText ? Icons.visibility : Icons.visibility_off,
                       ),
-                      onPressed: _togglePasswordVisibility,
+                      onPressed:
+                          _togglePasswordVisibility, // Fungsi untuk toggle visibilitas password
                     ),
                   ),
+                  // Validator untuk memastikan password tidak kosong
                   validator: (value) {
                     if (value == null || value.trim().isEmpty) {
                       return 'Please enter your password';
@@ -94,9 +113,9 @@ class _LoginPageState extends State<LoginPage> {
                 const SizedBox(
                   height: 10,
                 ),
+                // Link untuk Forgot Password di bagian kanan
                 Align(
-                  alignment: Alignment
-                      .centerRight, // Align the content to the end (right).
+                  alignment: Alignment.centerRight, // Align konten ke kanan
                   child: RichText(
                     text: TextSpan(
                       children: [
@@ -108,7 +127,8 @@ class _LoginPageState extends State<LoginPage> {
                                   ),
                           recognizer: TapGestureRecognizer()
                             ..onTap = () {
-                              Get.to(() => const ForgotPasswordPage());
+                              Get.to(() =>
+                                  const ForgotPasswordPage()); // Arahkan ke halaman forgot password
                             },
                         ),
                       ],
@@ -118,12 +138,14 @@ class _LoginPageState extends State<LoginPage> {
                 const SizedBox(
                   height: 30,
                 ),
+                // Button Login
                 Row(
                   children: [
                     Expanded(
                       child: ElevatedButton(
                         onPressed: () async {
                           if (_formKey.currentState!.validate()) {
+                            // Jika form valid, maka proses login
                             await _authenticationController.logIn(
                               email: _emailController.text.trim(),
                               password: _passwordController.text.trim(),
@@ -132,7 +154,7 @@ class _LoginPageState extends State<LoginPage> {
                         },
                         style: ButtonStyle(
                           backgroundColor: MaterialStateProperty.all<Color>(
-                              const Color(0xff6571ff)),
+                              const Color(0xff6571ff)), // Warna button
                           shape:
                               MaterialStateProperty.all<RoundedRectangleBorder>(
                             RoundedRectangleBorder(
@@ -140,6 +162,7 @@ class _LoginPageState extends State<LoginPage> {
                             ),
                           ),
                         ),
+                        // Menampilkan loading jika sedang memproses login
                         child: Obx(() {
                           return _authenticationController.isLoading.value
                               ? const Center(
@@ -161,6 +184,7 @@ class _LoginPageState extends State<LoginPage> {
                 const SizedBox(
                   height: 30,
                 ),
+                // Link untuk menuju halaman Sign Up jika belum memiliki akun
                 Get.previousRoute != '/SignUpPage'
                     ? RichText(
                         textAlign: TextAlign.center,
@@ -176,17 +200,19 @@ class _LoginPageState extends State<LoginPage> {
                                   .textTheme
                                   .bodyLarge
                                   ?.copyWith(
-                                    color: const Color(0xff6571ff),
+                                    color: const Color(
+                                        0xff6571ff), // Warna teks "Sign Up"
                                   ),
                               recognizer: TapGestureRecognizer()
                                 ..onTap = () {
-                                  Get.to(() => const SignUpPage());
+                                  Get.to(() =>
+                                      const SignUpPage()); // Arahkan ke halaman Sign Up
                                 },
                             ),
                           ],
                         ),
                       )
-                    : Container(),
+                    : Container(), // Kosongkan jika sudah berada di halaman Sign Up
               ],
             ),
           ),

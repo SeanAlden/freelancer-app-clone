@@ -4,6 +4,7 @@ import 'package:clone_freelancer_mobile/controllers/auth_controller.dart';
 import 'package:clone_freelancer_mobile/views/Auth/login.dart';
 import 'package:get/get.dart';
 
+// SignUpPage class, menggunakan StatefulWidget untuk menampilkan halaman sign up
 class SignUpPage extends StatefulWidget {
   const SignUpPage({super.key});
 
@@ -12,23 +13,32 @@ class SignUpPage extends StatefulWidget {
 }
 
 class _SignUpPageState extends State<SignUpPage> {
+  // Menggunakan TextEditingController untuk mengambil input dari user
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _confirmPasswordController =
       TextEditingController();
   final TextEditingController _nameController = TextEditingController();
+
+  // Variabel untuk mengontrol visibilitas password
   bool _obscurePassword = true;
   bool _obscureConfirm = true;
+
+  // Inisialisasi AuthenticationController menggunakan GetX untuk mengelola state
   final AuthenticationController _authenticationController =
       Get.put(AuthenticationController());
+
+  // GlobalKey digunakan untuk mengidentifikasi form agar bisa divalidasi
   final _formKey = GlobalKey<FormState>();
 
+  // Fungsi untuk toggle visibilitas password
   void _togglePasswordVisibility() {
     setState(() {
       _obscurePassword = !_obscurePassword;
     });
   }
 
+  // Fungsi untuk toggle visibilitas konfirmasi password
   void _toggleConfirmVisibility() {
     setState(() {
       _obscureConfirm = !_obscureConfirm;
@@ -38,26 +48,28 @@ class _SignUpPageState extends State<SignUpPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(), // Menampilkan AppBar default
       body: Center(
         child: SingleChildScrollView(
+          // Menggunakan SingleChildScrollView agar halaman bisa di-scroll jika terlalu panjang
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 30),
             child: Form(
-              key: _formKey,
+              key: _formKey, // Form key untuk validasi
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
+                  // Menampilkan teks Sign Up sebagai judul halaman
                   Text(
                     'Sign Up',
                     style: Theme.of(context).textTheme.headlineLarge,
                   ),
-                  const SizedBox(
-                    height: 30,
-                  ),
+                  const SizedBox(height: 30),
+
+                  // TextFormField untuk input nama
                   TextFormField(
                     controller: _nameController,
-                    obscureText: false,
+                    obscureText: false, // Tidak menyembunyikan teks (nama)
                     decoration: InputDecoration(
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(16.0),
@@ -66,19 +78,20 @@ class _SignUpPageState extends State<SignUpPage> {
                       prefixIcon: const Icon(Icons.person_outline),
                     ),
                     validator: (value) {
+                      // Validasi untuk memeriksa jika input kosong
                       if (value == null || value.trim().isEmpty) {
                         return 'Please enter your name.';
                       }
                       return null;
                     },
                   ),
-                  const SizedBox(
-                    height: 20,
-                  ),
+                  const SizedBox(height: 20),
+
+                  // TextFormField untuk input email
                   TextFormField(
                     keyboardType: TextInputType.emailAddress,
                     controller: _emailController,
-                    obscureText: false,
+                    obscureText: false, // Email tidak disembunyikan
                     decoration: InputDecoration(
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(16.0),
@@ -87,24 +100,26 @@ class _SignUpPageState extends State<SignUpPage> {
                       prefixIcon: const Icon(Icons.mail_outline),
                     ),
                     validator: (value) {
+                      // Validasi jika email kosong
                       if (value == null || value.trim().isEmpty) {
                         return 'Please enter your email';
                       }
                       return null;
                     },
                   ),
-                  const SizedBox(
-                    height: 20,
-                  ),
+                  const SizedBox(height: 20),
+
+                  // TextFormField untuk input password
                   TextFormField(
                     controller: _passwordController,
-                    obscureText: _obscurePassword,
+                    obscureText: _obscurePassword, // Menyembunyikan password
                     decoration: InputDecoration(
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(16.0),
                       ),
                       labelText: 'Password',
                       prefixIcon: const Icon(Icons.lock_outline),
+                      // Icon untuk toggle visibilitas password
                       suffixIcon: IconButton(
                         icon: Icon(
                           _obscurePassword
@@ -115,6 +130,7 @@ class _SignUpPageState extends State<SignUpPage> {
                       ),
                     ),
                     validator: (value) {
+                      // Validasi jika password kosong atau kurang dari 8 karakter
                       if (value == null || value.trim().isEmpty) {
                         return 'Please enter your password.';
                       } else if (value.length < 8) {
@@ -123,18 +139,20 @@ class _SignUpPageState extends State<SignUpPage> {
                       return null;
                     },
                   ),
-                  const SizedBox(
-                    height: 20,
-                  ),
+                  const SizedBox(height: 20),
+
+                  // TextFormField untuk konfirmasi password
                   TextFormField(
                     controller: _confirmPasswordController,
-                    obscureText: _obscureConfirm,
+                    obscureText:
+                        _obscureConfirm, // Menyembunyikan konfirmasi password
                     decoration: InputDecoration(
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(16.0),
                       ),
                       labelText: 'Confirm Password',
                       prefixIcon: const Icon(Icons.lock_outline),
+                      // Icon untuk toggle visibilitas konfirmasi password
                       suffixIcon: IconButton(
                         icon: Icon(
                           _obscureConfirm
@@ -145,6 +163,7 @@ class _SignUpPageState extends State<SignUpPage> {
                       ),
                     ),
                     validator: (value) {
+                      // Validasi jika konfirmasi password kosong atau tidak sesuai
                       if (value == null || value.trim().isEmpty) {
                         return 'Please enter your password confirmation.';
                       } else if (value != _passwordController.text.trim()) {
@@ -153,15 +172,17 @@ class _SignUpPageState extends State<SignUpPage> {
                       return null;
                     },
                   ),
-                  const SizedBox(
-                    height: 30,
-                  ),
+                  const SizedBox(height: 30),
+
+                  // Button untuk sign up
                   Row(
                     children: [
                       Expanded(
                         child: ElevatedButton(
                           onPressed: () async {
+                            // Jika validasi form sukses
                             if (_formKey.currentState!.validate()) {
+                              // Memanggil method sign up dari AuthenticationController
                               await _authenticationController.signUp(
                                 name: _nameController.text.trim(),
                                 email: _emailController.text.trim(),
@@ -179,6 +200,7 @@ class _SignUpPageState extends State<SignUpPage> {
                               ),
                             ),
                           ),
+                          // Menggunakan Obx dari GetX untuk menampilkan indikator loading saat proses sign up berjalan
                           child: Obx(() {
                             return _authenticationController.isLoading.value
                                 ? const Center(
@@ -197,9 +219,9 @@ class _SignUpPageState extends State<SignUpPage> {
                       ),
                     ],
                   ),
-                  const SizedBox(
-                    height: 30,
-                  ),
+                  const SizedBox(height: 30),
+
+                  // Menampilkan teks untuk login jika sudah memiliki akun
                   Get.previousRoute != '/LoginPage'
                       ? RichText(
                           textAlign: TextAlign.center,
@@ -209,6 +231,7 @@ class _SignUpPageState extends State<SignUpPage> {
                                 text: "Already have an account ? ",
                                 style: Theme.of(context).textTheme.bodyLarge,
                               ),
+                              // Teks untuk login, menggunakan TapGestureRecognizer untuk navigasi ke halaman login
                               TextSpan(
                                 text: "Login here",
                                 style: Theme.of(context)

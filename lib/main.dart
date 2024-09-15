@@ -17,9 +17,10 @@ void main() async {
   final GoogleMapsFlutterPlatform mapsImplementation =
       GoogleMapsFlutterPlatform.instance;
   if (mapsImplementation is GoogleMapsFlutterAndroid) {
-    // Force Hybrid Composition mode.
+    // Force Hybrid Composition mode. Menggunakan komposisi hybrid pada platform Android
     mapsImplementation.useAndroidViewSurface = true;
   }
+  // Memulai aplikasi dengan menjalankan widget MyApp
   runApp(const MyApp());
 }
 
@@ -33,20 +34,23 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
+    // Menggunakan GetMaterialApp dari package GetX untuk state management dan navigasi    
     return GetMaterialApp(
+      // Menentukan tema aplikasi (light mode)
       theme: ThemeData(
-          brightness: Brightness.light,
-          textTheme: GoogleFonts.poppinsTextTheme(),
-          scaffoldBackgroundColor: Colors.white,
+          brightness: Brightness.light, // mengatur tema menjadi light mode
+          textTheme: GoogleFonts.poppinsTextTheme(), // menggunakan font 'poppins' untuk text theme
+          scaffoldBackgroundColor: Colors.white, // warna background page
           appBarTheme: const AppBarTheme(
-            color: Color(0xff6571ff),
+            color: Color(0xff6571ff), // warna default untuk AppBar
           )),
-      debugShowCheckedModeBanner: false,
-      title: 'Freelancer-App',
-      home: const NavigationPage(),
+      debugShowCheckedModeBanner: false, // menyembunyikan banner pada kanan atas
+      title: 'Freelancer-App', // judul aplikasi
+      home: const NavigationPage(), // halaman awal aplikasi 
       initialBinding: BindingsBuilder(() {
-        Get.put(ModeController());
-        Get.put(NavigationController());
+        // inisialisasi controller yang akan digunakan untuk GetX
+        Get.put(ModeController()); // mengatur mode controller (untuk mengelola mode aplikasi, misalnya dark/light mode) 
+        Get.put(NavigationController()); // mengatur navigation controller (untuk mengelola navigasi di aplikasi) 
       }),
     );
   }

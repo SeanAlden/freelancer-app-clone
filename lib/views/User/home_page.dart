@@ -52,7 +52,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.purple,
+        // backgroundColor: Colors.purple,
         title: const Center(
           child: Text(
             "Home",
@@ -73,17 +73,40 @@ class _HomePageState extends State<HomePage> {
                       Row(
                         children: [
                           box.read('pic') != null
-                              ? SizedBox(
-                                  width: 50,
-                                  height: 50,
-                                  child: ClipRRect(
-                                    borderRadius: BorderRadius.circular(100),
-                                    child: Image.network(
-                                      box.read('pic'),
-                                      fit: BoxFit.cover,
+                              ? GestureDetector(
+                                  onTap: () {
+                                    // Gambar profil yang berisi ketika di klik akan navigasi ke halaman ProfilePage
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => ProfilePage()),
+                                    );
+                                  },
+                                  child: SizedBox(
+                                    width: 50,
+                                    height: 50,
+                                    child: ClipRRect(
+                                      borderRadius: BorderRadius.circular(100),
+                                      child: Image.network(
+                                        box.read('pic'),
+                                        fit: BoxFit.cover,
+                                      ),
                                     ),
                                   ),
                                 )
+
+                              // SizedBox(
+                              //     width: 50,
+                              //     height: 50,
+                              //     child: ClipRRect(
+                              //       borderRadius: BorderRadius.circular(100),
+                              //       child: Image.network(
+                              //         box.read('pic'),
+                              //         fit: BoxFit.cover,
+                              //       ),
+                              //     ),
+                              //   )
+
                               // : SizedBox(
                               //     width: 50,
                               //     height: 50,
@@ -100,7 +123,7 @@ class _HomePageState extends State<HomePage> {
                                   height: 50,
                                   child: GestureDetector(
                                     onTap: () {
-                                      // Navigasi ke ProfilePage ketika gambar di klik
+                                      // Navigasi ke ProfilePage ketika gambar kosong/blank di klik
                                       Navigator.push(
                                         context,
                                         MaterialPageRoute(
@@ -162,14 +185,14 @@ class _HomePageState extends State<HomePage> {
                                       ),
                                     )
                                   : GestureDetector(
-                                      // onTap: () {
-                                      //   Navigator.push(
-                                      //     context,
-                                      //     MaterialPageRoute(
-                                      //         builder: (context) =>
-                                      //             ProfilePage()),
-                                      //   );
-                                      // },
+                                      onTap: () {
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  ProfilePage()),
+                                        );
+                                      },
                                       child: Text(
                                         "Guest",
                                         style: Theme.of(context)
@@ -673,6 +696,7 @@ class _HomePageState extends State<HomePage> {
                                         const SizedBox(
                                           height: 32,
                                         ),
+                                        // Menambahkan kolom dengan tema "News" untuk implementasi tampilan berita mengenai freelancer
                                         Text(
                                           "News",
                                           style: Theme.of(context)

@@ -66,14 +66,24 @@ class _SellerHomePageState extends State<SellerHomePage> {
                   children: [
                     Row(
                       children: [
-                        SizedBox(
-                          width: 50,
-                          height: 50,
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.circular(100),
-                            child: Image.network(
-                              box.read('pic').toString(),
-                              fit: BoxFit.cover,
+                        GestureDetector(
+                          onTap: () {
+                            // Navigasi ke SellerProfilePage ketika gambar diklik
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => SellerProfilePage()),
+                            );
+                          },
+                          child: SizedBox(
+                            width: 50,
+                            height: 50,
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(100),
+                              child: Image.network(
+                                box.read('pic').toString(),
+                                fit: BoxFit.cover,
+                              ),
                             ),
                           ),
                         ),
@@ -83,32 +93,54 @@ class _SellerHomePageState extends State<SellerHomePage> {
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(
-                              "Hello,",
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .titleSmall
-                                  ?.copyWith(color: Colors.grey[600]),
+                            GestureDetector(
+                              onTap: () {
+                                // Navigasi ke SellerProfilePage ketika teks "Hello," diklik
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          SellerProfilePage()),
+                                );
+                              },
+                              child: Text(
+                                "Hello,",
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .titleSmall
+                                    ?.copyWith(color: Colors.grey[600]),
+                              ),
                             ),
-                            box.read('token') != null
-                                ? Text(
-                                    box.read('user')['name'],
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .titleLarge
-                                        ?.copyWith(
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                  )
-                                : Text(
-                                    "Guest",
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .titleLarge
-                                        ?.copyWith(
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                  ),
+                            GestureDetector(
+                              onTap: () {
+                                // Navigasi ke SellerProfilePage ketika nama atau "Guest" diklik
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          SellerProfilePage()),
+                                );
+                              },
+                              child: box.read('token') != null
+                                  ? Text(
+                                      box.read('user')['name'],
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .titleLarge
+                                          ?.copyWith(
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                    )
+                                  : Text(
+                                      "Guest",
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .titleLarge
+                                          ?.copyWith(
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                    ),
+                            ),
                           ],
                         ),
                       ],
