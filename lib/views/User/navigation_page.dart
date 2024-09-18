@@ -1,7 +1,8 @@
+import 'package:clone_freelancer_mobile/views/User/qris_page.dart';
 import 'package:flutter/material.dart';
 import 'package:clone_freelancer_mobile/constant/globals.dart';
 import 'package:clone_freelancer_mobile/views/Auth/login.dart';
-import 'package:clone_freelancer_mobile/views/User/category_page.dart';
+// import 'package:clone_freelancer_mobile/views/User/category_page.dart';
 import 'package:clone_freelancer_mobile/views/User/home_page.dart';
 import 'package:clone_freelancer_mobile/views/User/orders_page.dart';
 import 'package:clone_freelancer_mobile/views/User/profile_page.dart';
@@ -34,7 +35,8 @@ class _NavigationPageState extends State<NavigationPage> {
   static const List<Widget> _widgetOptions = <Widget>[
     HomePage(), // Halaman Home
     ChatPage(), // Halaman Chat (Inbox)
-    CategoryPage(), // Halaman Kategori
+    // CategoryPage(), // Halaman Kategori
+    QrisPage(), // Halaman Qris   
     ListOrderPage(), // Halaman Pesanan
     ProfilePage(), // Halaman Profil
   ];

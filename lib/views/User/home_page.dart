@@ -1,6 +1,7 @@
 // ignore_for_file: avoid_print
 
 // impo
+import 'package:clone_freelancer_mobile/views/User/category_page.dart';
 import 'package:clone_freelancer_mobile/views/User/profile_page.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -271,6 +272,24 @@ class _HomePageState extends State<HomePage> {
                       RichText(
                         text: TextSpan(
                           children: [
+                            // TextSpan(
+                            //   text: "See All",
+                            //   style: Theme.of(context)
+                            //       .textTheme
+                            //       .titleSmall
+                            //       ?.copyWith(
+                            //         color: const Color(0xff6571ff),
+                            //       ),
+                            //   recognizer: TapGestureRecognizer()
+                            //     ..onTap = () {
+                            //       setState(() {
+                            //         navigationController.selectedIndex.value =
+                            //             2;
+                            //       });
+                            //     },
+                            // ),
+
+                            // Merubah implementasi ketika tombol "See All" ditekan, maka akan melakukan navigasi ke halaman category page
                             TextSpan(
                               text: "See All",
                               style: Theme.of(context)
@@ -281,10 +300,13 @@ class _HomePageState extends State<HomePage> {
                                   ),
                               recognizer: TapGestureRecognizer()
                                 ..onTap = () {
-                                  setState(() {
-                                    navigationController.selectedIndex.value =
-                                        2;
-                                  });
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) =>
+                                          CategoryPage(), // Halaman tujuan
+                                    ),
+                                  );
                                 },
                             ),
                           ],
