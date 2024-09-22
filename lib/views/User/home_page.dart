@@ -1,6 +1,8 @@
 // ignore_for_file: avoid_print
 
 // impo
+import 'dart:convert';
+
 import 'package:clone_freelancer_mobile/views/User/category_page.dart';
 import 'package:clone_freelancer_mobile/views/User/profile_page.dart';
 import 'package:flutter/gestures.dart';
@@ -16,6 +18,12 @@ import 'package:clone_freelancer_mobile/views/User/navigation_page.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:money_formatter/money_formatter.dart';
+
+import 'package:http/http.dart' as http;
+import 'package:clone_freelancer_mobile/models/news.dart';
+// import 'package:url_launcher/url_launcher.dart';
+import 'package:webview_flutter/webview_flutter.dart';
+
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -55,6 +63,7 @@ class _HomePageState extends State<HomePage> {
       appBar: AppBar(
         // backgroundColor: Colors.purple,
         title: const Center(
+          // mengatur title untuk Home
           child: Text(
             "Home",
           ),
@@ -265,6 +274,7 @@ class _HomePageState extends State<HomePage> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
+                      // bagian title untuk kolom kategori layanan
                       Text(
                         "Service Categories",
                         style: Theme.of(context).textTheme.headlineSmall,
@@ -300,6 +310,7 @@ class _HomePageState extends State<HomePage> {
                                   ),
                               recognizer: TapGestureRecognizer()
                                 ..onTap = () {
+                                  // ketika ditekan, akan menuju ke halaman "CategoryPage"
                                   Navigator.push(
                                     context,
                                     MaterialPageRoute(
@@ -332,6 +343,7 @@ class _HomePageState extends State<HomePage> {
                             itemCount: data.length,
                             itemBuilder: (context, index) {
                               return InkWell(
+                                // menuju ke halaman kategori tujuan berdasarkan id dan nama yang di klik
                                 onTap: () {
                                   Get.to(
                                     () => DisplaySearchPage(
@@ -354,13 +366,16 @@ class _HomePageState extends State<HomePage> {
                                     child: SizedBox(
                                       width: 150,
                                       child: Column(
+                                        // menampilkan tampilan service categories
                                         children: [
+                                          // gambar kategori yang dipakai
                                           Image.network(
                                             "https://images.unsplash.com/photo-1575936123452-b67c3203c357?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8aW1hZ2V8ZW58MHx8MHx8fDA%3D&w=1000&q=80",
                                             fit: BoxFit.cover,
                                           ),
                                           Expanded(
                                             child: Container(
+                                              // nama kategori
                                               padding: const EdgeInsets.all(4),
                                               alignment: Alignment.center,
                                               child: Text(
@@ -385,6 +400,7 @@ class _HomePageState extends State<HomePage> {
                             },
                           );
                         } else {
+                          // menampilkan progress indicator untuk implementasi loading
                           return const Center(
                             child: CircularProgressIndicator(),
                           );
@@ -393,14 +409,17 @@ class _HomePageState extends State<HomePage> {
                     ),
                   ),
                   const SizedBox(
+                    // space
                     height: 32,
                   ),
                   box.read('token') != null
                       ? FutureBuilder(
                           future: futureRecommendedServices,
                           builder: (context, snapshot) {
+                            // jika error, tampilkan pesan error
                             if (snapshot.hasError) {
                               return Text('Error: ${snapshot.error}');
+                              // jika ada data, maka tampilkan
                             } else if (snapshot.hasData) {
                               final data = snapshot.data;
                               return data.length > 0
@@ -408,6 +427,7 @@ class _HomePageState extends State<HomePage> {
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
                                       children: [
+                                        // title untuk kolom "Services"
                                         Text(
                                           "Services",
                                           style: Theme.of(context)
@@ -419,6 +439,7 @@ class _HomePageState extends State<HomePage> {
                                         ),
                                         SizedBox(
                                           height: 300,
+                                          // menampilkan tampilan scroll untuk services
                                           child: ListView.builder(
                                             shrinkWrap: true,
                                             scrollDirection: Axis.horizontal,
@@ -468,7 +489,7 @@ class _HomePageState extends State<HomePage> {
                                                       ),
                                                     );
                                                   }
-
+                                                  // menuju ke halaman detail, dan mengisi elemen pada halaman detail
                                                   Get.to(
                                                     () => DetailsPage(
                                                       type: data[index]['type'],
@@ -515,11 +536,13 @@ class _HomePageState extends State<HomePage> {
                                                 },
                                                 child: Card(
                                                   shape: RoundedRectangleBorder(
+                                                    // Bagian untuk mengatur border pada gambar services
                                                     borderRadius:
                                                         BorderRadius.circular(
                                                             5.0),
                                                   ),
                                                   child: ClipRRect(
+                                                    // Bagian untuk mengatur bentuk gambar services
                                                     borderRadius:
                                                         BorderRadius.circular(
                                                             5.0),
@@ -530,10 +553,12 @@ class _HomePageState extends State<HomePage> {
                                                             CrossAxisAlignment
                                                                 .start,
                                                         children: [
+                                                          // Mengatur tampilan pada services
                                                           Row(
                                                             children: [
                                                               Expanded(
                                                                 child:
+                                                                    // tampilan gambar services
                                                                     Container(
                                                                   color: Colors
                                                                           .grey[
@@ -550,6 +575,7 @@ class _HomePageState extends State<HomePage> {
                                                             ],
                                                           ),
                                                           Expanded(
+                                                              // bagian bawah gambar services
                                                               child: Column(
                                                             mainAxisAlignment:
                                                                 MainAxisAlignment
@@ -572,8 +598,10 @@ class _HomePageState extends State<HomePage> {
                                                                           MainAxisAlignment
                                                                               .spaceBetween,
                                                                       children: [
+                                                                        // berisi akun freelancer, judul jasa/layanan, dan rating serta harga service
                                                                         Row(
                                                                           children: [
+                                                                            // gambar dan nama profil
                                                                             SizedBox(
                                                                               width: 30,
                                                                               height: 30,
@@ -596,9 +624,11 @@ class _HomePageState extends State<HomePage> {
                                                                             ),
                                                                           ],
                                                                         ),
+                                                                        // gambar hati/love untuk menambahkan service favorit
                                                                         data[index]['serviceFav'] ==
                                                                                 true
                                                                             ? IconButton(
+                                                                                // kalau telah ditandai favorit
                                                                                 color: Colors.red,
                                                                                 onPressed: () {
                                                                                   setState(() {
@@ -609,6 +639,7 @@ class _HomePageState extends State<HomePage> {
                                                                                 icon: const Icon(Icons.favorite),
                                                                               )
                                                                             : IconButton(
+                                                                                // kalau belum ditandai favorit
                                                                                 color: Colors.grey[500],
                                                                                 onPressed: () {
                                                                                   setState(() {
@@ -624,6 +655,7 @@ class _HomePageState extends State<HomePage> {
                                                                       height: 0,
                                                                     ),
                                                                     Text(
+                                                                        // menampilkan judul layanan/service
                                                                         data[index]
                                                                             [
                                                                             'title'],
@@ -640,6 +672,7 @@ class _HomePageState extends State<HomePage> {
                                                                           16,
                                                                     ),
                                                                     Row(
+                                                                      // Baris untuk menampilkan rating berupa star dan total rate
                                                                       mainAxisAlignment:
                                                                           MainAxisAlignment
                                                                               .spaceBetween,
@@ -647,6 +680,7 @@ class _HomePageState extends State<HomePage> {
                                                                         Row(
                                                                           children: [
                                                                             const Icon(
+                                                                              // icon star
                                                                               Icons.star,
                                                                               color: Colors.orange,
                                                                               size: 15,
@@ -654,14 +688,17 @@ class _HomePageState extends State<HomePage> {
                                                                             const SizedBox(
                                                                               width: 4,
                                                                             ),
+                                                                            // jumlah rating
                                                                             data[index]['rating'] == null
                                                                                 ? Text(
+                                                                                    // kalau tidak punya rating
                                                                                     "0",
                                                                                     style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                                                                                           color: Colors.orange,
                                                                                         ),
                                                                                   )
                                                                                 : Text(
+                                                                                    // kalau ada rating
                                                                                     data[index]['rating'].toString(),
                                                                                     style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                                                                                           color: Colors.orange,
@@ -671,6 +708,7 @@ class _HomePageState extends State<HomePage> {
                                                                               width: 4,
                                                                             ),
                                                                             Text(
+                                                                              // index barang
                                                                               "(${data[index]['count'].toString()})",
                                                                               style: Theme.of(context).textTheme.bodySmall?.copyWith(
                                                                                     color: Colors.grey[600],
@@ -679,6 +717,7 @@ class _HomePageState extends State<HomePage> {
                                                                           ],
                                                                         ),
                                                                         RichText(
+                                                                          // menampilkan harga services
                                                                           textAlign:
                                                                               TextAlign.center,
                                                                           text:
@@ -718,17 +757,19 @@ class _HomePageState extends State<HomePage> {
                                         const SizedBox(
                                           height: 32,
                                         ),
-                                        // Menambahkan kolom dengan tema "News" untuk implementasi tampilan berita mengenai freelancer
-                                        Text(
-                                          "News",
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .headlineSmall,
-                                        ),
+                                        // Menambahkan kolom dengan title "News" untuk implementasi tampilan berita mengenai freelancer
+                                        // Text(
+                                        //   "News",
+                                        //   style: Theme.of(context)
+                                        //       .textTheme
+                                        //       .headlineSmall,
+                                        // ),
+                                        NewsWidget()
                                       ],
                                     )
                                   : Container();
                             } else {
+                              // animasi loading
                               return const Center(
                                 child: CircularProgressIndicator(),
                               );
@@ -972,3 +1013,218 @@ class _HomePageState extends State<HomePage> {
     );
   }
 }
+
+// class NewsWidget extends StatefulWidget {
+//   @override
+//   _NewsWidgetState createState() => _NewsWidgetState();
+// }
+
+// class _NewsWidgetState extends State<NewsWidget> {
+//   late Future<List<NewsArticle>> futureNews;
+
+//   @override
+//   void initState() {
+//     super.initState();
+//     futureNews = fetchNews();
+//   }
+
+//   Future<List<NewsArticle>> fetchNews() async {
+//     final response = await http.get(Uri.parse('https://newsapi.org/v2/everything?q=freelancer&apiKey=16f57f8d0e444696863da47a233e651b'));
+
+//     if (response.statusCode == 200) {
+//       final List<dynamic> jsonData = json.decode(response.body)['articles'];
+//       return jsonData.map((article) => NewsArticle.fromJson(article)).toList();
+//     } else {
+//       throw Exception('Failed to load news');
+//     }
+//   }
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return Column(
+//       crossAxisAlignment: CrossAxisAlignment.start,
+//       children: [
+//         Text(
+//           "News",
+//           style: Theme.of(context).textTheme.headlineSmall,
+//         ),
+//         FutureBuilder<List<NewsArticle>>(
+//           future: futureNews,
+//           builder: (context, snapshot) {
+//             if (snapshot.connectionState == ConnectionState.waiting) {
+//               return Center(child: CircularProgressIndicator());
+//             } else if (snapshot.hasError) {
+//               return Center(child: Text("Error: ${snapshot.error}"));
+//             } else {
+//               final newsArticles = snapshot.data!;
+//               return Container(
+//                 height: 120, // Adjust height as needed
+//                 child: ListView.builder(
+//                   scrollDirection: Axis.horizontal,
+//                   itemCount: newsArticles.length,
+//                   itemBuilder: (context, index) {
+//                     final article = newsArticles[index];
+//                     return GestureDetector(
+//                       // onTap: () {
+//                       //   Navigator.push(
+//                       //     context,
+//                       //     MaterialPageRoute(
+//                       //       builder: (context) => NewsDetailPage(url: article.url),
+//                       //     ),
+//                       //   );
+//                       // },
+//                       child: Container(
+//                         width: 100, // Adjust width as needed
+//                         margin: EdgeInsets.all(8),
+//                         child: Column(
+//                           crossAxisAlignment: CrossAxisAlignment.start,
+//                           children: [
+//                             Image.network(article.imageUrl, fit: BoxFit.cover),
+//                             SizedBox(height: 8),
+//                             Text(article.title, maxLines: 1, overflow: TextOverflow.ellipsis),
+//                           ],
+//                         ),
+//                       ),
+//                     );
+//                   },
+//                 ),
+//               );
+//             }
+//           },
+//         ),
+//       ],
+//     );
+//   }
+// }
+
+class NewsWidget extends StatefulWidget {
+  @override
+  _NewsWidgetState createState() => _NewsWidgetState();
+}
+
+class _NewsWidgetState extends State<NewsWidget> {
+  late Future<List<NewsArticle>> futureNews;
+
+  @override
+  void initState() {
+    super.initState();
+    futureNews = fetchNews();
+  }
+
+    Future<List<NewsArticle>> fetchNews() async {
+      final response = await http.get(Uri.parse('https://newsapi.org/v2/everything?q=freelancer&apiKey=16f57f8d0e444696863da47a233e651b'));
+
+      if (response.statusCode == 200) {
+        final List<dynamic> jsonData = json.decode(response.body)['articles'];
+        return jsonData.map((article) => NewsArticle.fromJson(article)).toList();
+      } else {
+        throw Exception('Failed to load news');
+      }
+    }
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          "News",
+          style: Theme.of(context).textTheme.headlineSmall,
+        ),
+        FutureBuilder<List<NewsArticle>>(
+          future: futureNews,
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return Center(child: CircularProgressIndicator());
+            } else if (snapshot.hasError) {
+              return Center(child: Text("Error: ${snapshot.error}"));
+            } else {
+              final newsArticles = snapshot.data!;
+              return Container(
+                height: 200, // Adjust height as needed
+                child: ListView.builder(
+                  scrollDirection: Axis.horizontal,
+                  itemCount: newsArticles.length,
+                  itemBuilder: (context, index) {
+                    final article = newsArticles[index];
+                    return GestureDetector(
+                      // onTap: () {
+                      //   Navigator.push(
+                      //     context,
+                      //     MaterialPageRoute(
+                      //       builder: (context) => NewsDetailPage(url: article.url),
+                      //     ),
+                      //   );
+                      // },
+                      child: Container(
+                        width: 150, // Adjust width as needed
+                        margin: EdgeInsets.all(8),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        child: Stack(
+                          children: [
+                            ClipRRect(
+                              borderRadius: BorderRadius.circular(8),
+                              child: Image.network(
+                                article.imageUrl,
+                                fit: BoxFit.cover,
+                                width: 150, // Ensure the image fits the container
+                                height: 200,
+                              ),
+                            ),
+                            Positioned(
+                              bottom: 10,
+                              left: 10,
+                              right: 10,
+                              child: Container(
+                                padding: EdgeInsets.all(4),
+                                color: Colors.black54, // Semi-transparent background
+                                child: Text(
+                                  article.title,
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 14,
+                                  ),
+                                  maxLines: 2,
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    );
+                  },
+                ),
+              );
+            }
+          },
+        ),
+      ],
+    );
+  }
+}
+
+
+// class NewsDetailPage extends StatelessWidget {
+//   final String url;
+
+//   const NewsDetailPage({Key? key, required this.url}) : super(key: key);
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       appBar: AppBar(title: Text("News Detail")),
+//       body: WebView(
+//         initialUrl: url,
+//         javascriptMode: JavascriptMode.unrestricted,
+//       ),
+//     );
+//   }
+// }
+
+
+
+

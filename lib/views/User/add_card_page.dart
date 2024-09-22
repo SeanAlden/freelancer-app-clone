@@ -1,5 +1,7 @@
-import 'package:flutter/material.dart';
+import 'dart:convert';
 import 'package:flutter/services.dart';
+import 'package:http/http.dart' as http;
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class AddCardPage extends StatefulWidget {
@@ -46,15 +48,48 @@ class _AddCardPageState extends State<AddCardPage> {
     return null;
   }
 
-  // Fungsi untuk menyimpan informasi kartu
-  void _saveCard() {
+  // Fungsi untuk menyimpan dan mengirim data kartu
+  Future<void> _saveCard() async {
     if (_formKey.currentState!.validate()) {
-      // Jika validasi sukses, tampilkan pesan sukses
-      Get.snackbar('Card Added', 'Your card has been added successfully!',
-          snackPosition: SnackPosition.BOTTOM,
-          backgroundColor: Colors.green,
-          colorText: Colors.white);
-      // Anda bisa menambahkan logika untuk menyimpan kartu di sini
+      // Data kartu yang akan dikirim ke server
+      final cardData = {
+        'card_number': cardNumberController.text,
+        'expiry_date': expiryDateController.text,
+        'cvv': cvvController.text,
+      };
+
+      try {
+        // Mengirim data ke server menggunakan POST request
+        final response = await http.post(
+          Uri.parse('https://payment-service-sbx.pakar-digital.com'), // Ganti dengan URL API server Anda
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer SB-Mid-client-wYeSigdies_2dI1d', // Tambahkan token jika diperlukan
+          },
+          body: jsonEncode(cardData),
+        );
+
+        // Cek respon dari server
+        if (response.statusCode == 200) {
+          // Jika sukses
+          Get.snackbar('Card Added', 'Your card has been added successfully!',
+              snackPosition: SnackPosition.BOTTOM,
+              backgroundColor: Colors.green,
+              colorText: Colors.white);
+        } else {
+          // Jika gagal
+          Get.snackbar('Error', 'Failed to add card. Please try again.',
+              snackPosition: SnackPosition.BOTTOM,
+              backgroundColor: Colors.red,
+              colorText: Colors.white);
+        }
+      } catch (e) {
+        // Jika terjadi kesalahan saat mengirim request
+        Get.snackbar('Error', 'An error occurred. Please try again.',
+            snackPosition: SnackPosition.BOTTOM,
+            backgroundColor: Colors.red,
+            colorText: Colors.white);
+      }
     }
   }
 

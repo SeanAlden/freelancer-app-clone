@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:clone_freelancer_mobile/controllers/user_controller.dart';
 import 'package:get/get.dart';
 
+// Class untuk merubah password
 class ChangePasswordPage extends StatefulWidget {
   const ChangePasswordPage({super.key});
 
@@ -9,6 +10,7 @@ class ChangePasswordPage extends StatefulWidget {
   State<ChangePasswordPage> createState() => _ChangePasswordPageState();
 }
 
+// State dari class untuk merubah password
 class _ChangePasswordPageState extends State<ChangePasswordPage> {
   TextEditingController currentController = TextEditingController();
   TextEditingController newController = TextEditingController();
@@ -36,18 +38,22 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        // mengatur title pada halaman 
         title: const Center(
           child: Text('Change Password'),
         ),
       ),
+      // scroll view pada bagian mengisi password
       body: SingleChildScrollView(
         child: Container(
+          // bagian untuk mengatur konten merubah password
           padding: const EdgeInsets.fromLTRB(16, 16, 16, 16),
           child: Form(
             key: _formKey,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                // Password sekarang
                 Text(
                   'Current Password',
                   style: Theme.of(context).textTheme.titleMedium,
@@ -82,6 +88,7 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
                 const SizedBox(
                   height: 16,
                 ),
+                // Password baru
                 Text(
                   'New Password',
                   style: Theme.of(context).textTheme.titleMedium,
@@ -118,6 +125,7 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
                 const SizedBox(
                   height: 16,
                 ),
+                // Konfirmasi Password Baru
                 Text(
                   'Confirm Password',
                   style: Theme.of(context).textTheme.titleMedium,
@@ -157,6 +165,7 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
                 Row(
                   children: [
                     Expanded(
+                      // tombol save
                       child: ElevatedButton(
                         onPressed: () async {
                           if (_formKey.currentState!.validate()) {
@@ -168,6 +177,8 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
                           }
                         },
                         style: ButtonStyle(
+                          backgroundColor: MaterialStateProperty.all<Color>(Colors.blue),
+                          foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
                           shape:
                               MaterialStateProperty.all<RoundedRectangleBorder>(
                             RoundedRectangleBorder(
@@ -184,6 +195,7 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
                                 )
                               : const Text(
                                   "Save",
+                                  style: TextStyle(fontWeight: FontWeight.bold),
                                 );
                         }),
                       ),

@@ -42,7 +42,7 @@ class _MyAppState extends State<MyApp> {
           textTheme: GoogleFonts.poppinsTextTheme(), // menggunakan font 'poppins' untuk text theme
           scaffoldBackgroundColor: Colors.white, // warna background page
           appBarTheme: const AppBarTheme(
-            color: Color(0xff6571ff), // warna default untuk AppBar
+            color: Color.fromARGB(255, 46, 31, 255), // warna default untuk AppBar
           )),
       debugShowCheckedModeBanner: false, // menyembunyikan banner pada kanan atas
       title: 'Freelancer-App', // judul aplikasi

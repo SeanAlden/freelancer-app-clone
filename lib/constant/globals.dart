@@ -4,6 +4,7 @@ class ModeController extends GetxController {
   var mode = false.obs;
 }
 
+// Untuk pesan alert
 String alertMessage = '''
 To ensure a seamless experience tailored to your needs, we encourage you to initiate a conversation with the seller before placing your order.
 

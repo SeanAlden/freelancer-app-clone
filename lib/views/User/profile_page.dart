@@ -12,6 +12,7 @@ import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart' as http;
 import 'package:image_picker/image_picker.dart';
 
+// class profil
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
 
@@ -19,6 +20,7 @@ class ProfilePage extends StatefulWidget {
   State<ProfilePage> createState() => _ProfilePageState();
 }
 
+// state untuk class "ProfilePage" 
 class _ProfilePageState extends State<ProfilePage> {
   final AuthenticationController authenticationController =
       Get.put(AuthenticationController());
@@ -132,10 +134,12 @@ class _ProfilePageState extends State<ProfilePage> {
     getUserType();
   }
 
+  // Bagian widget untuk mengatur halaman profil
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        // title halaman profil
         title: const Center(
           child: Text("Profile"),
         ),
@@ -154,6 +158,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       alignment: Alignment.topCenter,
                       height: 235.0,
                       decoration: const BoxDecoration(
+                        // Mengatur warna background profil di bagian atas
                         borderRadius: BorderRadius.only(
                           bottomLeft: Radius.elliptical(30, 8),
                           bottomRight: Radius.elliptical(30, 8),
@@ -166,6 +171,7 @@ class _ProfilePageState extends State<ProfilePage> {
                             children: [
                               profileImage != null
                                   ? SizedBox(
+                                    // Mengatur tampilan gambar profil
                                       width: 120,
                                       height: 120,
                                       child: ClipRRect(
@@ -179,6 +185,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                     )
                                   : box.read('pic') != null
                                       ? SizedBox(
+                                        // Mengatur tampilan gambar profil yang berisi
                                           width: 120,
                                           height: 120,
                                           child: ClipRRect(
@@ -191,6 +198,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                           ),
                                         )
                                       : SizedBox(
+                                        // Mengatur tampilan gambar profil blank
                                           width: 120,
                                           height: 120,
                                           child: ClipRRect(
@@ -203,6 +211,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                           ),
                                         ),
                               Positioned(
+                                // Bagian untuk mengatur tampilan option di sebelah profil untuk mengambil gambar profil, baik dari kamera maupun dari galeri
                                 bottom: 0,
                                 right: 0,
                                 child: InkWell(
@@ -234,15 +243,18 @@ class _ProfilePageState extends State<ProfilePage> {
                             height: 8,
                           ),
                           box.read('token') != null
+                          // Mengatur tampilan username dan email pengguna dibawah gambar profil
                               ? Column(
                                   children: [
                                     Text(
+                                      // username
                                       box.read('user')['name'],
                                       style: Theme.of(context)
                                           .textTheme
                                           .headlineSmall,
                                     ),
                                     Text(
+                                      // email
                                       box.read('user')['email'],
                                       style: Theme.of(context)
                                           .textTheme
@@ -251,6 +263,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                   ],
                                 )
                               : Text(
+                                // Menampilkan "Guest" jika pengguna belum login
                                   "Guest",
                                   style:
                                       Theme.of(context).textTheme.headlineSmall,
@@ -259,12 +272,14 @@ class _ProfilePageState extends State<ProfilePage> {
                       ),
                     ),
                     if (box.read('token') != null)
+                    // jika tipe user nya adalah freelancer, maka akan menampilkan toggle untuk memilih menjadi seller mode
                       box.read('user')['profile_type'] == 'freelancer'
                           ? Container(
                               padding: const EdgeInsets.only(
                                   top: 215, left: 16, right: 16),
                               child: Container(
                                 decoration: BoxDecoration(
+                                  // Mengatur warna background toggle (putih)
                                   color: Colors.white,
                                   borderRadius: BorderRadius.circular(20),
                                   border: Border.all(
@@ -275,6 +290,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                   padding:
                                       const EdgeInsets.fromLTRB(32, 8, 32, 8),
                                   child: Row(
+                                    // mengatur tulisan "Seller Mode"
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceBetween,
                                     children: [
@@ -285,6 +301,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                             .titleMedium,
                                       ),
                                       Obx(() {
+                                        // Mengatur toggle
                                         return Switch(
                                           value: modeController.mode.value,
                                           activeColor: const Color(0xff6571ff),
@@ -309,6 +326,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   Column(
                     children: [
                       Container(
+                        // Bagian mengatur title "Selling" pada profil mode seller
                         color: Colors.grey[100],
                         child: Align(
                           alignment: Alignment.centerLeft,
@@ -322,6 +340,7 @@ class _ProfilePageState extends State<ProfilePage> {
                         ),
                       ),
                       GestureDetector(
+                        // Mengatur container bagian tombol "My Profile" ketika di klik, maka akan menuju ke "SellerProfilePage" 
                         onTap: () {
                           print(box.read('pic'));
                           Get.to(() => const SellerProfilePage())?.then(
@@ -332,6 +351,7 @@ class _ProfilePageState extends State<ProfilePage> {
                         },
                         child: Container(
                           decoration: const BoxDecoration(
+                            // Bagian mengatur warna container 
                             color: Colors.white,
                             border: Border(
                               bottom:
@@ -344,6 +364,7 @@ class _ProfilePageState extends State<ProfilePage> {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Row(
+                            // Mengatur icon dan teks untuk tombol
                                 children: [
                                   Padding(
                                     padding: EdgeInsets.only(
@@ -359,6 +380,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                 ],
                               ),
                               Icon(
+                                // Mengatur icon untuk panah di bagian kanan
                                 Icons.arrow_forward_ios_outlined,
                                 size: 20,
                                 color: Colors.grey,
@@ -439,14 +461,17 @@ class _ProfilePageState extends State<ProfilePage> {
                   ),
                 Column(
                   children: [
+                    // kalau user belum sign up atau login
                     if (box.read('token') == null)
                       Column(
                         children: [
                           GestureDetector(
+                            // Ketika menekan tombol sign up, maka akan menuju SignUpPage
                             onTap: () {
                               Get.to(() => const SignUpPage());
                             },
                             child: Container(
+                              // Mengatur warna container pada tombol sign up
                               decoration: const BoxDecoration(
                                 color: Colors.white,
                                 border: Border(
@@ -457,6 +482,7 @@ class _ProfilePageState extends State<ProfilePage> {
                               padding: const EdgeInsets.all(16),
                               child: Row(
                                 children: [
+                                  // Bagian untuk mengatur icon tombol sign up
                                   const Padding(
                                     padding: EdgeInsets.only(
                                       right: 8,
@@ -467,6 +493,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                       color: Colors.green,
                                     ),
                                   ),
+                                    // Bagian untuk mengatur teks pada tombol
                                   Text(
                                     "Sign Up",
                                     style: Theme.of(context)
@@ -481,10 +508,12 @@ class _ProfilePageState extends State<ProfilePage> {
                             ),
                           ),
                           GestureDetector(
+                            // Menuju ke Login Page
                             onTap: () {
                               Get.to(() => const LoginPage());
                             },
                             child: Container(
+                              // mengatur warna container dari tombol login
                               decoration: const BoxDecoration(
                                 color: Colors.white,
                                 border: Border(
@@ -492,6 +521,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                       color: Colors.grey, width: 0.2),
                                 ),
                               ),
+                              // bagian untuk mengatur icon dan teks dari tombol login 
                               padding: const EdgeInsets.all(16),
                               child: const Row(
                                 children: [
@@ -514,12 +544,15 @@ class _ProfilePageState extends State<ProfilePage> {
                           ),
                         ],
                       ),
+                      // kalau user telah login
                     if (box.read('token') != null)
+                    // mengatur bagian untuk settings
                       Column(
                         children: [
                           Container(
                             color: Colors.grey[100],
                             child: Align(
+                              // membuat teks "Settings"
                               alignment: Alignment.centerLeft,
                               child: Padding(
                                 padding: const EdgeInsets.all(16),
@@ -530,7 +563,9 @@ class _ProfilePageState extends State<ProfilePage> {
                               ),
                             ),
                           ),
+                          // Edit Profile
                           GestureDetector(
+                            // Ketika tombol "Edit Profile" diklik, maka akan menuju ke halaman untuk edit profil
                             onTap: () {
                               Get.to(() => const AccountPage())?.then(
                                 (_) {
@@ -539,6 +574,7 @@ class _ProfilePageState extends State<ProfilePage> {
                               );
                             },
                             child: Container(
+                            // mengatur warna container dari tombol edit profil
                               decoration: const BoxDecoration(
                                 color: Colors.white,
                                 border: Border(
@@ -554,6 +590,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                     MainAxisAlignment.spaceBetween,
                                 children: [
                                   Row(
+                                    // Mengatur icon dan teks tombol edit profil
                                     children: [
                                       Padding(
                                         padding: EdgeInsets.only(
@@ -569,6 +606,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                     ],
                                   ),
                                   Icon(
+                                    // icon panah di sebelah kanan
                                     Icons.arrow_forward_ios_outlined,
                                     size: 20,
                                     color: Colors.grey,
@@ -577,11 +615,14 @@ class _ProfilePageState extends State<ProfilePage> {
                               ),
                             ),
                           ),
+                          // Change Password
                           GestureDetector(
+                            // ketika tombol di klik, maka akan menuju halaman "ChangePasswordPage"
                             onTap: () {
                               Get.to(() => const ChangePasswordPage());
                             },
                             child: Container(
+                              // Mengatur warna container dari tombol change password
                               decoration: const BoxDecoration(
                                 color: Colors.white,
                                 border: Border(
@@ -591,9 +632,11 @@ class _ProfilePageState extends State<ProfilePage> {
                               ),
                               padding: const EdgeInsets.all(16),
                               child: const Row(
+                                // mengatur icon dan teks untuk Change Password
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
                                 children: [
+                                  // mengatur icon dan teks nya
                                   Row(
                                     children: [
                                       Padding(
@@ -609,6 +652,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                       Text("Change Password"),
                                     ],
                                   ),
+                                  // icon panah di sebelah kanan
                                   Icon(
                                     Icons.arrow_forward_ios_outlined,
                                     size: 20,
@@ -618,12 +662,14 @@ class _ProfilePageState extends State<ProfilePage> {
                               ),
                             ),
                           ),
+                          // kalau masih sebagai client, tampilkan tombol "Become a Seller"
                           box.read('user')['profile_type'] == 'client'
                               ? GestureDetector(
                                   onTap: () {
                                     getReq();
                                   },
                                   child: Container(
+                                    // Mengatur warna untuk container 
                                     decoration: const BoxDecoration(
                                       color: Colors.white,
                                       border: Border(
@@ -637,6 +683,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                           MainAxisAlignment.spaceBetween,
                                       children: [
                                         Row(
+                                          // mengatur icon dan teks untuk tombol ini
                                           children: [
                                             Padding(
                                               padding: EdgeInsets.only(
@@ -652,6 +699,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                           ],
                                         ),
                                         Icon(
+                                          // icon panah di sebelah kanan
                                           Icons.arrow_forward_ios_outlined,
                                           size: 20,
                                           color: Colors.grey,
@@ -661,11 +709,14 @@ class _ProfilePageState extends State<ProfilePage> {
                                   ),
                                 )
                               : Container(),
+                              // Wallet
                           GestureDetector(
+                            // menuju ke halaman "Wallet" 
                             onTap: () {
                               Get.to(() => const WalletPage());
                             },
                             child: Container(
+                              // mengatur warna container  
                               decoration: const BoxDecoration(
                                 color: Colors.white,
                                 border: Border(
@@ -675,10 +726,12 @@ class _ProfilePageState extends State<ProfilePage> {
                               ),
                               padding: const EdgeInsets.all(16),
                               child: const Row(
+                                // mengatur icon dan teks untuk tombol wallet
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
                                 children: [
                                   Row(
+                                    // icon dan teks tombol
                                     children: [
                                       Padding(
                                         padding: EdgeInsets.only(
@@ -694,6 +747,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                     ],
                                   ),
                                   Icon(
+                                    // icon panah pada bagian kanan
                                     Icons.arrow_forward_ios_outlined,
                                     size: 20,
                                     color: Colors.grey,
@@ -702,11 +756,14 @@ class _ProfilePageState extends State<ProfilePage> {
                               ),
                             ),
                           ),
+                          // Saved Service
                           GestureDetector(
+                            // menuju ke halaman "SavedServicePage"
                             onTap: () {
                               Get.to(() => const SavedServicesPage());
                             },
                             child: Container(
+                              // mengatur warna container untuk tombol "Saved Service"
                               decoration: const BoxDecoration(
                                 color: Colors.white,
                                 border: Border(
@@ -716,9 +773,11 @@ class _ProfilePageState extends State<ProfilePage> {
                               ),
                               padding: const EdgeInsets.all(16),
                               child: const Row(
+                                // bagian untuk mengatur icon dan teks pada tombol saved service
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
                                 children: [
+                                  // mengatur icon dan teks 
                                   Row(
                                     children: [
                                       Padding(
@@ -735,6 +794,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                     ],
                                   ),
                                   Icon(
+                                    // icon panah di bagian kanan
                                     Icons.arrow_forward_ios_outlined,
                                     size: 20,
                                     color: Colors.grey,
@@ -743,11 +803,14 @@ class _ProfilePageState extends State<ProfilePage> {
                               ),
                             ),
                           ),
+                          // Support
                           GestureDetector(
                             onTap: () {
+                              // Menuju ke halaman "Support"
                               Get.to(() => const SupportListPage());
                             },
                             child: Container(
+                              // mengatur container untuk tombol support
                               decoration: const BoxDecoration(
                                 color: Colors.white,
                                 border: Border(
@@ -757,9 +820,11 @@ class _ProfilePageState extends State<ProfilePage> {
                               ),
                               padding: const EdgeInsets.all(16),
                               child: const Row(
+                                // mengatur icon dan teks pada tombol support 
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
                                 children: [
+                                  // icon dan teks tombol support
                                   Row(
                                     children: [
                                       Padding(
@@ -776,6 +841,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                     ],
                                   ),
                                   Icon(
+                                    // icon panah di bagian kanan
                                     Icons.arrow_forward_ios_outlined,
                                     size: 20,
                                     color: Colors.grey,
@@ -786,8 +852,10 @@ class _ProfilePageState extends State<ProfilePage> {
                           ),
                         ],
                       ),
+                      // kalau ada user, maka menampilkan tombol logout
                     if (box.read('token') != null)
                       GestureDetector(
+                        // ketika menekan tombol ini, maka akan mengeluarkan user dan mengarahkan ke home mode guest
                         onTap: () async {
                           await authenticationController.logout();
                           setState(() {
@@ -796,6 +864,7 @@ class _ProfilePageState extends State<ProfilePage> {
                           });
                         },
                         child: Container(
+                          // mengatur container dari tombol logout
                           decoration: const BoxDecoration(
                             color: Colors.white,
                             border: Border(
@@ -805,6 +874,7 @@ class _ProfilePageState extends State<ProfilePage> {
                           ),
                           padding: const EdgeInsets.all(16),
                           child: const Row(
+                            // mengatur icon dan teks untuk tombol logour
                             children: [
                               Padding(
                                 padding: EdgeInsets.only(
@@ -828,6 +898,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       ),
                   ],
                 ),
+                // space ruang bagian bawah
                 const SizedBox(
                   height: 32,
                 ),

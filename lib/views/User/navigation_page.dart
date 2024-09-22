@@ -35,7 +35,6 @@ class _NavigationPageState extends State<NavigationPage> {
   static const List<Widget> _widgetOptions = <Widget>[
     HomePage(), // Halaman Home
     ChatPage(), // Halaman Chat (Inbox)
-    // CategoryPage(), // Halaman Kategori
     QrisPage(), // Halaman Qris   
     ListOrderPage(), // Halaman Pesanan
     ProfilePage(), // Halaman Profil

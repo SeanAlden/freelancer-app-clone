@@ -555,7 +555,7 @@ class _QrisPageState extends State<QrisPage> {
   }
 }
 
-// Contoh halaman yang digunakan untuk pembayaran
+// Halaman untuk pembayaran
 class PaymentPage extends StatelessWidget {
   final String qrUrl;
 
@@ -575,7 +575,7 @@ class PaymentPage extends StatelessWidget {
             Text('URL: $qrUrl'),
             ElevatedButton(
               onPressed: () {
-                // Implementasikan logika pembayaran atau redirect
+                // bagian implementasi logika untuk pembayaran
               },
               child: const Text('Proceed'),
             ),
