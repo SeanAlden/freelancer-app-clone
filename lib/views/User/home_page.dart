@@ -1,6 +1,5 @@
 // ignore_for_file: avoid_print
 
-// impo
 import 'dart:convert';
 
 import 'package:clone_freelancer_mobile/views/User/category_page.dart';
@@ -18,12 +17,9 @@ import 'package:clone_freelancer_mobile/views/User/navigation_page.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:money_formatter/money_formatter.dart';
-
 import 'package:http/http.dart' as http;
 import 'package:clone_freelancer_mobile/models/news.dart';
-// import 'package:url_launcher/url_launcher.dart';
-import 'package:webview_flutter/webview_flutter.dart';
-
+import 'package:url_launcher/url_launcher.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -1111,16 +1107,17 @@ class _NewsWidgetState extends State<NewsWidget> {
     futureNews = fetchNews();
   }
 
-    Future<List<NewsArticle>> fetchNews() async {
-      final response = await http.get(Uri.parse('https://newsapi.org/v2/everything?q=freelancer&apiKey=16f57f8d0e444696863da47a233e651b'));
+  Future<List<NewsArticle>> fetchNews() async {
+    final response = await http.get(Uri.parse(
+        'https://newsapi.org/v2/everything?q=freelancer&apiKey=16f57f8d0e444696863da47a233e651b'));
 
-      if (response.statusCode == 200) {
-        final List<dynamic> jsonData = json.decode(response.body)['articles'];
-        return jsonData.map((article) => NewsArticle.fromJson(article)).toList();
-      } else {
-        throw Exception('Failed to load news');
-      }
+    if (response.statusCode == 200) {
+      final List<dynamic> jsonData = json.decode(response.body)['articles'];
+      return jsonData.map((article) => NewsArticle.fromJson(article)).toList();
+    } else {
+      throw Exception('Failed to load news');
     }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -1148,16 +1145,29 @@ class _NewsWidgetState extends State<NewsWidget> {
                   itemBuilder: (context, index) {
                     final article = newsArticles[index];
                     return GestureDetector(
-                      // onTap: () {
-                      //   Navigator.push(
-                      //     context,
-                      //     MaterialPageRoute(
-                      //       builder: (context) => NewsDetailPage(url: article.url),
-                      //     ),
-                      //   );
-                      // },
+                      onTap: () {
+                        // Navigator.push(
+                        //   context,
+                        //   MaterialPageRoute(
+                        //     builder: (context) => NewsDetailPage(url: article.url),
+                        //   ),
+                        // );
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => NewsDetailPage(
+                              title: article.title,
+                              imageUrl: article.imageUrl,
+                              description: article.description ??
+                                  'No description available.',
+                              publishedAt: article.publishedAt,
+                              url: article.url,
+                            ),
+                          ),
+                        );
+                      },
                       child: Container(
-                        width: 150, // Adjust width as needed
+                        width: 300, // Adjust width as needed
                         margin: EdgeInsets.all(8),
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(8),
@@ -1169,17 +1179,20 @@ class _NewsWidgetState extends State<NewsWidget> {
                               child: Image.network(
                                 article.imageUrl,
                                 fit: BoxFit.cover,
-                                width: 150, // Ensure the image fits the container
+                                width:
+                                    300, // Ensure the image fits the container
                                 height: 200,
                               ),
                             ),
                             Positioned(
-                              bottom: 10,
-                              left: 10,
-                              right: 10,
+                              top: 1,
+                              bottom: 1,
+                              left: 130,
+                              right: 1,
                               child: Container(
                                 padding: EdgeInsets.all(4),
-                                color: Colors.black54, // Semi-transparent background
+                                color: Colors
+                                    .black54, // Semi-transparent background
                                 child: Text(
                                   article.title,
                                   style: TextStyle(
@@ -1187,7 +1200,7 @@ class _NewsWidgetState extends State<NewsWidget> {
                                     fontWeight: FontWeight.bold,
                                     fontSize: 14,
                                   ),
-                                  maxLines: 2,
+                                  maxLines: 8,
                                   overflow: TextOverflow.ellipsis,
                                 ),
                               ),
@@ -1207,24 +1220,83 @@ class _NewsWidgetState extends State<NewsWidget> {
   }
 }
 
+class NewsDetailPage extends StatelessWidget {
+  final String title;
+  final String imageUrl;
+  final String description;
+  final String publishedAt;
+  final String url;
 
-// class NewsDetailPage extends StatelessWidget {
-//   final String url;
+  NewsDetailPage({
+    required this.title,
+    required this.imageUrl,
+    required this.description,
+    required this.publishedAt,
+    required this.url,
+  });
 
-//   const NewsDetailPage({Key? key, required this.url}) : super(key: key);
+  // Function to launch the URL in the browser
+  Future<void> _launchURL() async {
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
+  }
 
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       appBar: AppBar(title: Text("News Detail")),
-//       body: WebView(
-//         initialUrl: url,
-//         javascriptMode: JavascriptMode.unrestricted,
-//       ),
-//     );
-//   }
-// }
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('News Detail'),
+      ),
+      body: SingleChildScrollView(
+        padding: EdgeInsets.all(16.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            // Display the news image
+            Image.network(imageUrl, fit: BoxFit.cover),
 
+            SizedBox(height: 16.0),
 
+            // Display the news title
+            Text(
+              title,
+              style: TextStyle(
+                fontSize: 24.0,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
 
+            SizedBox(height: 8.0),
 
+            // Display the published date
+            Text(
+              'Published on: $publishedAt',
+              style: TextStyle(color: Colors.grey[600]),
+            ),
+
+            SizedBox(height: 16.0),
+
+            // Display the news description
+            Text(
+              description,
+              style: TextStyle(fontSize: 16.0),
+            ),
+
+            SizedBox(height: 24.0),
+
+            // Button to open the full article in the browser
+            Center(
+              child: ElevatedButton(
+                onPressed: _launchURL, // Call the _launchURL function on press
+                child: Text('Read Full Article'),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
