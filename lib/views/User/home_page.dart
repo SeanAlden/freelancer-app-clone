@@ -1267,7 +1267,7 @@ class _NewsWidgetState extends State<NewsWidget> {
               return Container(
                 height: 250, // Adjust height as needed
                 child: PageView.builder(
-                  controller: PageController(viewportFraction: 0.9),
+                  controller: PageController(viewportFraction: 0.99),
                   itemCount: newsArticles.length,
                   itemBuilder: (context, index) {
                     final article = newsArticles[index];
