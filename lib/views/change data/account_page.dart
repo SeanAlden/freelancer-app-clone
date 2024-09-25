@@ -12,7 +12,7 @@ class AccountPage extends StatefulWidget {
   State<AccountPage> createState() => _AccountPageState();
 }
 
-// state dari class "AccountPage" 
+// state dari class "AccountPage"
 class _AccountPageState extends State<AccountPage> {
   TextEditingController nameController = TextEditingController();
   TextEditingController emailController = TextEditingController();
@@ -73,21 +73,156 @@ class _AccountPageState extends State<AccountPage> {
     );
   }
 
+  //   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       appBar: AppBar(
+//         // mengatur title page
+//         title: const Center(
+//           child: Text('Account'),
+//         ),
+//       ),
+//       body: Container(
+//         padding: const EdgeInsets.fromLTRB(16, 16, 16, 16),
+//         child: Form(
+//           key: _formKey,
+//           child: Column(
+//             crossAxisAlignment: CrossAxisAlignment.start,
+//             children: [
+//               // mengatur nama baru
+//               Text(
+//                 'Name',
+//                 style: Theme.of(context).textTheme.titleMedium,
+//               ),
+//               const SizedBox(
+//                 height: 8,
+//               ),
+//               TextFormField(
+//                 controller: nameController,
+//                 decoration: InputDecoration(
+//                   // bagian text box untuk mengisi nama baru
+//                   hintText: "Name",
+//                   border: OutlineInputBorder(
+//                     borderRadius: BorderRadius.circular(5.0),
+//                   ),
+//                 ),
+//                 validator: (value) {
+//                   // validator untuk mengecek apakah nama telah diisi dan dengan jumlah karakter minimum
+//                   if (value == null || value.isEmpty) {
+//                     return 'Please enter your name';
+//                   } else if (value.length < 3) {
+//                     return 'Name must be at least 5 characters long';
+//                   }
+//                   return null;
+//                 },
+//               ),
+//               const SizedBox(
+//                 height: 16,
+//               ),
+//               // mengatur email baru
+//               Text(
+//                 'Email',
+//                 style: Theme.of(context).textTheme.titleMedium,
+//               ),
+//               const SizedBox(
+//                 height: 8,
+//               ),
+//               TextFormField(
+//                 controller: emailController,
+//                 decoration: InputDecoration(
+//                   // bagian text box untuk mengisi email baru
+//                   hintText: "Email",
+//                   border: OutlineInputBorder(
+//                     borderRadius: BorderRadius.circular(5.0),
+//                   ),
+//                 ),
+//                 validator: (value) {
+//                   // validator yang mengecek apakah email telah diisi dan dengan format yang benar
+//                   if (value == null || value.isEmpty) {
+//                     return 'Please enter an email address';
+//                   } else if (!value.endsWith('@gmail.com')) {
+//                     return 'Please enter your email address';
+//                   }
+//                   return null;
+//                 },
+//               ),
+//               const SizedBox(
+//                 height: 16,
+//               ),
+//               RichText(
+//                 text: TextSpan(
+//                   children: [
+//                     TextSpan(
+//                       // bagian untuk menutup akun
+//                       text: "Close Account",
+//                       style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+//                             color: Colors.red,
+//                           ),
+//                       recognizer: TapGestureRecognizer()
+//                         ..onTap = () {
+//                           openDialogNotice(context);
+//                         },
+//                     ),
+//                   ],
+//                 ),
+//               ),
+//               const SizedBox(
+//                 height: 16,
+//               ),
+//               Row(
+//                 // bagian untuk save data perubahan
+//                 children: [
+//                   Expanded(
+//                     child: ElevatedButton(
+//                       onPressed: () async {
+//                         // menyimpan data setelah menekan tombol save
+//                         if (_formKey.currentState!.validate()) {
+//                           FocusScope.of(context).unfocus();
+//                           await userController.changeUserData(
+//                             email: emailController.text.trim(),
+//                             name: nameController.text.trim(),
+//                           );
+//                         }
+//                       },
+//                       style: ButtonStyle(
+//                         backgroundColor: MaterialStateProperty.all<Color>(Colors.blue), // Warna latar belakang
+//                         foregroundColor: MaterialStateProperty.all<Color>(Colors.white), // Warna teks atau ikon
+//                         shape:
+//                             MaterialStateProperty.all<RoundedRectangleBorder>(
+//                           RoundedRectangleBorder(
+//                             borderRadius: BorderRadius.circular(8.0),
+//                           ),
+//                         ),
+//                       ),
+//                       child: Obx(() {
+//                         // animasi loading
+//                         return userController.isLoading.value
+//                             ? const Center(
+//                                 child: CircularProgressIndicator(
+//                                   color: Colors.white,
+//                                 ),
+//                               )
+//                               // teks "Save"
+//                             : const Text(
+//                                 "Save",
+//                                 style: TextStyle(fontWeight: FontWeight.bold), // Gaya teks
+//                               );
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        // mengatur title page 
+        // mengatur title page
         title: const Center(
           child: Text('Account'),
         ),
       ),
       body: Container(
-        padding: const EdgeInsets.fromLTRB(16, 16, 16, 16),
+        padding: const EdgeInsets.all(16),
         child: Form(
           key: _formKey,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+          child: ListView(
+            shrinkWrap: true,
             children: [
               // mengatur nama baru
               Text(
@@ -185,8 +320,10 @@ class _AccountPageState extends State<AccountPage> {
                         }
                       },
                       style: ButtonStyle(
-                        backgroundColor: MaterialStateProperty.all<Color>(Colors.blue), // Warna latar belakang
-                        foregroundColor: MaterialStateProperty.all<Color>(Colors.white), // Warna teks atau ikon
+                        backgroundColor: MaterialStateProperty.all<Color>(
+                            Colors.blue), // Warna latar belakang
+                        foregroundColor: MaterialStateProperty.all<Color>(
+                            Colors.white), // Warna teks atau ikon
                         shape:
                             MaterialStateProperty.all<RoundedRectangleBorder>(
                           RoundedRectangleBorder(
@@ -195,17 +332,18 @@ class _AccountPageState extends State<AccountPage> {
                         ),
                       ),
                       child: Obx(() {
-                        // animasi loading 
+                        // animasi loading
                         return userController.isLoading.value
                             ? const Center(
                                 child: CircularProgressIndicator(
                                   color: Colors.white,
                                 ),
                               )
-                              // teks "Save"
+                            // teks "Save"
                             : const Text(
                                 "Save",
-                                style: TextStyle(fontWeight: FontWeight.bold), // Gaya teks
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold), // Gaya teks
                               );
                       }),
                     ),

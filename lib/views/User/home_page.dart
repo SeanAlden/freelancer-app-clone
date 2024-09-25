@@ -247,13 +247,17 @@ class _HomePageState extends State<HomePage> {
                       ),
                       Row(
                         children: [
-                          // Melakukan comment pada bagian source code ini untuk menghilangkan tombol search pada
-                          // bagian atas yang membingungkan
-
-                          // IconButton(
-                          //   onPressed: () {},
-                          //   icon: const Icon(Icons.notifications_outlined),
-                          // ),
+                          // Membuat tombol dengan simbol gambar untuk menuju ke halaman Frequently Ask Question (FAQ)
+                          IconButton(
+                            onPressed: () {
+                               Navigator.push(
+                                context,
+                                MaterialPageRoute(builder: (context) =>
+                                FaqPage()),
+                                );
+                            },
+                            icon: const Icon(Icons.question_answer_outlined),
+                          ),
                           // IconButton(
                           //   onPressed: () {
                           //     navigationController.selectedIndex.value = 2;
@@ -1466,6 +1470,203 @@ class NewsDetailPage extends StatelessWidget {
           ],
         ),
       ),
+    );
+  }
+}
+
+class FaqPage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return DefaultTabController(
+      length: 2,
+      child: Scaffold(
+        appBar: AppBar(
+          title: const Text('Helpdesk'),
+          flexibleSpace: Container(
+            decoration: const BoxDecoration(
+              gradient: LinearGradient(
+                colors: [Colors.blueAccent, Colors.lightBlueAccent],
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+              ),
+            ),
+          ),
+          bottom: const TabBar(
+            tabs: [
+              Tab(text: 'FAQ'),
+              Tab(text: 'Contact'),
+            ],
+          ),
+        ),
+        body: const TabBarView(
+          children: [
+            FAQListView(),
+            ContactListView(),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class FAQListView extends StatefulWidget {
+  const FAQListView({super.key});
+
+  @override
+  _FAQListViewState createState() => _FAQListViewState();
+}
+
+class _FAQListViewState extends State<FAQListView> {
+  final List<Map<String, String>> faqData = [
+    {
+      'question': 'How to become a freelancer?',
+      'answer': 'You can sign up on our platform and start applying for projects.',
+    },
+    {
+      'question': 'What services can I offer?',
+      'answer': 'You can offer any services related to your skills such as writing, design, etc.',
+    },
+  ];
+
+  String searchQuery = '';
+
+  @override
+  Widget build(BuildContext context) {
+    List<Map<String, String>> filteredFaq = faqData.where((faq) {
+      return faq['question']!.toLowerCase().contains(searchQuery.toLowerCase());
+    }).toList();
+
+    return Column(
+      children: [
+        // Search Bar
+        Padding(
+          padding: const EdgeInsets.all(12.0),
+          child: TextField(
+            decoration: InputDecoration(
+              hintText: 'Search FAQ',
+              prefixIcon: Icon(Icons.search, color: Colors.grey),
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(12),
+              ),
+            ),
+            onChanged: (value) {
+              setState(() {
+                searchQuery = value;
+              });
+            },
+          ),
+        ),
+        Expanded(
+          child: ListView.builder(
+            itemCount: filteredFaq.length,
+            itemBuilder: (context, index) {
+              return Padding(
+                padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
+                child: Card(
+                  elevation: 4,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(15),
+                  ),
+                  child: ExpansionTile(
+                    title: Text(
+                      filteredFaq[index]['question'] ?? '',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 16,
+                        color: Colors.black87,
+                      ),
+                    ),
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.all(12.0),
+                        child: Text(
+                          filteredFaq[index]['answer'] ?? '',
+                          style: TextStyle(
+                            fontSize: 14,
+                            color: Colors.grey[700],
+                          ),
+                        ),
+                      ),
+                    ],
+                    leading: Icon(
+                      Icons.question_answer,
+                      color: Colors.blueAccent,
+                    ),
+                  ),
+                ),
+              );
+            },
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+
+class ContactListView extends StatefulWidget {
+  const ContactListView({super.key});
+
+  @override
+  State<ContactListView> createState() => _ContactListViewState();
+}
+
+class _ContactListViewState extends State<ContactListView> {
+  final List<Map<String, String>> contactData = [
+    {
+      'type': 'WhatsApp',
+      'info': '+1234567890 (Freelancer Support)',
+      // 'icon': Icons.whatsapp,
+    },
+    {
+      'type': 'Email',
+      'info': 'support@freelancer.com',
+      // 'icon': Icons.email,
+    },
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    return ListView.builder(
+      itemCount: contactData.length,
+      itemBuilder: (context, index) {
+        return Padding(
+          padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
+          child: Card(
+            elevation: 5,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(15),
+            ),
+            child: ListTile(
+              leading: Icon(
+                // contactData[index]['icon'] as IconData,
+                contactData[index]['icon'] as IconData?,
+                color: Colors.blueAccent,
+                size: 30,
+              ),
+              title: Text(
+                contactData[index]['type'] ?? '',
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 16,
+                  color: Colors.black87,
+                ),
+              ),
+              subtitle: Text(
+                contactData[index]['info'] ?? '',
+                style: TextStyle(
+                  fontSize: 14,
+                  color: Colors.grey[700],
+                ),
+              ),
+              trailing: Icon(
+                Icons.arrow_forward_ios,
+                color: Colors.grey[400],
+              ),
+            ),
+          ),
+        );
+      },
     );
   }
 }

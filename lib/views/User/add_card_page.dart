@@ -103,8 +103,9 @@ class _AddCardPageState extends State<AddCardPage> {
         padding: const EdgeInsets.all(16.0),
         child: Form(
           key: _formKey,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+          child: ListView(
+            // crossAxisAlignment: CrossAxisAlignment.start,
+            shrinkWrap: true,
             children: [
               // Input nomor kartu
               TextFormField(
