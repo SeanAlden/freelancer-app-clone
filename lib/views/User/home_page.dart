@@ -250,11 +250,11 @@ class _HomePageState extends State<HomePage> {
                           // Membuat tombol dengan simbol gambar untuk menuju ke halaman Frequently Ask Question (FAQ)
                           IconButton(
                             onPressed: () {
-                               Navigator.push(
+                              Navigator.push(
                                 context,
-                                MaterialPageRoute(builder: (context) =>
-                                FaqPage()),
-                                );
+                                MaterialPageRoute(
+                                    builder: (context) => FaqPage()),
+                              );
                             },
                             icon: const Icon(Icons.question_answer_outlined),
                           ),
@@ -1520,11 +1520,53 @@ class _FAQListViewState extends State<FAQListView> {
   final List<Map<String, String>> faqData = [
     {
       'question': 'How to become a freelancer?',
-      'answer': 'You can sign up on our platform and start applying for projects.',
+      'answer':
+          'You can sign up on our platform and start applying for projects.',
     },
     {
       'question': 'What services can I offer?',
-      'answer': 'You can offer any services related to your skills such as writing, design, etc.',
+      'answer':
+          'You can offer any services related to your skills such as writing, design, etc.',
+    },
+    {
+      'question': 'Question 3',
+      'answer': 'Answer 3'
+    },
+    {
+      'question': 'Question 4',
+      'answer': 'Answer 4'
+    },
+    {
+      'question': 'Question 5',
+      'answer': 'Answer 5'
+    },
+    {
+      'question': 'Question 6',
+      'answer': 'Answer 6'
+    },
+    {
+      'question': 'Question 7',
+      'answer': 'Answer 7'
+    },
+    {
+      'question': 'Question 8',
+      'answer': 'Answer 8'
+    },
+    {
+      'question': 'Question 9',
+      'answer': 'Answer 9'
+    },
+    {
+      'question': 'Question 10',
+      'answer': 'Answer 10'
+    },
+    {
+      'question': 'Question 11',
+      'answer': 'Answer 11'
+    },
+    {
+      'question': 'Question 12',
+      'answer': 'Answer 12'
     },
   ];
 
@@ -1561,7 +1603,8 @@ class _FAQListViewState extends State<FAQListView> {
             itemCount: filteredFaq.length,
             itemBuilder: (context, index) {
               return Padding(
-                padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
+                padding:
+                    const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
                 child: Card(
                   elevation: 4,
                   shape: RoundedRectangleBorder(
@@ -1603,7 +1646,6 @@ class _FAQListViewState extends State<FAQListView> {
   }
 }
 
-
 class ContactListView extends StatefulWidget {
   const ContactListView({super.key});
 
@@ -1612,16 +1654,18 @@ class ContactListView extends StatefulWidget {
 }
 
 class _ContactListViewState extends State<ContactListView> {
-  final List<Map<String, String>> contactData = [
+  final List<Map<String, dynamic>> contactData = [
     {
       'type': 'WhatsApp',
       'info': '+1234567890 (Freelancer Support)',
-      // 'icon': Icons.whatsapp,
+      // 'icon': Icons.message,
+      'icon': 'assets/icons/whatsapp.png',
     },
     {
       'type': 'Email',
       'info': 'support@freelancer.com',
       // 'icon': Icons.email,
+      'icon': 'assets/icons/email.png',
     },
   ];
 
@@ -1638,11 +1682,16 @@ class _ContactListViewState extends State<ContactListView> {
               borderRadius: BorderRadius.circular(15),
             ),
             child: ListTile(
-              leading: Icon(
-                // contactData[index]['icon'] as IconData,
-                contactData[index]['icon'] as IconData?,
-                color: Colors.blueAccent,
-                size: 30,
+              // leading: Icon(
+              //   // contactData[index]['icon'] as IconData,
+              //   contactData[index]['icon'] as IconData?,
+              //   color: Colors.blueAccent,
+              //   size: 30,
+              // ),
+              leading: Image.asset(
+                contactData[index]['icon']!,
+                width: 24, // Set ukuran ikon sesuai kebutuhan
+                height: 24,
               ),
               title: Text(
                 contactData[index]['type'] ?? '',

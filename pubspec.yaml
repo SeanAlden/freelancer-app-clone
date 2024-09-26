@@ -115,7 +115,9 @@ flutter:
   - assets/images/report.jpg
   - assets/images/confirmed.jpg
   - assets/images/qris.png
-
+  - assets/icons/whatsapp.png
+  - assets/icons/email.png
+  
 
 
   # An image asset can refer to one or more resolution-specific "variants", see
