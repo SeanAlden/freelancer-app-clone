@@ -1519,54 +1519,24 @@ class FAQListView extends StatefulWidget {
 class _FAQListViewState extends State<FAQListView> {
   final List<Map<String, String>> faqData = [
     {
-      'question': 'How to become a freelancer?',
-      'answer':
-          'You can sign up on our platform and start applying for projects.',
+      'question': 'Bagaimana cara untuk mengakses seller mode?',
+      'answer': 'Menuju ke halaman profil, setelah itu menekan tombol seller mode. Jika sudah menekan tombol seller mode, lalu isikan data diri dengan mengikuti perintah pada tiap bagian.'
     },
     {
-      'question': 'What services can I offer?',
-      'answer':
-          'You can offer any services related to your skills such as writing, design, etc.',
+      'question': 'Bagaimana cara untuk melakukan posting untuk layanan atau jasa pada aplikasi ini?',
+      'answer': 'Setelah mengubah mode akun menjadi seller mode, Anda dapat melakukan posting jasa / layanan dengan menekan tombol "Add New Services".'
     },
     {
-      'question': 'Question 3',
-      'answer': 'Answer 3'
+      'question': 'Jika telah melakukan pembelian pada suatu barang/jasa, namun belum melakukan pembayaran, apakah pembelian tersebut bisa otomatis di cancel secara realtime?',
+      'answer': 'Iya, pembelian tersebut akan secara otomatis dibatalkan secara langsung jika pembayaran tidak dilakukan atau terlambat dilakukan.'
     },
     {
-      'question': 'Question 4',
-      'answer': 'Answer 4'
+      'question': 'Apakah dapat melakukan refund dana jika sudah terlanjur melakukan pembayaran, namun melebihi deadline yang ditentukan sehingga pembelian tidak berhasil?',
+      'answer': 'Fitur tersebut sedang dalam proses pengerjaan.'
     },
     {
-      'question': 'Question 5',
-      'answer': 'Answer 5'
-    },
-    {
-      'question': 'Question 6',
-      'answer': 'Answer 6'
-    },
-    {
-      'question': 'Question 7',
-      'answer': 'Answer 7'
-    },
-    {
-      'question': 'Question 8',
-      'answer': 'Answer 8'
-    },
-    {
-      'question': 'Question 9',
-      'answer': 'Answer 9'
-    },
-    {
-      'question': 'Question 10',
-      'answer': 'Answer 10'
-    },
-    {
-      'question': 'Question 11',
-      'answer': 'Answer 11'
-    },
-    {
-      'question': 'Question 12',
-      'answer': 'Answer 12'
+      'question': 'Bagaimana cara untuk melihat detail dari setiap list berita?',
+      'answer': 'Dengan menekan gambar berita yang dituju, maka Anda akan menuju pada halaman detail, dan Anda dapat membuka halaman web/url dengan menekan tombol "Read Full Article".'
     },
   ];
 
@@ -1658,13 +1628,11 @@ class _ContactListViewState extends State<ContactListView> {
     {
       'type': 'WhatsApp',
       'info': '+1234567890 (Freelancer Support)',
-      // 'icon': Icons.message,
       'icon': 'assets/icons/whatsapp.png',
     },
     {
       'type': 'Email',
       'info': 'support@freelancer.com',
-      // 'icon': Icons.email,
       'icon': 'assets/icons/email.png',
     },
   ];
