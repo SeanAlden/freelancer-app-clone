@@ -4,6 +4,9 @@ import 'dart:convert';
 
 import 'package:clone_freelancer_mobile/views/User/category_page.dart';
 import 'package:clone_freelancer_mobile/views/User/profile_page.dart';
+import 'package:clone_freelancer_mobile/views/faq/faq_page.dart';
+import 'package:clone_freelancer_mobile/views/news/news_list.dart';
+import 'package:clone_freelancer_mobile/views/notes/notes_page.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:clone_freelancer_mobile/constant/const.dart';
@@ -258,6 +261,16 @@ class _HomePageState extends State<HomePage> {
                             },
                             icon: const Icon(Icons.question_answer_outlined),
                           ),
+                          // 
+                          IconButton(onPressed: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => NotesPage()),
+                              );
+                            },
+                            icon: const Icon(Icons.notes),
+                          )
                           // IconButton(
                           //   onPressed: () {
                           //     navigationController.selectedIndex.value = 2;
@@ -1224,466 +1237,466 @@ class _HomePageState extends State<HomePage> {
 //   }
 // }
 
-class NewsWidget extends StatefulWidget {
-  @override
-  _NewsWidgetState createState() => _NewsWidgetState();
-}
+// class NewsWidget extends StatefulWidget {
+//   @override
+//   _NewsWidgetState createState() => _NewsWidgetState();
+// }
 
-class _NewsWidgetState extends State<NewsWidget> {
-  late Future<List<NewsArticle>> futureNews;
+// class _NewsWidgetState extends State<NewsWidget> {
+//   late Future<List<NewsArticle>> futureNews;
 
-  @override
-  void initState() {
-    super.initState();
-    futureNews = fetchNews();
-  }
+//   @override
+//   void initState() {
+//     super.initState();
+//     futureNews = fetchNews();
+//   }
 
-  Future<List<NewsArticle>> fetchNews() async {
-    final response = await http.get(Uri.parse(
-        'https://newsapi.org/v2/everything?q=freelancer&apiKey=16f57f8d0e444696863da47a233e651b'));
+//   Future<List<NewsArticle>> fetchNews() async {
+//     final response = await http.get(Uri.parse(
+//         'https://newsapi.org/v2/everything?q=freelancer&apiKey=16f57f8d0e444696863da47a233e651b'));
 
-    if (response.statusCode == 200) {
-      final List<dynamic> jsonData = json.decode(response.body)['articles'];
-      return jsonData.map((article) => NewsArticle.fromJson(article)).toList();
-    } else {
-      throw Exception('Failed to load news');
-    }
-  }
+//     if (response.statusCode == 200) {
+//       final List<dynamic> jsonData = json.decode(response.body)['articles'];
+//       return jsonData.map((article) => NewsArticle.fromJson(article)).toList();
+//     } else {
+//       throw Exception('Failed to load news');
+//     }
+//   }
 
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          "News",
-          style: Theme.of(context).textTheme.headlineSmall,
-        ),
-        FutureBuilder<List<NewsArticle>>(
-          future: futureNews,
-          builder: (context, snapshot) {
-            if (snapshot.connectionState == ConnectionState.waiting) {
-              return Center(child: CircularProgressIndicator());
-            } else if (snapshot.hasError) {
-              return Center(child: Text("Error: ${snapshot.error}"));
-            } else {
-              final newsArticles = snapshot.data!;
-              return Container(
-                height: 250, // Adjust height as needed
-                child: PageView.builder(
-                  controller: PageController(viewportFraction: 0.99),
-                  itemCount: newsArticles.length,
-                  itemBuilder: (context, index) {
-                    final article = newsArticles[index];
-                    return GestureDetector(
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => NewsDetailPage(
-                              title: article.title,
-                              imageUrl: article.imageUrl,
-                              description: article.description ??
-                                  'No description available.',
-                              publishedAt: article.publishedAt,
-                              url: article.url,
-                            ),
-                          ),
-                        );
-                      },
-                      child: Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 23),
-                        child: Container(
-                          margin: EdgeInsets.symmetric(vertical: 20),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(15),
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.black,
-                                blurRadius: 3,
-                                spreadRadius: 1,
-                              ),
-                            ],
-                          ),
-                          child: Stack(
-                            children: [
-                              ClipRRect(
-                                borderRadius: BorderRadius.circular(15),
-                                child: Image.network(
-                                  article.imageUrl,
-                                  fit: BoxFit.cover,
-                                  width: double.infinity,
-                                  height: 250,
-                                ),
-                              ),
-                              Positioned(
-                                top: 0,
-                                left: 0,
-                                right: 0,
-                                bottom: 0,
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                    gradient: LinearGradient(
-                                      colors: [
-                                        Colors.black.withOpacity(0.0),
-                                        Colors.transparent
-                                      ],
-                                      begin: Alignment.bottomCenter,
-                                      end: Alignment.topCenter,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              Positioned(
-                                top: 0,
-                                bottom: 0,
-                                left: 100,
-                                right: 0,
-                                child:
-                                    // Container(
-                                    //   padding: EdgeInsets.all(4),
-                                    //   color: Colors
-                                    //       .black54, // Semi-transparent background
-                                    //   child: Text(
-                                    //     article.title,
-                                    //     style: TextStyle(
-                                    //       color: Colors.white,
-                                    //       fontWeight: FontWeight.bold,
-                                    //       fontSize: 16,
-                                    //     ),
-                                    //     maxLines: 8,
-                                    //     overflow: TextOverflow.ellipsis,
-                                    //   ),
-                                    // ),
-                                    Container(
-                                  padding: EdgeInsets.all(4),
-                                  decoration: BoxDecoration(
-                                    color: Colors
-                                        .black54, // Semi-transparent background
-                                    borderRadius: BorderRadius.only(
-                                      topRight: Radius.circular(15),
-                                      bottomRight: Radius.circular(15),
-                                    ),
-                                  ),
-                                  child: Text(
-                                    article.title,
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 16,
-                                    ),
-                                    maxLines: 8,
-                                    overflow: TextOverflow.ellipsis,
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    );
-                  },
-                ),
-              );
-            }
-          },
-        ),
-      ],
-    );
-  }
-}
+//   @override
+//   Widget build(BuildContext context) {
+//     return Column(
+//       crossAxisAlignment: CrossAxisAlignment.start,
+//       children: [
+//         Text(
+//           "News",
+//           style: Theme.of(context).textTheme.headlineSmall,
+//         ),
+//         FutureBuilder<List<NewsArticle>>(
+//           future: futureNews,
+//           builder: (context, snapshot) {
+//             if (snapshot.connectionState == ConnectionState.waiting) {
+//               return Center(child: CircularProgressIndicator());
+//             } else if (snapshot.hasError) {
+//               return Center(child: Text("Error: ${snapshot.error}"));
+//             } else {
+//               final newsArticles = snapshot.data!;
+//               return Container(
+//                 height: 250, // Adjust height as needed
+//                 child: PageView.builder(
+//                   controller: PageController(viewportFraction: 0.99),
+//                   itemCount: newsArticles.length,
+//                   itemBuilder: (context, index) {
+//                     final article = newsArticles[index];
+//                     return GestureDetector(
+//                       onTap: () {
+//                         Navigator.push(
+//                           context,
+//                           MaterialPageRoute(
+//                             builder: (context) => NewsDetailPage(
+//                               title: article.title,
+//                               imageUrl: article.imageUrl,
+//                               description: article.description ??
+//                                   'No description available.',
+//                               publishedAt: article.publishedAt,
+//                               url: article.url,
+//                             ),
+//                           ),
+//                         );
+//                       },
+//                       child: Padding(
+//                         padding: EdgeInsets.symmetric(horizontal: 23),
+//                         child: Container(
+//                           margin: EdgeInsets.symmetric(vertical: 20),
+//                           decoration: BoxDecoration(
+//                             borderRadius: BorderRadius.circular(15),
+//                             boxShadow: [
+//                               BoxShadow(
+//                                 color: Colors.black,
+//                                 blurRadius: 3,
+//                                 spreadRadius: 1,
+//                               ),
+//                             ],
+//                           ),
+//                           child: Stack(
+//                             children: [
+//                               ClipRRect(
+//                                 borderRadius: BorderRadius.circular(15),
+//                                 child: Image.network(
+//                                   article.imageUrl,
+//                                   fit: BoxFit.cover,
+//                                   width: double.infinity,
+//                                   height: 250,
+//                                 ),
+//                               ),
+//                               Positioned(
+//                                 top: 0,
+//                                 left: 0,
+//                                 right: 0,
+//                                 bottom: 0,
+//                                 child: Container(
+//                                   decoration: BoxDecoration(
+//                                     gradient: LinearGradient(
+//                                       colors: [
+//                                         Colors.black.withOpacity(0.0),
+//                                         Colors.transparent
+//                                       ],
+//                                       begin: Alignment.bottomCenter,
+//                                       end: Alignment.topCenter,
+//                                     ),
+//                                   ),
+//                                 ),
+//                               ),
+//                               Positioned(
+//                                 top: 0,
+//                                 bottom: 0,
+//                                 left: 100,
+//                                 right: 0,
+//                                 child:
+//                                     // Container(
+//                                     //   padding: EdgeInsets.all(4),
+//                                     //   color: Colors
+//                                     //       .black54, // Semi-transparent background
+//                                     //   child: Text(
+//                                     //     article.title,
+//                                     //     style: TextStyle(
+//                                     //       color: Colors.white,
+//                                     //       fontWeight: FontWeight.bold,
+//                                     //       fontSize: 16,
+//                                     //     ),
+//                                     //     maxLines: 8,
+//                                     //     overflow: TextOverflow.ellipsis,
+//                                     //   ),
+//                                     // ),
+//                                     Container(
+//                                   padding: EdgeInsets.all(4),
+//                                   decoration: BoxDecoration(
+//                                     color: Colors
+//                                         .black54, // Semi-transparent background
+//                                     borderRadius: BorderRadius.only(
+//                                       topRight: Radius.circular(15),
+//                                       bottomRight: Radius.circular(15),
+//                                     ),
+//                                   ),
+//                                   child: Text(
+//                                     article.title,
+//                                     style: TextStyle(
+//                                       color: Colors.white,
+//                                       fontWeight: FontWeight.bold,
+//                                       fontSize: 16,
+//                                     ),
+//                                     maxLines: 8,
+//                                     overflow: TextOverflow.ellipsis,
+//                                   ),
+//                                 ),
+//                               ),
+//                             ],
+//                           ),
+//                         ),
+//                       ),
+//                     );
+//                   },
+//                 ),
+//               );
+//             }
+//           },
+//         ),
+//       ],
+//     );
+//   }
+// }
 
-class NewsDetailPage extends StatelessWidget {
-  final String title;
-  final String imageUrl;
-  final String description;
-  final String publishedAt;
-  final String url;
+// class NewsDetailPage extends StatelessWidget {
+//   final String title;
+//   final String imageUrl;
+//   final String description;
+//   final String publishedAt;
+//   final String url;
 
-  NewsDetailPage({
-    required this.title,
-    required this.imageUrl,
-    required this.description,
-    required this.publishedAt,
-    required this.url,
-  });
+//   NewsDetailPage({
+//     required this.title,
+//     required this.imageUrl,
+//     required this.description,
+//     required this.publishedAt,
+//     required this.url,
+//   });
 
-  // Function to launch the URL in the browser
-  Future<void> _launchURL() async {
-    if (await canLaunch(url)) {
-      await launch(url);
-    } else {
-      throw 'Could not launch $url';
-    }
-  }
+//   // Function to launch the URL in the browser
+//   Future<void> _launchURL() async {
+//     if (await canLaunch(url)) {
+//       await launch(url);
+//     } else {
+//       throw 'Could not launch $url';
+//     }
+//   }
 
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('News Detail'),
-      ),
-      body: SingleChildScrollView(
-        padding: EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            // Display the news image
-            Image.network(imageUrl, fit: BoxFit.cover),
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       appBar: AppBar(
+//         title: Text('News Detail'),
+//       ),
+//       body: SingleChildScrollView(
+//         padding: EdgeInsets.all(16.0),
+//         child: Column(
+//           crossAxisAlignment: CrossAxisAlignment.start,
+//           children: [
+//             // Display the news image
+//             Image.network(imageUrl, fit: BoxFit.cover),
 
-            SizedBox(height: 16.0),
+//             SizedBox(height: 16.0),
 
-            // Display the news title
-            Text(
-              title,
-              style: TextStyle(
-                fontSize: 24.0,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
+//             // Display the news title
+//             Text(
+//               title,
+//               style: TextStyle(
+//                 fontSize: 24.0,
+//                 fontWeight: FontWeight.bold,
+//               ),
+//             ),
 
-            SizedBox(height: 8.0),
+//             SizedBox(height: 8.0),
 
-            // Display the published date
-            Text(
-              'Published on: $publishedAt',
-              style: TextStyle(color: Colors.grey[600]),
-            ),
+//             // Display the published date
+//             Text(
+//               'Published on: $publishedAt',
+//               style: TextStyle(color: Colors.grey[600]),
+//             ),
 
-            SizedBox(height: 16.0),
+//             SizedBox(height: 16.0),
 
-            // Display the news description
-            Text(
-              description,
-              style: TextStyle(fontSize: 16.0),
-            ),
+//             // Display the news description
+//             Text(
+//               description,
+//               style: TextStyle(fontSize: 16.0),
+//             ),
 
-            SizedBox(height: 24.0),
+//             SizedBox(height: 24.0),
 
-            // Button to open the full article in the browser
-            Center(
-              child: ElevatedButton(
-                onPressed: _launchURL, // Call the _launchURL function on press
-                child: Text('Read Full Article'),
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
+//             // Button to open the full article in the browser
+//             Center(
+//               child: ElevatedButton(
+//                 onPressed: _launchURL, // Call the _launchURL function on press
+//                 child: Text('Read Full Article'),
+//               ),
+//             ),
+//           ],
+//         ),
+//       ),
+//     );
+//   }
+// }
 
-class FaqPage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return DefaultTabController(
-      length: 2,
-      child: Scaffold(
-        appBar: AppBar(
-          title: const Text('Helpdesk'),
-          flexibleSpace: Container(
-            decoration: const BoxDecoration(
-              gradient: LinearGradient(
-                colors: [Colors.blueAccent, Colors.lightBlueAccent],
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
-              ),
-            ),
-          ),
-          bottom: const TabBar(
-            tabs: [
-              Tab(text: 'FAQ'),
-              Tab(text: 'Contact'),
-            ],
-          ),
-        ),
-        body: const TabBarView(
-          children: [
-            FAQListView(),
-            ContactListView(),
-          ],
-        ),
-      ),
-    );
-  }
-}
+// class FaqPage extends StatelessWidget {
+//   @override
+//   Widget build(BuildContext context) {
+//     return DefaultTabController(
+//       length: 2,
+//       child: Scaffold(
+//         appBar: AppBar(
+//           title: const Text('Helpdesk'),
+//           flexibleSpace: Container(
+//             decoration: const BoxDecoration(
+//               gradient: LinearGradient(
+//                 colors: [Colors.blueAccent, Colors.lightBlueAccent],
+//                 begin: Alignment.topLeft,
+//                 end: Alignment.bottomRight,
+//               ),
+//             ),
+//           ),
+//           bottom: const TabBar(
+//             tabs: [
+//               Tab(text: 'FAQ'),
+//               Tab(text: 'Contact'),
+//             ],
+//           ),
+//         ),
+//         body: const TabBarView(
+//           children: [
+//             FAQListView(),
+//             ContactListView(),
+//           ],
+//         ),
+//       ),
+//     );
+//   }
+// }
 
-class FAQListView extends StatefulWidget {
-  const FAQListView({super.key});
+// class FAQListView extends StatefulWidget {
+//   const FAQListView({super.key});
 
-  @override
-  _FAQListViewState createState() => _FAQListViewState();
-}
+//   @override
+//   _FAQListViewState createState() => _FAQListViewState();
+// }
 
-class _FAQListViewState extends State<FAQListView> {
-  final List<Map<String, String>> faqData = [
-    {
-      'question': 'Bagaimana cara untuk mengakses seller mode?',
-      'answer': 'Menuju ke halaman profil, setelah itu menekan tombol seller mode. Jika sudah menekan tombol seller mode, lalu isikan data diri dengan mengikuti perintah pada tiap bagian.'
-    },
-    {
-      'question': 'Bagaimana cara untuk melakukan posting untuk layanan atau jasa pada aplikasi ini?',
-      'answer': 'Setelah mengubah mode akun menjadi seller mode, Anda dapat melakukan posting jasa / layanan dengan menekan tombol "Add New Services".'
-    },
-    {
-      'question': 'Jika telah melakukan pembelian pada suatu barang/jasa, namun belum melakukan pembayaran, apakah pembelian tersebut bisa otomatis di cancel secara realtime?',
-      'answer': 'Iya, pembelian tersebut akan secara otomatis dibatalkan secara langsung jika pembayaran tidak dilakukan atau terlambat dilakukan.'
-    },
-    {
-      'question': 'Apakah dapat melakukan refund dana jika sudah terlanjur melakukan pembayaran, namun melebihi deadline yang ditentukan sehingga pembelian tidak berhasil?',
-      'answer': 'Fitur tersebut sedang dalam proses pengerjaan.'
-    },
-    {
-      'question': 'Bagaimana cara untuk melihat detail dari setiap list berita?',
-      'answer': 'Dengan menekan gambar berita yang dituju, maka Anda akan menuju pada halaman detail, dan Anda dapat membuka halaman web/url dengan menekan tombol "Read Full Article".'
-    },
-  ];
+// class _FAQListViewState extends State<FAQListView> {
+//   final List<Map<String, String>> faqData = [
+//     {
+//       'question': 'Bagaimana cara untuk mengakses seller mode?',
+//       'answer': 'Menuju ke halaman profil, setelah itu menekan tombol seller mode. Jika sudah menekan tombol seller mode, lalu isikan data diri dengan mengikuti perintah pada tiap bagian.'
+//     },
+//     {
+//       'question': 'Bagaimana cara untuk melakukan posting untuk layanan atau jasa pada aplikasi ini?',
+//       'answer': 'Setelah mengubah mode akun menjadi seller mode, Anda dapat melakukan posting jasa / layanan dengan menekan tombol "Add New Services".'
+//     },
+//     {
+//       'question': 'Jika telah melakukan pembelian pada suatu barang/jasa, namun belum melakukan pembayaran, apakah pembelian tersebut bisa otomatis di cancel secara realtime?',
+//       'answer': 'Iya, pembelian tersebut akan secara otomatis dibatalkan secara langsung jika pembayaran tidak dilakukan atau terlambat dilakukan.'
+//     },
+//     {
+//       'question': 'Apakah dapat melakukan refund dana jika sudah terlanjur melakukan pembayaran, namun melebihi deadline yang ditentukan sehingga pembelian tidak berhasil?',
+//       'answer': 'Fitur tersebut sedang dalam proses pengerjaan.'
+//     },
+//     {
+//       'question': 'Bagaimana cara untuk melihat detail dari setiap list berita?',
+//       'answer': 'Dengan menekan gambar berita yang dituju, maka Anda akan menuju pada halaman detail, dan Anda dapat membuka halaman web/url dengan menekan tombol "Read Full Article".'
+//     },
+//   ];
 
-  String searchQuery = '';
+//   String searchQuery = '';
 
-  @override
-  Widget build(BuildContext context) {
-    List<Map<String, String>> filteredFaq = faqData.where((faq) {
-      return faq['question']!.toLowerCase().contains(searchQuery.toLowerCase());
-    }).toList();
+//   @override
+//   Widget build(BuildContext context) {
+//     List<Map<String, String>> filteredFaq = faqData.where((faq) {
+//       return faq['question']!.toLowerCase().contains(searchQuery.toLowerCase());
+//     }).toList();
 
-    return Column(
-      children: [
-        // Search Bar
-        Padding(
-          padding: const EdgeInsets.all(12.0),
-          child: TextField(
-            decoration: InputDecoration(
-              hintText: 'Search FAQ',
-              prefixIcon: Icon(Icons.search, color: Colors.grey),
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(12),
-              ),
-            ),
-            onChanged: (value) {
-              setState(() {
-                searchQuery = value;
-              });
-            },
-          ),
-        ),
-        Expanded(
-          child: ListView.builder(
-            itemCount: filteredFaq.length,
-            itemBuilder: (context, index) {
-              return Padding(
-                padding:
-                    const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
-                child: Card(
-                  elevation: 4,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(15),
-                  ),
-                  child: ExpansionTile(
-                    title: Text(
-                      filteredFaq[index]['question'] ?? '',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 16,
-                        color: Colors.black87,
-                      ),
-                    ),
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.all(12.0),
-                        child: Text(
-                          filteredFaq[index]['answer'] ?? '',
-                          style: TextStyle(
-                            fontSize: 14,
-                            color: Colors.grey[700],
-                          ),
-                        ),
-                      ),
-                    ],
-                    leading: Icon(
-                      Icons.question_answer,
-                      color: Colors.blueAccent,
-                    ),
-                  ),
-                ),
-              );
-            },
-          ),
-        ),
-      ],
-    );
-  }
-}
+//     return Column(
+//       children: [
+//         // Search Bar
+//         Padding(
+//           padding: const EdgeInsets.all(12.0),
+//           child: TextField(
+//             decoration: InputDecoration(
+//               hintText: 'Search FAQ',
+//               prefixIcon: Icon(Icons.search, color: Colors.grey),
+//               border: OutlineInputBorder(
+//                 borderRadius: BorderRadius.circular(12),
+//               ),
+//             ),
+//             onChanged: (value) {
+//               setState(() {
+//                 searchQuery = value;
+//               });
+//             },
+//           ),
+//         ),
+//         Expanded(
+//           child: ListView.builder(
+//             itemCount: filteredFaq.length,
+//             itemBuilder: (context, index) {
+//               return Padding(
+//                 padding:
+//                     const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
+//                 child: Card(
+//                   elevation: 4,
+//                   shape: RoundedRectangleBorder(
+//                     borderRadius: BorderRadius.circular(15),
+//                   ),
+//                   child: ExpansionTile(
+//                     title: Text(
+//                       filteredFaq[index]['question'] ?? '',
+//                       style: TextStyle(
+//                         fontWeight: FontWeight.bold,
+//                         fontSize: 16,
+//                         color: Colors.black87,
+//                       ),
+//                     ),
+//                     children: [
+//                       Padding(
+//                         padding: const EdgeInsets.all(12.0),
+//                         child: Text(
+//                           filteredFaq[index]['answer'] ?? '',
+//                           style: TextStyle(
+//                             fontSize: 14,
+//                             color: Colors.grey[700],
+//                           ),
+//                         ),
+//                       ),
+//                     ],
+//                     leading: Icon(
+//                       Icons.question_answer,
+//                       color: Colors.blueAccent,
+//                     ),
+//                   ),
+//                 ),
+//               );
+//             },
+//           ),
+//         ),
+//       ],
+//     );
+//   }
+// }
 
-class ContactListView extends StatefulWidget {
-  const ContactListView({super.key});
+// class ContactListView extends StatefulWidget {
+//   const ContactListView({super.key});
 
-  @override
-  State<ContactListView> createState() => _ContactListViewState();
-}
+//   @override
+//   State<ContactListView> createState() => _ContactListViewState();
+// }
 
-class _ContactListViewState extends State<ContactListView> {
-  final List<Map<String, dynamic>> contactData = [
-    {
-      'type': 'WhatsApp',
-      'info': '+1234567890 (Freelancer Support)',
-      'icon': 'assets/icons/whatsapp.png',
-    },
-    {
-      'type': 'Email',
-      'info': 'support@freelancer.com',
-      'icon': 'assets/icons/email.png',
-    },
-  ];
+// class _ContactListViewState extends State<ContactListView> {
+//   final List<Map<String, dynamic>> contactData = [
+//     {
+//       'type': 'WhatsApp',
+//       'info': '+1234567890 (Freelancer Support)',
+//       'icon': 'assets/icons/whatsapp.png',
+//     },
+//     {
+//       'type': 'Email',
+//       'info': 'support@freelancer.com',
+//       'icon': 'assets/icons/email.png',
+//     },
+//   ];
 
-  @override
-  Widget build(BuildContext context) {
-    return ListView.builder(
-      itemCount: contactData.length,
-      itemBuilder: (context, index) {
-        return Padding(
-          padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
-          child: Card(
-            elevation: 5,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(15),
-            ),
-            child: ListTile(
-              // leading: Icon(
-              //   // contactData[index]['icon'] as IconData,
-              //   contactData[index]['icon'] as IconData?,
-              //   color: Colors.blueAccent,
-              //   size: 30,
-              // ),
-              leading: Image.asset(
-                contactData[index]['icon']!,
-                width: 24, // Set ukuran ikon sesuai kebutuhan
-                height: 24,
-              ),
-              title: Text(
-                contactData[index]['type'] ?? '',
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 16,
-                  color: Colors.black87,
-                ),
-              ),
-              subtitle: Text(
-                contactData[index]['info'] ?? '',
-                style: TextStyle(
-                  fontSize: 14,
-                  color: Colors.grey[700],
-                ),
-              ),
-              trailing: Icon(
-                Icons.arrow_forward_ios,
-                color: Colors.grey[400],
-              ),
-            ),
-          ),
-        );
-      },
-    );
-  }
-}
+//   @override
+//   Widget build(BuildContext context) {
+//     return ListView.builder(
+//       itemCount: contactData.length,
+//       itemBuilder: (context, index) {
+//         return Padding(
+//           padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
+//           child: Card(
+//             elevation: 5,
+//             shape: RoundedRectangleBorder(
+//               borderRadius: BorderRadius.circular(15),
+//             ),
+//             child: ListTile(
+//               // leading: Icon(
+//               //   // contactData[index]['icon'] as IconData,
+//               //   contactData[index]['icon'] as IconData?,
+//               //   color: Colors.blueAccent,
+//               //   size: 30,
+//               // ),
+//               leading: Image.asset(
+//                 contactData[index]['icon']!,
+//                 width: 24, // Set ukuran ikon sesuai kebutuhan
+//                 height: 24,
+//               ),
+//               title: Text(
+//                 contactData[index]['type'] ?? '',
+//                 style: TextStyle(
+//                   fontWeight: FontWeight.bold,
+//                   fontSize: 16,
+//                   color: Colors.black87,
+//                 ),
+//               ),
+//               subtitle: Text(
+//                 contactData[index]['info'] ?? '',
+//                 style: TextStyle(
+//                   fontSize: 14,
+//                   color: Colors.grey[700],
+//                 ),
+//               ),
+//               trailing: Icon(
+//                 Icons.arrow_forward_ios,
+//                 color: Colors.grey[400],
+//               ),
+//             ),
+//           ),
+//         );
+//       },
+//     );
+//   }
+// }

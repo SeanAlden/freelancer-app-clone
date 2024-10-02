@@ -426,6 +426,7 @@
 import 'dart:io';
 import 'package:clone_freelancer_mobile/views/User/add_card_page.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:get/get.dart';
@@ -446,7 +447,24 @@ class _QrisPageState extends State<QrisPage> {
   File? _image;
 
   @override
+  void initState() {
+    super.initState();
+    // Mengunci layar dalam mode potret
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.portraitDown,
+    ]);
+  }
+
+  @override
   void dispose() {
+     // Mengembalikan orientasi ke default saat halaman ditutup
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.portraitDown,
+      DeviceOrientation.landscapeLeft,
+      DeviceOrientation.landscapeRight,
+    ]);
     controller?.dispose();
     super.dispose();
   }

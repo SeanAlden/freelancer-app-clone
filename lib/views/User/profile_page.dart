@@ -55,7 +55,7 @@ class _ProfilePageState extends State<ProfilePage> {
       final image = await ImagePicker().pickImage(source: ImageSource.gallery);
       if (image == null) return;
       File imageTemp = File(image.path);
-      setState(() {
+      setState(() {   
         profileImage = imageTemp;
         userController.changeProfilePicture(profileImage!.path);
       });
