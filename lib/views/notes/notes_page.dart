@@ -175,6 +175,214 @@ class _NotesPageState extends State<NotesPage> {
   }
 }
 
+// import 'package:clone_freelancer_mobile/controllers/notes_database.dart';
+// import 'package:clone_freelancer_mobile/models/notes.dart';
+// import 'package:flutter/material.dart';
+// import 'package:provider/provider.dart';
+
+// void main() {
+//   runApp(MyApp());
+// }
+
+// class MyApp extends StatelessWidget {
+//   @override
+//   Widget build(BuildContext context) {
+//     return ChangeNotifierProvider(
+//       create: (context) => ThemeNotifier(),
+//       child: Consumer<ThemeNotifier>(
+//         builder: (context, theme, _) {
+//           return MaterialApp(
+//             theme: theme.getLightTheme(),
+//             darkTheme: theme.getDarkTheme(),
+//             themeMode: theme.isDarkMode ? ThemeMode.dark : ThemeMode.light,
+//             home: NotesPage(),
+//           );
+//         },
+//       ),
+//     );
+//   }
+// }
+
+// class NotesPage extends StatefulWidget {
+//   @override
+//   _NotesPageState createState() => _NotesPageState();
+// }
+
+// class _NotesPageState extends State<NotesPage> {
+//   late List<Note> notes;
+//   bool isLoading = false;
+
+//   @override
+//   void initState() {
+//     super.initState();
+//     refreshNotes();
+//   }
+
+//   Future refreshNotes() async {
+//     setState(() => isLoading = true);
+//     this.notes = await NotesDatabase.instance.readAllNotes();
+//     setState(() => isLoading = false);
+//   }
+
+//   @override
+//   Widget build(BuildContext context) {
+//     var themeNotifier = Provider.of<ThemeNotifier>(context, listen: false);
+//     return Scaffold(
+//       appBar: AppBar(
+//         title: Text('Notes'),
+//         actions: [
+//           Switch(
+//             value: themeNotifier.isDarkMode,
+//             onChanged: (value) {
+//               themeNotifier.toggleTheme();
+//             },
+//           ),
+//         ],
+//       ),
+//       body: isLoading
+//           ? Center(child: CircularProgressIndicator())
+//           : notes.isEmpty
+//               ? Center(child: Text('No Notes'))
+//               : buildNotes(),
+//       floatingActionButton: FloatingActionButton(
+//         child: Icon(Icons.add),
+//         onPressed: () async {
+//           await Navigator.of(context).push(MaterialPageRoute(
+//             builder: (context) => AddEditNotePage(),
+//           ));
+//           refreshNotes();
+//         },
+//       ),
+//     );
+//   }
+
+//   Widget buildNotes() => ListView.builder(
+//         itemCount: notes.length,
+//         itemBuilder: (context, index) {
+//           final note = notes[index];
+
+//           return Dismissible(
+//             key: ValueKey(note.id),
+//             background: Container(
+//               color: Colors.redAccent,
+//               alignment: Alignment.centerRight,
+//               padding: EdgeInsets.symmetric(horizontal: 20),
+//               child: Icon(Icons.delete, color: Colors.white),
+//             ),
+//             direction: DismissDirection.endToStart,
+//             onDismissed: (direction) async {
+//               await NotesDatabase.instance.delete(note.id!);
+//               refreshNotes();
+//             },
+//             child: Card(
+//               elevation: 6,
+//               shape: RoundedRectangleBorder(
+//                 borderRadius: BorderRadius.circular(16),
+//               ),
+//               child: ListTile(
+//                 leading: CircleAvatar(
+//                   child:
+//                       Text(note.title[0]), // Avatar berisi huruf pertama judul
+//                 ),
+//                 title: Text(
+//                   note.title,
+//                   style: TextStyle(
+//                     fontSize: 18,
+//                     fontWeight: FontWeight.bold,
+//                   ),
+//                 ),
+//                 subtitle: Text(
+//                   note.content,
+//                   maxLines: 2,
+//                   overflow: TextOverflow.ellipsis,
+//                   style: TextStyle(color: Colors.grey[600]),
+//                 ),
+//                 onTap: () async {
+//                   await Navigator.of(context).push(
+//                     MaterialPageRoute(
+//                       builder: (context) => Hero(
+//                         tag: 'note_${note.id}',
+//                         child: AddEditNotePage(note: note),
+//                       ),
+//                     ),
+//                   );
+//                   refreshNotes();
+//                 },
+//                 trailing: IconButton(
+//                   icon: Icon(Icons.delete, color: Colors.red),
+//                   onPressed: () => showDeleteConfirmationDialog(note),
+//                 ),
+//               ),
+//             ),
+//           );
+//         },
+//       );
+
+//   // Function to show delete confirmation dialog
+//   void showDeleteConfirmationDialog(Note note) {
+//     showDialog(
+//       context: context,
+//       builder: (context) {
+//         return AlertDialog(
+//           title: Text('Delete Note'),
+//           content: Text('Do you want to delete this note?'),
+//           actions: [
+//             TextButton(
+//               onPressed: () => Navigator.of(context).pop(),
+//               child: Text('No'),
+//             ),
+//             TextButton(
+//               onPressed: () async {
+//                 await NotesDatabase.instance.delete(note.id!);
+//                 Navigator.of(context).pop();
+//                 refreshNotes();
+//               },
+//               child: Text('Yes', style: TextStyle(color: Colors.red)),
+//             ),
+//           ],
+//         );
+//       },
+//     );
+//   }
+// }
+
+// class ThemeNotifier with ChangeNotifier {
+//   bool isDarkMode = false;
+
+//   void toggleTheme() {
+//     isDarkMode = !isDarkMode;
+//     notifyListeners();
+//   }
+
+//   ThemeData getLightTheme() {
+//     return ThemeData(
+//       brightness: Brightness.light,
+//       primaryColor: Colors.blue,
+//       appBarTheme: AppBarTheme(
+//         backgroundColor: Colors.blue,
+//         foregroundColor: Colors.white,
+//       ),
+//       floatingActionButtonTheme: FloatingActionButtonThemeData(
+//         backgroundColor: Colors.blue,
+//       ),
+//     );
+//   }
+
+//   ThemeData getDarkTheme() {
+//     return ThemeData(
+//       brightness: Brightness.dark,
+//       primaryColor: Colors.grey[900],
+//       appBarTheme: AppBarTheme(
+//         backgroundColor: Colors.black,
+//         foregroundColor: Colors.white,
+//       ),
+//       floatingActionButtonTheme: FloatingActionButtonThemeData(
+//         backgroundColor: Colors.grey[700],
+//       ),
+//     );
+//   }
+// }
+
 class AddEditNotePage extends StatefulWidget {
   final Note? note;
 

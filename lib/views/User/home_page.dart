@@ -261,7 +261,7 @@ class _HomePageState extends State<HomePage> {
                             },
                             icon: const Icon(Icons.question_answer_outlined),
                           ),
-                          // 
+                          // Membuat tombol dengan gambar notes untuk menuju ke halaman notes
                           IconButton(onPressed: () {
                               Navigator.push(
                                 context,
