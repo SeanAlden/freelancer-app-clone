@@ -45,10 +45,19 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                 Text(
                   'Forgot Password ?',
                   style: Theme.of(context).textTheme.headlineLarge?.copyWith(
-                        color: Colors.black, // Warna teks hitam
+                        color: Theme.of(context).brightness == Brightness.dark
+                            ? Colors.white // Warna teks untuk mode gelap
+                            : Colors.black, // Warna teks untuk mode terang
                       ),
                   textAlign: TextAlign.center, // Teks rata tengah
                 ),
+                // Text(
+                //   'Forgot Password ?',
+                //   style: Theme.of(context).textTheme.headlineLarge?.copyWith(
+                //         color: Colors.black, // Warna teks hitam
+                //       ),
+                //   textAlign: TextAlign.center, // Teks rata tengah
+                // ),
                 const SizedBox(
                   height: 16, // Jarak vertikal antara elemen
                 ),
@@ -135,8 +144,9 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                                         .white, // Indikator loading berwarna putih
                                   ),
                                 )
-                              : const Text(
+                              : Text(
                                   "Reset Password", // Teks tombol saat tidak loading
+                                  style: TextStyle(color: Theme.of(context).brightness == Brightness.dark ? Colors.white : Colors.black),
                                 );
                         }),
                       ),

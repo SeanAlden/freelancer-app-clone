@@ -59,10 +59,13 @@ class _SetPasswordPageState extends State<SetPasswordPage> {
                   alignment: Alignment
                       .center, // Mencentralkan teks di bagian atas halaman
                   child: Text(
-                    'Set New Password', // Judul halaman
+                    'Set New Password',
                     style: Theme.of(context).textTheme.headlineLarge?.copyWith(
-                          color: Colors.black, // Warna teks
+                          color: Theme.of(context).brightness == Brightness.dark
+                              ? Colors.white // Warna teks untuk mode gelap
+                              : Colors.black, // Warna teks untuk mode terang
                         ),
+                    textAlign: TextAlign.center, // Teks rata tengah
                   ),
                 ),
                 Align(

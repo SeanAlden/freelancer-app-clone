@@ -41,8 +41,11 @@ class _ResetPasswordState extends State<ResetPassword> {
                 Text(
                   'Reset Password',
                   style: Theme.of(context).textTheme.headlineLarge?.copyWith(
-                        color: Colors.black,
+                        color: Theme.of(context).brightness == Brightness.dark
+                            ? Colors.white // Warna teks untuk mode gelap
+                            : Colors.black, // Warna teks untuk mode terang
                       ),
+                  textAlign: TextAlign.center, // Teks rata tengah
                 ),
                 const SizedBox(
                   height: 16,
@@ -62,7 +65,7 @@ class _ResetPasswordState extends State<ResetPassword> {
                       TextSpan(
                         text: widget.email,
                         style: Theme.of(context).textTheme.titleSmall?.copyWith(
-                              color: Colors.black,
+                              color: Theme.of(context).brightness == Brightness.dark ? Colors.white : Colors.black,
                             ),
                       ),
                     ],
