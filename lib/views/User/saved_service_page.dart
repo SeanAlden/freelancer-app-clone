@@ -36,9 +36,17 @@ class _SavedServicesPageState extends State<SavedServicesPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Center(
-          child: Text(
-            "Saved Services",
+        centerTitle: true,
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back),
+          color: Colors.white,
+          onPressed: () => Navigator.of(context).pop(),
+        ),
+        title: const Text(
+          'Saved Services', // Judul AppBar
+          style: TextStyle(
+            color: Colors.white, // Ganti dengan warna yang diinginkan
+            fontSize: 20, // Ukuran teks bisa disesuaikan
           ),
         ),
       ),

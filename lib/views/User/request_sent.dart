@@ -12,9 +12,17 @@ class RequestSentPage extends StatelessWidget {
       // Bagian Scaffold yang menyediakan struktur dasar untuk halaman seperti AppBar dan body
       appBar: AppBar(
         // AppBar dengan judul yang diposisikan di tengah
-        title: const Center(
-          child: Text(
-            "Pending Approval", // Teks pada AppBar
+        centerTitle: true,
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back),
+          color: Colors.white,
+          onPressed: () => Navigator.of(context).pop(),
+        ),
+        title: const Text(
+          'Pending Approval', // Judul AppBar
+          style: TextStyle(
+            color: Colors.white, // Ganti dengan warna yang diinginkan
+            fontSize: 20, // Ukuran teks bisa disesuaikan
           ),
         ),
       ),
@@ -30,23 +38,39 @@ class RequestSentPage extends StatelessWidget {
             Image.asset(
               'assets/images/wall-clock.png', // Lokasi gambar di folder assets
               width: 200, // Lebar gambar diatur menjadi 200
+              color: Theme.of(context).brightness == Brightness.dark
+                  ? Colors.white // Warna gambar untuk mode gelap
+                  : Colors.black, // Warna gambar untuk mode terang
+              colorBlendMode:
+                  BlendMode.srcIn, // Mode blend untuk menerapkan warna
             ),
+
+            // Image.asset(
+            //   'assets/images/wall-clock.png', // Lokasi gambar di folder assets
+            //   width: 200, // Lebar gambar diatur menjadi 200
+            // ),
             const SizedBox(
-              height: 64, // Memberi jarak vertikal sebesar 64 antara gambar dan teks
+              height:
+                  64, // Memberi jarak vertikal sebesar 64 antara gambar dan teks
             ),
             // Menampilkan teks dengan gaya teks yang diambil dari tema aplikasi
             Text(
               "We're evaluating your profile", // Teks yang ditampilkan
-              style: Theme.of(context).textTheme.titleMedium, // Menggunakan gaya teks 'titleMedium'
+              style: Theme.of(context)
+                  .textTheme
+                  .titleMedium, // Menggunakan gaya teks 'titleMedium'
               textAlign: TextAlign.center, // Teks ditata di tengah
             ),
             const SizedBox(
-              height: 16, // Memberi jarak vertikal sebesar 16 antara teks pertama dan teks kedua
+              height:
+                  16, // Memberi jarak vertikal sebesar 16 antara teks pertama dan teks kedua
             ),
             // Teks deskripsi dengan gaya yang lebih kecil
             Text(
-              "In order to make our community holds up a standard, we don't allow any profiles to get in.", // Teks yang ditampilkan 
-              style: Theme.of(context).textTheme.bodySmall, // Menggunakan gaya teks 'bodySmall'
+              "In order to make our community holds up a standard, we don't allow any profiles to get in.", // Teks yang ditampilkan
+              style: Theme.of(context)
+                  .textTheme
+                  .bodySmall, // Menggunakan gaya teks 'bodySmall'
               textAlign: TextAlign.center, // Teks ditata di tengah
             ),
           ],

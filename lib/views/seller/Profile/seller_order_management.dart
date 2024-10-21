@@ -327,12 +327,18 @@ class _SellerOrderPageState extends State<SellerOrderPage> {
       length: 7,
       child: Scaffold(
         appBar: AppBar(
-          title: const Center(
-            child: Text(
-              'Manage Order',
+          centerTitle: true,
+          title: const Text(
+            'Manage Order', // Judul AppBar
+            style: TextStyle(
+              color: Colors.white, // Ganti dengan warna yang diinginkan
+              fontSize: 20, // Ukuran teks bisa disesuaikan
             ),
           ),
           bottom: TabBar(
+            indicatorColor: Colors.white,
+            labelColor: Colors.white,
+            unselectedLabelColor: Colors.white54,
             isScrollable: true,
             onTap: (value) {
               switch (value) {

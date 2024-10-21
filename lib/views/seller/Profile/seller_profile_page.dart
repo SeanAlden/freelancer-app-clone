@@ -194,8 +194,18 @@ class _SellerProfilePageState extends State<SellerProfilePage> {
       length: 4,
       child: Scaffold(
         appBar: AppBar(
-          title: const Center(
-            child: Text("Seller Profile"),
+          centerTitle: true,
+          leading: IconButton(
+            icon: Icon(Icons.arrow_back),
+            color: Colors.white,
+            onPressed: () => Navigator.of(context).pop(),
+          ),
+          title: const Text(
+            'Seller Profile', // Judul AppBar
+            style: TextStyle(
+              color: Colors.white, // Ganti dengan warna yang diinginkan
+              fontSize: 20, // Ukuran teks bisa disesuaikan
+            ),
           ),
           actions: [
             PopupMenuButton(
@@ -322,7 +332,7 @@ class _SellerProfilePageState extends State<SellerProfilePage> {
                   },
                 ),
                 const TabBar(
-                  labelColor: Colors.black,
+                  labelColor: Colors.green,
                   indicatorColor: Color(0xff6571ff),
                   tabs: <Widget>[
                     Tab(
@@ -484,7 +494,7 @@ class _SellerProfilePageState extends State<SellerProfilePage> {
                                           dataIndex['lowestPrice']))
                                   .copyWith(symbol: 'IDR');
                               return Container(
-                                height: 120,
+                                height: 125,
                                 decoration: BoxDecoration(
                                   color: const Color(0xff858AFF),
                                   border: Border.all(
@@ -635,6 +645,9 @@ class _SellerProfilePageState extends State<SellerProfilePage> {
                                                             .textTheme
                                                             .titleSmall
                                                             ?.copyWith(
+                                                              color: Colors
+                                                                      .lightGreenAccent[
+                                                                  400],
                                                               fontWeight:
                                                                   FontWeight
                                                                       .bold,

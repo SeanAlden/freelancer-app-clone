@@ -79,8 +79,18 @@ class _SellerDetailsPageState extends State<SellerDetailsPage> {
       length: 4,
       child: Scaffold(
         appBar: AppBar(
-          title: const Center(
-            child: Text("Seller Profile"),
+          centerTitle: true,
+          leading: IconButton(
+            icon: Icon(Icons.arrow_back),
+            color: Colors.white,
+            onPressed: () => Navigator.of(context).pop(),
+          ),
+          title: const Text(
+            'Seller Profile', // Judul AppBar
+            style: TextStyle(
+              color: Colors.white, // Ganti dengan warna yang diinginkan
+              fontSize: 20, // Ukuran teks bisa disesuaikan
+            ),
           ),
         ),
         body: SingleChildScrollView(
@@ -143,7 +153,7 @@ class _SellerDetailsPageState extends State<SellerDetailsPage> {
                         ],
                       ),
                       const TabBar(
-                        labelColor: Colors.black,
+                        labelColor: Colors.green,
                         indicatorColor: Color(0xff6571ff),
                         tabs: <Widget>[
                           Tab(
@@ -275,6 +285,7 @@ class _SellerDetailsPageState extends State<SellerDetailsPage> {
                           ListView.separated(
                             shrinkWrap: true,
                             physics: const NeverScrollableScrollPhysics(),
+                            // Bagian untuk mengatur item service di halaman Service
                             itemBuilder: (context, index) {
                               final dataIndex = data['services'][index];
                               MoneyFormatter fmf = MoneyFormatter(
@@ -282,7 +293,7 @@ class _SellerDetailsPageState extends State<SellerDetailsPage> {
                                           dataIndex['lowestPrice']))
                                   .copyWith(symbol: 'IDR');
                               return Container(
-                                height: 120,
+                                height: 125,
                                 decoration: BoxDecoration(
                                   color: const Color(0xff858AFF),
                                   border: Border.all(
@@ -401,6 +412,12 @@ class _SellerDetailsPageState extends State<SellerDetailsPage> {
                                                 dataIndex['title'],
                                                 maxLines: 2,
                                                 overflow: TextOverflow.ellipsis,
+                                                style: TextStyle(
+                                                    color: Theme.of(context)
+                                                                .brightness ==
+                                                            Brightness.dark
+                                                        ? Colors.white
+                                                        : Colors.white),
                                               ),
                                             ),
                                             const SizedBox(
@@ -433,6 +450,9 @@ class _SellerDetailsPageState extends State<SellerDetailsPage> {
                                                             .textTheme
                                                             .titleSmall
                                                             ?.copyWith(
+                                                              color: Colors
+                                                                      .lightGreenAccent[
+                                                                  400],
                                                               fontWeight:
                                                                   FontWeight
                                                                       .bold,

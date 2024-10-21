@@ -993,7 +993,15 @@ class _DetailsPageState extends State<DetailsPage>
                                   ),
                             const Spacer(),
                             Text(
-                              widget.user.name,
+                              MediaQuery.of(context).orientation ==
+                                      Orientation.portrait
+                                  // Jika orientasi potret dan panjang nama lebih dari 10 karakter, potong nama
+                                  ? (widget.user.name.length > 10
+                                      ? '${widget.user.name.substring(0, 10)}...' // Memotong karakter ke-11 dan menambahkan "..."
+                                      : widget.user
+                                          .name) // Tampilkan nama jika kurang dari atau sama dengan 10 karakter
+                                  : widget.user
+                                      .name, // Tampilkan nama lengkap di mode landscape
                               style: Theme.of(context)
                                   .textTheme
                                   .titleMedium
@@ -1001,6 +1009,15 @@ class _DetailsPageState extends State<DetailsPage>
                                     fontWeight: FontWeight.bold,
                                   ),
                             ),
+                            // Text(
+                            //   widget.user.name,
+                            //   style: Theme.of(context)
+                            //       .textTheme
+                            //       .titleMedium
+                            //       ?.copyWith(
+                            //         fontWeight: FontWeight.bold,
+                            //       ),
+                            // ),
                             const Spacer(
                               flex: 8,
                             ),

@@ -15,8 +15,18 @@ class _SupportListPageState extends State<SupportListPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Center(
-          child: Text('Support'),
+        centerTitle: true,
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back),
+          color: Colors.white,
+          onPressed: () => Navigator.of(context).pop(),
+        ),
+        title: const Text(
+          'Support', // Judul AppBar
+          style: TextStyle(
+            color: Colors.white, // Ganti dengan warna yang diinginkan
+            fontSize: 20, // Ukuran teks bisa disesuaikan
+          ),
         ),
       ),
       body: Column(
@@ -26,8 +36,8 @@ class _SupportListPageState extends State<SupportListPage> {
               Get.to(() => const ListSupportTicket());
             },
             child: Container(
-              decoration: const BoxDecoration(
-                color: Colors.white,
+              decoration: BoxDecoration(
+                color: Theme.of(context).brightness == Brightness.dark ? Colors.black : Colors.white,
                 border: Border(
                   bottom: BorderSide(color: Colors.grey, width: 0.2),
                 ),
@@ -65,8 +75,8 @@ class _SupportListPageState extends State<SupportListPage> {
               Get.to(() => const RequestSupportPage());
             },
             child: Container(
-              decoration: const BoxDecoration(
-                color: Colors.white,
+              decoration: BoxDecoration(
+                color: Theme.of(context).brightness == Brightness.dark ? Colors.black : Colors.white,
                 border: Border(
                   bottom: BorderSide(color: Colors.grey, width: 0.2),
                 ),

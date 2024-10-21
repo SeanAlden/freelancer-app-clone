@@ -402,9 +402,17 @@ class _EditServicePageState extends State<EditServicePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Center(
-          child: Text(
-            "Edit Service Form",
+        centerTitle: true,
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back),
+          color: Colors.white,
+          onPressed: () => Navigator.of(context).pop(),
+        ),
+        title: const Text(
+          'Edit Service Form', // Judul AppBar
+          style: TextStyle(
+            color: Colors.white, // Ganti dengan warna yang diinginkan
+            fontSize: 20, // Ukuran teks bisa disesuaikan
           ),
         ),
       ),
@@ -620,7 +628,10 @@ class _EditServicePageState extends State<EditServicePage> {
                         state:
                             _index > 0 ? StepState.complete : StepState.indexed,
                         isActive: _index >= 0,
-                        title: const Text('Category'),
+                        title: const Text(
+                          'Category',
+                          style: TextStyle(fontSize: 10),
+                        ),
                         content: Form(
                           key: formKeys[0],
                           child: Column(
@@ -1031,7 +1042,10 @@ class _EditServicePageState extends State<EditServicePage> {
                         state:
                             _index > 1 ? StepState.complete : StepState.indexed,
                         isActive: _index >= 1,
-                        title: const Text('Overview'),
+                        title: const Text(
+                          'Overview',
+                          style: TextStyle(fontSize: 10),
+                        ),
                         content: Form(
                           autovalidateMode: AutovalidateMode.onUserInteraction,
                           key: formKeys[1],
@@ -1362,7 +1376,10 @@ class _EditServicePageState extends State<EditServicePage> {
                         state:
                             _index > 2 ? StepState.complete : StepState.indexed,
                         isActive: _index >= 2,
-                        title: const Text('Scope'),
+                        title: const Text(
+                          'Scope',
+                          style: TextStyle(fontSize: 10),
+                        ),
                         content: Form(
                           key: formKeys[2],
                           child: Column(

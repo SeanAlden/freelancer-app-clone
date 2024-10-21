@@ -380,7 +380,19 @@ class _SellerReqPageState extends State<SellerReqPage> {
     final double width = MediaQuery.of(context).size.width;
     return Scaffold(
       appBar: AppBar(
-        title: const Center(child: Text("Seller Request Form")),
+        centerTitle: true,
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back),
+          color: Colors.white,
+          onPressed: () => Navigator.of(context).pop(),
+        ),
+        title: const Text(
+          'Seller Request Form', // Judul AppBar
+          style: TextStyle(
+            color: Colors.white, // Ganti dengan warna yang diinginkan
+            fontSize: 20, // Ukuran teks bisa disesuaikan
+          ),
+        ),
       ),
       body: SafeArea(
         child: Stack(
@@ -1082,7 +1094,7 @@ class _SellerReqPageState extends State<SellerReqPage> {
                                 },
                                 body: Container(
                                   height: 200,
-                                  padding: const EdgeInsets.all(8),
+                                  padding: const EdgeInsets.all(1),
                                   child: Scrollbar(
                                     radius: const Radius.circular(40),
                                     controller: _scrollController,
@@ -1164,7 +1176,7 @@ class _SellerReqPageState extends State<SellerReqPage> {
                           height: 8,
                         ),
                         Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
+                          mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             const Text("From"),
                             const SizedBox(
@@ -1174,7 +1186,7 @@ class _SellerReqPageState extends State<SellerReqPage> {
                               child: DropdownButton2<String>(
                                 buttonStyleData: ButtonStyleData(
                                   height: 56,
-                                  padding: const EdgeInsets.only(right: 10),
+                                  padding: const EdgeInsets.only(right: 7),
                                   decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(5),
                                     border: Border.all(
@@ -1236,7 +1248,7 @@ class _SellerReqPageState extends State<SellerReqPage> {
                               child: DropdownButton2<String>(
                                 buttonStyleData: ButtonStyleData(
                                   height: 56,
-                                  padding: const EdgeInsets.only(right: 10),
+                                  padding: const EdgeInsets.only(right: 7),
                                   decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(5),
                                     border: Border.all(

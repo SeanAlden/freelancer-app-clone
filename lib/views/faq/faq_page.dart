@@ -9,21 +9,48 @@ class FaqPage extends StatelessWidget {
       length: 2,
       child: Scaffold(
         appBar: AppBar(
-          title: const Text('Helpdesk'),
-          flexibleSpace: Container(
-            // decoration: const BoxDecoration(
-            //   gradient: LinearGradient(
-            //     begin: Alignment.topLeft,
-            //     end: Alignment.bottomRight,
-            //   ),
-            // ),
+          title: Text(
+            'Helpdesk',
+            style: TextStyle(
+                color: Theme.of(context).brightness == Brightness.dark
+                    ? Colors.white
+                    : Colors.white),
           ),
-          bottom: const TabBar(
-            tabs: [
+          leading: IconButton(
+            icon: Icon(Icons.arrow_back),
+            color: Colors.white,
+            onPressed: () => Navigator.of(context).pop(),
+          ),
+          flexibleSpace: Container(
+              // decoration: const BoxDecoration(
+              //   gradient: LinearGradient(
+              //     begin: Alignment.topLeft,
+              //     end: Alignment.bottomRight,
+              //   ),
+              // ),
+              ),
+          bottom: TabBar(
+            tabs: const [
               Tab(text: 'FAQ'),
               Tab(text: 'Contact'),
             ],
+            labelColor: Theme.of(context).brightness == Brightness.dark
+                ? Colors.yellowAccent[400] // Warna teks tab yang dipilih di mode gelap
+                : Colors.yellowAccent[400], // Warna teks tab yang dipilih di mode terang
+            unselectedLabelColor: Theme.of(context).brightness ==
+                    Brightness.dark
+                ? Colors.white // Warna teks tab yang tidak dipilih di mode gelap
+                : Colors.white, // Warna teks tab yang tidak dipilih di mode terang
+            indicatorColor: Theme.of(context).brightness == Brightness.dark
+                ? Colors.white // Warna indikator tab di mode gelap
+                : Colors.black, // Warna indikator tab di mode terang
           ),
+          // bottom: const TabBar(
+          //   tabs: [
+          //     Tab(text: 'FAQ'),
+          //     Tab(text: 'Contact'),
+          //   ],
+          // ),
         ),
         body: const TabBarView(
           children: [

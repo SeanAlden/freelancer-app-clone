@@ -47,9 +47,12 @@ class _SellerHomePageState extends State<SellerHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Center(
-          child: Text(
-            "Home",
+        centerTitle: true,
+        title: const Text(
+          'Home', // Judul AppBar
+          style: TextStyle(
+            color: Colors.white, // Ganti dengan warna yang diinginkan
+            fontSize: 20, // Ukuran teks bisa disesuaikan
           ),
         ),
       ),
@@ -123,7 +126,15 @@ class _SellerHomePageState extends State<SellerHomePage> {
                               },
                               child: box.read('token') != null
                                   ? Text(
-                                      box.read('user')['name'],
+                                      MediaQuery.of(context).orientation ==
+                                              Orientation.portrait
+                                          // Jika orientasi potret dan panjang nama lebih dari 15 karakter, potong nama
+                                          ? (box.read('user')['name'].length > 15
+                                              ? '${box.read('user')['name'].substring(0, 15)}...' // Memotong karakter ke-16 dan menambahkan "..."
+                                              : box.read('user')[
+                                                  'name']) // Tampilkan nama jika kurang dari atau sama dengan 9 karakter
+                                          : box.read('user')[
+                                              'name'], // Tampilkan nama lengkap di mode landscape
                                       style: Theme.of(context)
                                           .textTheme
                                           .titleLarge
@@ -131,6 +142,15 @@ class _SellerHomePageState extends State<SellerHomePage> {
                                             fontWeight: FontWeight.bold,
                                           ),
                                     )
+                                  // Text(
+                                  //     box.read('user')['name'],
+                                  //     style: Theme.of(context)
+                                  //         .textTheme
+                                  //         .titleLarge
+                                  //         ?.copyWith(
+                                  //           fontWeight: FontWeight.bold,
+                                  //         ),
+                                  //   )
                                   : Text(
                                       "Guest",
                                       style: Theme.of(context)

@@ -200,15 +200,15 @@ class _HomePageState extends State<HomePage> {
                                               children: [
                                                 if (isPortrait) // Implementasi hanya untuk mode portrait
                                                   Text(
-                                                    // Memeriksa apakah panjang teks lebih dari 11 karakter
+                                                    // Memeriksa apakah panjang teks lebih dari 9 karakter
                                                     box
                                                                 .read('user')[
                                                                     'name']
                                                                 .length >
-                                                            11
-                                                        ? '${box.read('user')['name'].substring(0, 11)}...' // Memotong teks dan menambahkan "..."
+                                                            9
+                                                        ? '${box.read('user')['name'].substring(0, 9)}...' // Memotong teks dan menambahkan "..."
                                                         : box.read('user')[
-                                                            'name'], // Menampilkan teks jika kurang dari atau sama dengan 11 karakter
+                                                            'name'], // Menampilkan teks jika kurang dari atau sama dengan 9 karakter
                                                     style: Theme.of(context)
                                                         .textTheme
                                                         .titleLarge
@@ -742,14 +742,45 @@ class _HomePageState extends State<HomePage> {
                                                                               const SizedBox(
                                                                                 width: 8,
                                                                               ),
+                                                                              // Mengecek orientasi perangkat
                                                                               Text(
-                                                                                data[index]['name'],
+                                                                                MediaQuery.of(context).orientation == Orientation.portrait
+                                                                                    // Jika orientasi potret dan panjang nama lebih dari 15 karakter, potong nama
+                                                                                    ? (data[index]['name'].length > 15
+                                                                                        ? '${data[index]['name'].substring(0, 15)}...' // Memotong karakter ke-16 dan menambahkan "..."
+                                                                                        : data[index]['name']) // Tampilkan nama jika kurang dari atau sama dengan 15 karakter
+                                                                                    : data[index]['name'], // Tampilkan nama lengkap di mode landscape
                                                                                 style: Theme.of(context).textTheme.labelLarge?.copyWith(
                                                                                       fontWeight: FontWeight.bold,
                                                                                     ),
                                                                               ),
                                                                             ],
                                                                           ),
+                                                                          // Row(
+                                                                          //   children: [
+                                                                          //     // gambar dan nama profil
+                                                                          //     SizedBox(
+                                                                          //       width: 30,
+                                                                          //       height: 30,
+                                                                          //       child: ClipRRect(
+                                                                          //         borderRadius: BorderRadius.circular(100),
+                                                                          //         child: Image.network(
+                                                                          //           linkAvatar,
+                                                                          //           fit: BoxFit.cover,
+                                                                          //         ),
+                                                                          //       ),
+                                                                          //     ),
+                                                                          //     const SizedBox(
+                                                                          //       width: 8,
+                                                                          //     ),
+                                                                          //     Text(
+                                                                          //       data[index]['name'],
+                                                                          //       style: Theme.of(context).textTheme.labelLarge?.copyWith(
+                                                                          //             fontWeight: FontWeight.bold,
+                                                                          //           ),
+                                                                          //     ),
+                                                                          //   ],
+                                                                          // ),
                                                                           // gambar hati/love untuk menambahkan service favorit
                                                                           data[index]['serviceFav'] == true
                                                                               ? IconButton(

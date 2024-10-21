@@ -1227,6 +1227,8 @@ class _ProfilePageState extends State<ProfilePage> {
                                                 : Colors
                                                     .white, // Warna teks untuk mode terang
                                           ),
+                                          overflow: TextOverflow.ellipsis,
+                                          maxLines: 1,
                                     ),
                                   ],
                                 )

@@ -246,9 +246,17 @@ class _AddServicePageState extends State<AddServicePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Center(
-          child: Text(
-            "Add Service Form",
+        centerTitle: true,
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back),
+          color: Colors.white,
+          onPressed: () => Navigator.of(context).pop(),
+        ),
+        title: const Text(
+          'Add Service Form', // Judul AppBar
+          style: TextStyle(
+            color: Colors.white, // Ganti dengan warna yang diinginkan
+            fontSize: 20, // Ukuran teks bisa disesuaikan
           ),
         ),
       ),
@@ -352,7 +360,10 @@ class _AddServicePageState extends State<AddServicePage> {
                 Step(
                   state: _index > 0 ? StepState.complete : StepState.indexed,
                   isActive: _index >= 0,
-                  title: const Text('Category'),
+                  title: Text(
+                    'Category',
+                    style: TextStyle(fontSize: 10),
+                  ),
                   content: Form(
                     key: formKeys[0],
                     child: Column(
@@ -745,7 +756,10 @@ class _AddServicePageState extends State<AddServicePage> {
                 Step(
                   state: _index > 1 ? StepState.complete : StepState.indexed,
                   isActive: _index >= 1,
-                  title: const Text('Overview'),
+                  title: Text(
+                    'Overview',
+                    style: TextStyle(fontSize: 10),
+                  ),
                   content: Form(
                     autovalidateMode: AutovalidateMode.onUserInteraction,
                     key: formKeys[1],
@@ -985,7 +999,24 @@ class _AddServicePageState extends State<AddServicePage> {
                 Step(
                   state: _index > 2 ? StepState.complete : StepState.indexed,
                   isActive: _index >= 2,
-                  title: const Text('Scope'),
+                  title:
+                      // const Text('Scope'),
+                      Text(
+                    'Scope',
+                    style: TextStyle(
+                      fontSize: 10.0, // Ukuran font dalam satuan piksel
+                    ),
+                  ),
+
+                  //     Text(
+                  //   MediaQuery.of(context).orientation == Orientation.portrait
+                  //       // Jika orientasi potret dan panjang teks lebih dari 3 karakter, potong teks
+                  //       ? ('Scope'.length > 3
+                  //           ? 'Scope'.substring(0, 3) +
+                  //               '...' // Memotong karakter ke-4 dan menambahkan "..."
+                  //           : 'Scope') // Tampilkan teks jika kurang dari atau sama dengan 3 karakter
+                  //       : 'Scope', // Tampilkan teks lengkap di mode landscape
+                  // ),
                   content: Form(
                     key: formKeys[2],
                     child: Column(

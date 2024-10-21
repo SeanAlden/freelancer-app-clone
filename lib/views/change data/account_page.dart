@@ -213,8 +213,18 @@ class _AccountPageState extends State<AccountPage> {
     return Scaffold(
       appBar: AppBar(
         // mengatur title page
-        title: const Center(
-          child: Text('Account'),
+        centerTitle: true,
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back),
+          color: Colors.white,
+          onPressed: () => Navigator.of(context).pop(),
+        ),
+        title: const Text(
+          'Account', // Judul AppBar
+          style: TextStyle(
+            color: Colors.white, // Ganti dengan warna yang diinginkan
+            fontSize: 20, // Ukuran teks bisa disesuaikan
+          ),
         ),
       ),
       body: Container(
@@ -247,6 +257,8 @@ class _AccountPageState extends State<AccountPage> {
                     return 'Please enter your name';
                   } else if (value.length < 3) {
                     return 'Name must be at least 5 characters long';
+                  } else if (value.length > 17) {
+                    return 'Name must not be more than 17 characters';
                   }
                   return null;
                 },
