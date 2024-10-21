@@ -70,11 +70,13 @@ class _ChatPageState extends State<ChatPage> {
 
   @override
   Widget build(BuildContext context) {
+    final isPortrait = MediaQuery.of(context).orientation == Orientation.portrait;
     return Scaffold(
       appBar: AppBar(
         title: const Center(
           child: Text(
             "Inbox", // Menampilkan judul di tengah AppBar
+            style: TextStyle(color: Colors.white),
           ),
         ),
       ),
@@ -224,7 +226,13 @@ class _ChatPageState extends State<ChatPage> {
                       });
                     },
                     child: ConversationList(
-                      name: otherUser!.name, // Nama lawan bicara
+                      name: isPortrait
+                          ? (otherUser!.name.length > 9
+                              ? '${otherUser.name.substring(0, 9)}...' // Memotong nama jika lebih dari 9 karakter
+                              : otherUser
+                                  .name) // Menampilkan nama jika <= 9 karakter
+                          : otherUser!
+                              .name, // Menampilkan nama penuh di mode landscape
                       messageText: item['message'] ?? '', // Pesan terakhir
                       url: otherUser.piclink, // URL gambar profil lawan bicara
                       time: formattedDate, // Waktu pesan terakhir
@@ -234,6 +242,18 @@ class _ChatPageState extends State<ChatPage> {
                         otherUser
                       ], // Daftar pengguna dalam chat room
                     ),
+
+                    // child: ConversationList(
+                    //   name: otherUser!.name, // Nama lawan bicara
+                    //   messageText: item['message'] ?? '', // Pesan terakhir
+                    //   url: otherUser.piclink, // URL gambar profil lawan bicara
+                    //   time: formattedDate, // Waktu pesan terakhir
+                    //   chatId: chatRoom[index]['chatRoom_id'], // ID chat room
+                    //   userList: [
+                    //     user!,
+                    //     otherUser
+                    //   ], // Daftar pengguna dalam chat room
+                    // ),
                   );
                 },
               ),

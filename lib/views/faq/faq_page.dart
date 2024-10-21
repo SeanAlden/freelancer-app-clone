@@ -11,13 +11,12 @@ class FaqPage extends StatelessWidget {
         appBar: AppBar(
           title: const Text('Helpdesk'),
           flexibleSpace: Container(
-            decoration: const BoxDecoration(
-              gradient: LinearGradient(
-                colors: [Colors.blueAccent, Colors.lightBlueAccent],
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
-              ),
-            ),
+            // decoration: const BoxDecoration(
+            //   gradient: LinearGradient(
+            //     begin: Alignment.topLeft,
+            //     end: Alignment.bottomRight,
+            //   ),
+            // ),
           ),
           bottom: const TabBar(
             tabs: [

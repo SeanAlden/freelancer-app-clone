@@ -1,3 +1,157 @@
+// import 'package:clone_freelancer_mobile/controllers/notes_database.dart';
+// import 'package:clone_freelancer_mobile/core.dart';
+// import 'package:clone_freelancer_mobile/models/notes.dart';
+// import 'package:flutter/material.dart';
+// import 'package:shared_preferences/shared_preferences.dart';
+
+// class NotesPage extends StatefulWidget {
+//   @override
+//   _NotesPageState createState() => _NotesPageState();
+// }
+
+// class _NotesPageState extends State<NotesPage> {
+//   late List<Note> notes = [];
+//   bool isLoading = false;
+//   String? userId;
+
+//   @override
+//   void initState() {
+//     super.initState();
+//     checkLoginStatus();
+//   }
+
+//   Future checkLoginStatus() async {
+//     final prefs = await SharedPreferences.getInstance();
+//     final isLoggedIn = prefs.getBool('isLoggedIn') ?? false;
+//     userId = prefs.getString('userId');
+
+//     if (!isLoggedIn || userId == null) {
+//       // Jika user belum login, tampilkan peringatan dan kembalikan ke halaman login
+//       showLoginWarning();
+//     } else {
+//       refreshNotes();
+//     }
+//   }
+
+//   void showLoginWarning() {
+//     showDialog(
+//       context: context,
+//       builder: (context) {
+//         return AlertDialog(
+//           title: Text('Warning'),
+//           content: Text('Anda belum login, catatan tidak dapat dibuka!'),
+//           actions: [
+//             TextButton(
+//               onPressed: () {
+//                 Navigator.of(context).pop();
+//                 // Navigator.pushReplacementNamed(context, '/loginPage');
+//                 Navigator.of(context).push(MaterialPageRoute(
+//                   builder: (context) => LoginPage(),
+//                 ));
+//               },
+//               child: Text('OK'),
+//             ),
+//           ],
+//         );
+//       },
+//     );
+//   }
+
+//   Future refreshNotes() async {
+//     setState(() => isLoading = true);
+
+//     if (userId != null) {
+//       this.notes = await NotesDatabase.instance.readAllNotes(userId!);
+//     }
+
+//     setState(() => isLoading = false);
+//   }
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       appBar: AppBar(
+//         title: Text('Notes'),
+//       ),
+//       body: isLoading
+//           ? Center(child: CircularProgressIndicator())
+//           : notes.isEmpty
+//               ? Center(child: Text('No Notes'))
+//               : buildNotes(),
+//       floatingActionButton: FloatingActionButton(
+//         child: Icon(Icons.add),
+//         onPressed: () async {
+//           await Navigator.of(context).push(MaterialPageRoute(
+//             builder: (context) => AddEditNotePage(),
+//           ));
+//           refreshNotes();
+//         },
+//       ),
+//     );
+//   }
+
+//   Widget buildNotes() => ListView.builder(
+//         itemCount: notes.length,
+//         itemBuilder: (context, index) {
+//           final note = notes[index];
+
+//           return Card(
+//             elevation: 4,
+//             shape: RoundedRectangleBorder(
+//               borderRadius: BorderRadius.circular(12),
+//             ),
+//             child: ListTile(
+//               title: Text(note.title,
+//                   style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+//               subtitle: Text(
+//                 note.content,
+//                 style: TextStyle(color: Colors.grey[600]),
+//                 maxLines: 2,
+//                 overflow: TextOverflow.ellipsis,
+//               ),
+//               onTap: () async {
+//                 await Navigator.of(context).push(MaterialPageRoute(
+//                   builder: (context) => AddEditNotePage(note: note),
+//                 ));
+//                 refreshNotes();
+//               },
+//               trailing: IconButton(
+//                 icon: Icon(Icons.delete, color: Colors.red),
+//                 onPressed: () => showDeleteConfirmationDialog(note),
+//               ),
+//             ),
+//           );
+//         },
+//       );
+
+//   void showDeleteConfirmationDialog(Note note) {
+//     showDialog(
+//       context: context,
+//       builder: (context) {
+//         return AlertDialog(
+//           title: Text('Delete Note'),
+//           content: Text('Do you want to delete this note?'),
+//           actions: [
+//             TextButton(
+//               onPressed: () => Navigator.of(context).pop(),
+//               child: Text('No'),
+//             ),
+//             TextButton(
+//               onPressed: () async {
+//                 await NotesDatabase.instance.delete(note.id!);
+//                 Navigator.of(context).pop();
+//                 refreshNotes();
+//               },
+//               child: Text('Yes', style: TextStyle(color: Colors.red)),
+//             ),
+//           ],
+//         );
+//       },
+//     );
+//   }
+// }
+
+import 'package:clone_freelancer_mobile/controllers/auth_service.dart';
 import 'package:clone_freelancer_mobile/controllers/notes_database.dart';
 import 'package:clone_freelancer_mobile/models/notes.dart';
 import 'package:flutter/material.dart';
@@ -8,20 +162,63 @@ class NotesPage extends StatefulWidget {
 }
 
 class _NotesPageState extends State<NotesPage> {
-  late List<Note> notes;
+  late List<Note> notes = [];
   bool isLoading = false;
+  // String? userEmail;
 
   @override
   void initState() {
     super.initState();
     refreshNotes();
+    // checkLoginStatus();
   }
+
+  // Future<void> checkLoginStatus() async {
+  //   userEmail = await AuthService().getCurrentUser();
+
+  //   if (userEmail == null) {
+  //     showLoginWarning();
+  //   } else {
+  //     refreshNotes();
+  //   }
+  // }
+
+  // void showLoginWarning() {
+  //   showDialog(
+  //     context: context,
+  //     builder: (context) {
+  //       return AlertDialog(
+  //         title: Text('Warning'),
+  //         content: Text('Anda belum login, catatan tidak dapat dibuka!'),
+  //         actions: [
+  //           TextButton(
+  //             onPressed: () {
+  //               Navigator.of(context).pop();
+  //               Navigator.of(context).pop(); // Kembali ke halaman sebelumnya
+  //             },
+  //             child: Text('OK'),
+  //           ),
+  //         ],
+  //       );
+  //     },
+  //   );
+  // }
 
   Future refreshNotes() async {
     setState(() => isLoading = true);
     this.notes = await NotesDatabase.instance.readAllNotes();
     setState(() => isLoading = false);
   }
+
+  // Future refreshNotes() async {
+  //   setState(() => isLoading = true);
+
+  //   if (userEmail != null) {
+  //     this.notes = await NotesDatabase.instance.readAllNotes(userEmail!);
+  //   }
+
+  //   setState(() => isLoading = false);
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -43,6 +240,18 @@ class _NotesPageState extends State<NotesPage> {
           refreshNotes();
         },
       ),
+      // floatingActionButton: FloatingActionButton(
+      //   child: Icon(Icons.add),
+      //   onPressed: userEmail == null
+      //       ? null
+      //       : () async {
+      //           await Navigator.of(context).push(MaterialPageRoute(
+      //             builder: (context) => AddEditNotePage(
+      //                 userEmail: userEmail!), // userEmail dikirimkan
+      //           ));
+      //           refreshNotes();
+      //         },
+      // ),
     );
   }
 
@@ -120,23 +329,31 @@ class _NotesPageState extends State<NotesPage> {
                   overflow: TextOverflow.ellipsis,
                   style: TextStyle(color: Colors.grey[600]),
                 ),
-                onTap: () async {
-                  await Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (context) => Hero(
-                        tag: 'note_${note.id}',
-                        child: AddEditNotePage(note: note),
-                      ),
-                    ),
-                  );
-                  refreshNotes();
-                },
+                // onTap: () async {
+                //   await Navigator.of(context).push(
+                //     MaterialPageRoute(
+                //       builder: (context) => Hero(
+                //         tag: 'note_${note.id}',
+                //         child: AddEditNotePage(note: note),
+                //       ),
+                //     ),
+                //   );
+                //   refreshNotes();
+                // },
                 // onTap: () async {
                 //   await Navigator.of(context).push(MaterialPageRoute(
-                //     builder: (context) => AddEditNotePage(note: note),
+                //     builder: (context) => AddEditNotePage(
+                //         note: note,
+                //         userEmail: userEmail!), // userEmail dikirimkan
                 //   ));
                 //   refreshNotes();
                 // },
+                onTap: () async {
+                  await Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => AddEditNotePage(note: note),
+                  ));
+                  refreshNotes();
+                },
                 trailing: IconButton(
                   icon: Icon(Icons.delete, color: Colors.red),
                   onPressed: () => showDeleteConfirmationDialog(note),
@@ -385,6 +602,7 @@ class _NotesPageState extends State<NotesPage> {
 
 class AddEditNotePage extends StatefulWidget {
   final Note? note;
+  // final String userEmail;
 
   const AddEditNotePage({Key? key, this.note}) : super(key: key);
 
@@ -396,6 +614,7 @@ class _AddEditNotePageState extends State<AddEditNotePage> {
   final _formKey = GlobalKey<FormState>();
   late String title;
   late String content;
+  // late String userEmail;
 
   @override
   void initState() {
@@ -586,7 +805,9 @@ class _AddEditNotePageState extends State<AddEditNotePage> {
                       await NotesDatabase.instance.create(
                         Note(
                           title: title,
-                          content: content,
+                          content: content, 
+                          // userEmail: userEmail,
+                          // userEmail: userEmail
                         ),
                       );
                     } else {

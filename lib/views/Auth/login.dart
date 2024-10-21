@@ -4,6 +4,7 @@ import 'package:clone_freelancer_mobile/controllers/auth_controller.dart';
 import 'package:clone_freelancer_mobile/views/Auth/forgot_password.dart';
 import 'package:clone_freelancer_mobile/views/Auth/signup.dart';
 import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 // Widget LoginPage merupakan halaman login
 class LoginPage extends StatefulWidget {
@@ -15,6 +16,7 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   // Menggunakan controller untuk mengambil input email dan password dari user
+  // final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
@@ -35,6 +37,25 @@ class _LoginPageState extends State<LoginPage> {
     });
   }
 
+  // void login() async {
+  //   final prefs = await SharedPreferences.getInstance();
+  //   String email = _emailController.text.trim();
+
+  //   if (email.isNotEmpty) {
+  //     // Simpan status login dan userId di SharedPreferences
+  //     await prefs.setBool('isLoggedIn', true);
+  //     await prefs.setString('userId', email);
+
+  //     // Navigasi ke halaman catatan atau halaman utama
+  //     Navigator.pushReplacementNamed(context, '/notesPage');
+  //   } else {
+  //     // Tampilkan pesan error
+  //     ScaffoldMessenger.of(context).showSnackBar(
+  //       SnackBar(content: Text('Username cannot be empty')),
+  //     );
+  //   }
+  // }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -52,7 +73,9 @@ class _LoginPageState extends State<LoginPage> {
                 Text(
                   'Login', // Judul halaman Login
                   style: Theme.of(context).textTheme.headlineLarge?.copyWith(
-                        color: Colors.black,
+                        color: Theme.of(context).brightness == Brightness.dark
+                            ? Colors.white
+                            : Colors.black,
                       ),
                 ),
                 const SizedBox(

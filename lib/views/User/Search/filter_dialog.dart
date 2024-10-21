@@ -97,15 +97,54 @@ class _FilterDialogState extends State<FilterDialog> {
                 ),
                 Align(
                   alignment: Alignment.center,
+                  // child: GroupButton(
+                  //   controller: controller1,
+                  //   options: const GroupButtonOptions(
+                  //     elevation: 1,
+                  //   ),
+                  //   isRadio: true,
+                  //   buttons: const [
+                  //     'Digital Service',
+                  //     "On-Site Service",
+                  //   ],
+                  // ),
                   child: GroupButton(
                     controller: controller1,
-                    options: const GroupButtonOptions(
+                    options: GroupButtonOptions(
                       elevation: 1,
+                      selectedTextStyle: TextStyle(
+                        color: Theme.of(context).brightness == Brightness.dark
+                            ? Colors
+                                .white // Warna teks ketika tombol dipilih pada mode gelap
+                            : Colors
+                                .black, // Warna teks ketika tombol dipilih pada mode terang
+                      ),
+                      unselectedTextStyle: TextStyle(
+                        color: Theme.of(context).brightness == Brightness.dark
+                            ? Colors.grey[
+                                300] // Warna teks ketika tombol tidak dipilih pada mode gelap
+                            : Colors
+                                .black, // Warna teks ketika tombol tidak dipilih pada mode terang
+                      ),
+                      selectedColor: Theme.of(context).brightness ==
+                              Brightness.dark
+                          ? const Color(
+                              0xff1A1A2E) // Background tombol dipilih pada mode gelap
+                          : const Color(
+                              0xff4259E2), // Background tombol dipilih pada mode terang
+                      unselectedColor: Theme.of(context).brightness ==
+                              Brightness.dark
+                          ? Colors.grey[
+                              800] // Background tombol tidak dipilih pada mode gelap
+                          : Colors.grey[
+                              200], // Background tombol tidak dipilih pada mode terang
+                      borderRadius: BorderRadius.circular(
+                          8), // Menambah radius untuk styling tombol
                     ),
                     isRadio: true,
                     buttons: const [
                       'Digital Service',
-                      "On-Site Service",
+                      'On-Site Service',
                     ],
                   ),
                 ),
@@ -176,19 +215,62 @@ class _FilterDialogState extends State<FilterDialog> {
                 ),
                 Align(
                   alignment: Alignment.center,
+                  // child: GroupButton(
+                  //   controller: controller2,
+                  //   options: const GroupButtonOptions(
+                  //     elevation: 1,
+                  //   ),
+                  //   isRadio: true,
+                  //   buttons: const [
+                  //     '5',
+                  //     "4 above",
+                  //     "3 above",
+                  //     "2 above",
+                  //     "1 above",
+                  //     "No Review",
+                  //   ],
+                  // ),
                   child: GroupButton(
                     controller: controller2,
-                    options: const GroupButtonOptions(
+                    options: GroupButtonOptions(
                       elevation: 1,
+                      selectedTextStyle: TextStyle(
+                        color: Theme.of(context).brightness == Brightness.dark
+                            ? Colors
+                                .white // Warna teks ketika tombol dipilih pada mode gelap
+                            : Colors
+                                .black, // Warna teks ketika tombol dipilih pada mode terang
+                      ),
+                      unselectedTextStyle: TextStyle(
+                        color: Theme.of(context).brightness == Brightness.dark
+                            ? Colors.grey[
+                                300] // Warna teks ketika tombol tidak dipilih pada mode gelap
+                            : Colors
+                                .black, // Warna teks ketika tombol tidak dipilih pada mode terang
+                      ),
+                      selectedColor: Theme.of(context).brightness ==
+                              Brightness.dark
+                          ? const Color(
+                              0xff1A1A2E) // Background tombol dipilih pada mode gelap
+                          : const Color(
+                              0xff4259E2), // Background tombol dipilih pada mode terang
+                      unselectedColor: Theme.of(context).brightness ==
+                              Brightness.dark
+                          ? Colors.grey[
+                              800] // Background tombol tidak dipilih pada mode gelap
+                          : Colors.grey[
+                              200], // Background tombol tidak dipilih pada mode terang
+                      borderRadius: BorderRadius.circular(
+                          8), // Menambah radius untuk styling tombol
                     ),
                     isRadio: true,
                     buttons: const [
                       '5',
-                      "4 above",
-                      "3 above",
-                      "2 above",
-                      "1 above",
-                      "No Review",
+                      '4 above',
+                      '3 above',
+                      '2 above',
+                      '1 above',
+                      'No Review',
                     ],
                   ),
                 ),

@@ -50,19 +50,25 @@ class _ContactListViewState extends State<ContactListView> {
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 16,
-                  color: Colors.black87,
+                  color: Theme.of(context).brightness == Brightness.dark
+                      ? Colors.white // Warna teks untuk mode gelap
+                      : Colors.black87, // Warna teks untuk mode terang
                 ),
               ),
               subtitle: Text(
                 contactData[index]['info'] ?? '',
                 style: TextStyle(
                   fontSize: 14,
-                  color: Colors.grey[700],
+                  color: Theme.of(context).brightness == Brightness.dark
+                      ? Colors.grey[400] // Warna teks untuk mode gelap
+                      : Colors.grey[700], // Warna teks untuk mode terang
                 ),
               ),
               trailing: Icon(
                 Icons.arrow_forward_ios,
-                color: Colors.grey[400],
+                color: Theme.of(context).brightness == Brightness.dark
+                    ? Colors.white // Warna teks untuk mode gelap
+                    : Colors.grey[400], // Warna teks untuk mode terang
               ),
             ),
           ),

@@ -499,7 +499,7 @@ class _ChatDetailPageState extends State<ChatDetailPage> {
               : const EdgeInsets.only(top: 8, bottom: 8, left: 16, right: 16),
           child: Text(
             allMessage[index]['message'],
-            style: const TextStyle(fontSize: 15),
+            style: const TextStyle(fontSize: 15, color: Colors.black),
           ),
         ),
       ),

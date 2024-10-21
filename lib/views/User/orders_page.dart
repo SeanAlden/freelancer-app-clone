@@ -202,6 +202,7 @@ class _ListOrderPageState extends State<ListOrderPage> {
           title: const Center(
             child: Text(
               'Manage Order',
+              style: TextStyle(color: Colors.white),
             ),
           ),
           bottom: TabBar(

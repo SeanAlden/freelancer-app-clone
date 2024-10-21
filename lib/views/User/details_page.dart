@@ -408,8 +408,11 @@ class _DetailsPageState extends State<DetailsPage>
         child: Stack(
           children: [
             SingleChildScrollView(
+              // Bagian container untuk Scroll gambar service
               child: Container(
-                color: Colors.grey[100],
+                color: Theme.of(context).brightness == Brightness.dark
+                    ? Colors.grey[800] // Warna teks untuk mode gelap
+                    : Colors.grey[100], // Warna teks untuk mode terang
                 child: Column(
                   children: [
                     Stack(
@@ -547,8 +550,11 @@ class _DetailsPageState extends State<DetailsPage>
                     const SizedBox(
                       height: 24,
                     ),
+                    // Container untuk mengatur background pada detail service
                     Container(
-                      color: Colors.white,
+                      color: Theme.of(context).brightness == Brightness.dark
+                          ? Colors.black // Warna teks untuk mode gelap
+                          : Colors.white, // Warna teks untuk mode terang
                       padding: const EdgeInsets.only(
                         left: 16,
                         right: 16,
@@ -609,6 +615,7 @@ class _DetailsPageState extends State<DetailsPage>
                     const SizedBox(
                       height: 8,
                     ),
+                    // Container untuk mengatur background pada bagian penjelasan kategori service
                     Container(
                       padding: const EdgeInsets.only(
                         left: 16,
@@ -616,7 +623,9 @@ class _DetailsPageState extends State<DetailsPage>
                         top: 8,
                         bottom: 16,
                       ),
-                      color: Colors.white,
+                      color: Theme.of(context).brightness == Brightness.dark
+                          ? Colors.black // Warna teks untuk mode gelap
+                          : Colors.white, // Warna teks untuk mode terang
                       child: Column(
                         children: [
                           TabBar(
@@ -950,9 +959,12 @@ class _DetailsPageState extends State<DetailsPage>
                           ),
                         );
                       },
+                      // Bagian container untuk mengatur background pada kontak Freelancer
                       child: Container(
                         padding: const EdgeInsets.fromLTRB(16, 16, 16, 16),
-                        color: Colors.white,
+                        color: Theme.of(context).brightness == Brightness.dark
+                            ? Colors.black // Warna teks untuk mode gelap
+                            : Colors.white, // Warna teks untuk mode terang
                         child: Row(
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
@@ -1016,9 +1028,12 @@ class _DetailsPageState extends State<DetailsPage>
                     const SizedBox(
                       height: 8,
                     ),
+                    // Bagian Container untuk mengatur background pada bagian rating service
                     Container(
                       padding: const EdgeInsets.fromLTRB(16, 16, 16, 8),
-                      color: Colors.white,
+                      color: Theme.of(context).brightness == Brightness.dark
+                          ? Colors.black // Warna teks untuk mode gelap
+                          : Colors.white, // Warna teks untuk mode terang
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisAlignment: MainAxisAlignment.start,

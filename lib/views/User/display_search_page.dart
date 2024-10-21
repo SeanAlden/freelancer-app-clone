@@ -98,7 +98,13 @@ class _DisplaySearchPageState extends State<DisplaySearchPage> {
         title: Center(
           child: Text(
             widget.subCategoryText.toString(),
+            style: TextStyle(color: Colors.white),
           ),
+        ),
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back),
+          color: Colors.white,
+          onPressed: () => Navigator.of(context).pop(),
         ),
         bottom: PreferredSize(
           preferredSize: Size(appBarWidth, appBarHeight - 8),
@@ -108,9 +114,22 @@ class _DisplaySearchPageState extends State<DisplaySearchPage> {
               children: [
                 Expanded(
                   child: TextButton(
-                    style: const ButtonStyle(
-                      backgroundColor: MaterialStatePropertyAll(
-                        Color(0xff6571ff),
+                    // style: const ButtonStyle(
+                    //   backgroundColor: MaterialStatePropertyAll(
+                    //     Color(0xff6571ff),
+                    //   ),
+                    // ),
+                    style: ButtonStyle(
+                      backgroundColor: MaterialStateProperty.resolveWith<Color>(
+                        (Set<MaterialState> states) {
+                          if (Theme.of(context).brightness == Brightness.dark) {
+                            return const Color(
+                                0xff1A1A2E); // Warna background untuk mode gelap
+                          } else {
+                            return const Color(
+                                0xff6571ff); // Warna background untuk mode terang
+                          }
+                        },
                       ),
                     ),
                     onPressed: () {
@@ -232,192 +251,155 @@ class _DisplaySearchPageState extends State<DisplaySearchPage> {
                         },
                       );
                     },
-                    child:
-                        Card(
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(5.0),
-                          ),
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.circular(5.0),
-                            child: SizedBox(
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
+                    child: Card(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(5.0),
+                      ),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(5.0),
+                        child: SizedBox(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Row(
                                 children: [
-                                  Row(
-                                    children: [
-                                      Expanded(
-                                        child: Container(
-                                          color: Colors.grey[300],
-                                          child: Image.network(
-                                            data[index]['servicePic'],
-                                            fit: BoxFit.contain,
-                                            height: 150,
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
                                   Expanded(
+                                    child: Container(
+                                      color: Colors.grey[300],
+                                      child: Image.network(
+                                        data[index]['servicePic'],
+                                        fit: BoxFit.contain,
+                                        height: 150,
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              Expanded(
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Container(
+                                      padding: const EdgeInsets.only(
+                                          left: 8, right: 8),
                                       child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Container(
-                                        padding: const EdgeInsets.only(
-                                            left: 8, right: 8),
-                                        child: Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.spaceBetween,
-                                              children: [
-                                                Row(
-                                                  children: [
-                                                    SizedBox(
-                                                      width: 30,
-                                                      height: 30,
-                                                      child: ClipRRect(
-                                                        borderRadius:
-                                                            BorderRadius.circular(
-                                                                100),
-                                                        child: Image.network(
-                                                          data[index]['piclink'],
-                                                          fit: BoxFit.contain,
-                                                        ),
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              Row(
+                                                children: [
+                                                  SizedBox(
+                                                    width: 30,
+                                                    height: 30,
+                                                    child: ClipRRect(
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              100),
+                                                      child: Image.network(
+                                                        data[index]['piclink'],
+                                                        fit: BoxFit.contain,
                                                       ),
                                                     ),
-                                                    const SizedBox(
-                                                      width: 8,
-                                                    ),
-                                                    Text(
-                                                      data[index]['name'],
-                                                      style: Theme.of(context)
-                                                          .textTheme
-                                                          .labelLarge
-                                                          ?.copyWith(
-                                                            fontWeight:
-                                                                FontWeight.bold,
-                                                          ),
-                                                    ),
-                                                  ],
-                                                ),
-                                                box.read('token') == null
-                                                    ? IconButton(
-                                                        color: Colors.grey[500],
-                                                        onPressed: () {
-                                                          Get.to(() =>
-                                                              const LoginPage());
-                                                        },
-                                                        icon: const Icon(
-                                                            Icons.favorite_outline),
-                                                      )
-                                                    : data[index]['serviceFav'] ==
-                                                            true
-                                                        ? IconButton(
-                                                            color: Colors.red,
-                                                            onPressed: () {
-                                                              setState(() {
-                                                                serviceController
-                                                                    .deleteSavedService(
-                                                                        serviceId);
-                                                                data[index][
-                                                                        'serviceFav'] =
-                                                                    false;
-                                                              });
-                                                            },
-                                                            icon: const Icon(
-                                                                Icons.favorite),
-                                                          )
-                                                        : IconButton(
-                                                            color: Colors.grey[500],
-                                                            onPressed: () {
-                                                              setState(() {
-                                                                serviceController
-                                                                    .saveService(
-                                                                        serviceId);
-                                                                data[index][
-                                                                        'serviceFav'] =
-                                                                    true;
-                                                              });
-                                                            },
-                                                            icon: const Icon(Icons
-                                                                .favorite_outline),
-                                                          ),
-                                              ],
-                                            ),
-                                            const SizedBox(
-                                              height: 0,
-                                            ),
-                                            Text(data[index]['title'],
-                                                maxLines: 2,
-                                                overflow: TextOverflow.ellipsis,
-                                                style: Theme.of(context)
-                                                    .textTheme
-                                                    .titleSmall),
-                                            const SizedBox(
-                                              height: 8,
-                                            ),
-                                            RichText(
-                                              text: TextSpan(
-                                                children: [
-                                                  TextSpan(
-                                                    text: "From",
-                                                    style: Theme.of(context)
-                                                        .textTheme
-                                                        .bodySmall
-                                                        ?.copyWith(
-                                                          color: Colors.grey[600],
-                                                        ),
                                                   ),
-                                                  TextSpan(
-                                                    text:
-                                                        " ${fmf.output.symbolOnLeft}",
+                                                  const SizedBox(width: 8),
+                                                  Text(
+                                                    // Mengecek orientasi perangkat
+                                                    MediaQuery.of(context)
+                                                                .orientation ==
+                                                            Orientation.portrait
+                                                        // Jika orientasi potret dan panjang nama lebih dari 5 karakter, potong nama
+                                                        ? (data[index]['name']
+                                                                    .length >
+                                                                5
+                                                            ? '${data[index]['name'].substring(0, 5)}...' // Memotong karakter ke-6 dan menambahkan "..."
+                                                            : data[index][
+                                                                'name']) // Tampilkan nama jika kurang dari atau sama dengan 5 karakter
+                                                        : data[index][
+                                                            'name'], // Tampilkan nama lengkap di mode landscape
                                                     style: Theme.of(context)
                                                         .textTheme
-                                                        .titleSmall
+                                                        .labelLarge
                                                         ?.copyWith(
                                                           fontWeight:
                                                               FontWeight.bold,
                                                         ),
                                                   ),
+                                                  // Text(
+                                                  //   data[index]['name'],
+                                                  //   style: Theme.of(context)
+                                                  //       .textTheme
+                                                  //       .labelLarge
+                                                  //       ?.copyWith(
+                                                  //         fontWeight:
+                                                  //             FontWeight.bold,
+                                                  //       ),
+                                                  // ),
                                                 ],
                                               ),
-                                            ),
-                                            Row(
+                                              box.read('token') == null
+                                                  ? IconButton(
+                                                      color: Colors.grey[500],
+                                                      onPressed: () {
+                                                        Get.to(() =>
+                                                            const LoginPage());
+                                                      },
+                                                      icon: const Icon(Icons
+                                                          .favorite_outline),
+                                                    )
+                                                  : data[index]['serviceFav'] ==
+                                                          true
+                                                      ? IconButton(
+                                                          color: Colors.red,
+                                                          onPressed: () {
+                                                            setState(() {
+                                                              serviceController
+                                                                  .deleteSavedService(
+                                                                      serviceId);
+                                                              data[index][
+                                                                      'serviceFav'] =
+                                                                  false;
+                                                            });
+                                                          },
+                                                          icon: const Icon(
+                                                              Icons.favorite),
+                                                        )
+                                                      : IconButton(
+                                                          color:
+                                                              Colors.grey[500],
+                                                          onPressed: () {
+                                                            setState(() {
+                                                              serviceController
+                                                                  .saveService(
+                                                                      serviceId);
+                                                              data[index][
+                                                                      'serviceFav'] =
+                                                                  true;
+                                                            });
+                                                          },
+                                                          icon: const Icon(Icons
+                                                              .favorite_outline),
+                                                        ),
+                                            ],
+                                          ),
+                                          const SizedBox(height: 0),
+                                          Text(
+                                            data[index]['title'],
+                                            maxLines: 2,
+                                            overflow: TextOverflow.ellipsis,
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .titleSmall,
+                                          ),
+                                          const SizedBox(height: 8),
+                                          RichText(
+                                            text: TextSpan(
                                               children: [
-                                                const Icon(
-                                                  Icons.star,
-                                                  color: Colors.orange,
-                                                  size: 15,
-                                                ),
-                                                const SizedBox(
-                                                  width: 4,
-                                                ),
-                                                data[index]['rating'] == null
-                                                    ? Text(
-                                                        "0",
-                                                        style: Theme.of(context)
-                                                            .textTheme
-                                                            .bodyMedium
-                                                            ?.copyWith(
-                                                              color: Colors.orange,
-                                                            ),
-                                                      )
-                                                    : Text(
-                                                        rating,
-                                                        style: Theme.of(context)
-                                                            .textTheme
-                                                            .bodyMedium
-                                                            ?.copyWith(
-                                                              color: Colors.orange,
-                                                            ),
-                                                      ),
-                                                const SizedBox(
-                                                  width: 4,
-                                                ),
-                                                Text(
-                                                  "($count)",
+                                                TextSpan(
+                                                  text: "From",
                                                   style: Theme.of(context)
                                                       .textTheme
                                                       .bodySmall
@@ -425,18 +407,284 @@ class _DisplaySearchPageState extends State<DisplaySearchPage> {
                                                         color: Colors.grey[600],
                                                       ),
                                                 ),
+                                                TextSpan(
+                                                  text:
+                                                      " ${fmf.output.symbolOnLeft}",
+                                                  style: Theme.of(context)
+                                                      .textTheme
+                                                      .titleSmall
+                                                      ?.copyWith(
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                      ),
+                                                ),
                                               ],
                                             ),
-                                          ],
-                                        ),
+                                          ),
+                                          Row(
+                                            children: [
+                                              const Icon(
+                                                Icons.star,
+                                                color: Colors.orange,
+                                                size: 15,
+                                              ),
+                                              const SizedBox(width: 4),
+                                              data[index]['rating'] == null
+                                                  ? Text(
+                                                      "0",
+                                                      style: Theme.of(context)
+                                                          .textTheme
+                                                          .bodyMedium
+                                                          ?.copyWith(
+                                                            color:
+                                                                Colors.orange,
+                                                          ),
+                                                      overflow:
+                                                          TextOverflow.ellipsis,
+                                                      maxLines: 1,
+                                                    )
+                                                  : Text(
+                                                      rating,
+                                                      style: Theme.of(context)
+                                                          .textTheme
+                                                          .bodyMedium
+                                                          ?.copyWith(
+                                                            color:
+                                                                Colors.orange,
+                                                          ),
+                                                      overflow:
+                                                          TextOverflow.ellipsis,
+                                                      maxLines: 1,
+                                                    ),
+                                              const SizedBox(width: 4),
+                                              Text(
+                                                "($count)",
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .bodySmall
+                                                    ?.copyWith(
+                                                      color: Colors.grey[600],
+                                                    ),
+                                                overflow: TextOverflow.ellipsis,
+                                                maxLines: 1,
+                                              ),
+                                            ],
+                                          ),
+                                        ],
                                       ),
-                                    ],
-                                  )),
-                                ],
+                                    ),
+                                  ],
+                                ),
                               ),
-                            ),
+                            ],
                           ),
                         ),
+                      ),
+                    ),
+                    // child: Card(
+                    //   shape: RoundedRectangleBorder(
+                    //     borderRadius: BorderRadius.circular(5.0),
+                    //   ),
+                    //   child: ClipRRect(
+                    //     borderRadius: BorderRadius.circular(5.0),
+                    //     child: SizedBox(
+                    //       child: Column(
+                    //         crossAxisAlignment: CrossAxisAlignment.start,
+                    //         children: [
+                    //           Row(
+                    //             children: [
+                    //               Expanded(
+                    //                 child: Container(
+                    //                   color: Colors.grey[300],
+                    //                   child: Image.network(
+                    //                     data[index]['servicePic'],
+                    //                     fit: BoxFit.contain,
+                    //                     height: 150,
+                    //                   ),
+                    //                 ),
+                    //               ),
+                    //             ],
+                    //           ),
+                    //           Expanded(
+                    //               child: Column(
+                    //             mainAxisAlignment: MainAxisAlignment.center,
+                    //             children: [
+                    //               Container(
+                    //                 padding: const EdgeInsets.only(
+                    //                     left: 8, right: 8),
+                    //                 child: Column(
+                    //                   crossAxisAlignment:
+                    //                       CrossAxisAlignment.start,
+                    //                   children: [
+                    //                     Row(
+                    //                       mainAxisAlignment:
+                    //                           MainAxisAlignment.spaceBetween,
+                    //                       children: [
+                    //                         Row(
+                    //                           children: [
+                    //                             SizedBox(
+                    //                               width: 30,
+                    //                               height: 30,
+                    //                               child: ClipRRect(
+                    //                                 borderRadius:
+                    //                                     BorderRadius.circular(
+                    //                                         100),
+                    //                                 child: Image.network(
+                    //                                   data[index]['piclink'],
+                    //                                   fit: BoxFit.contain,
+                    //                                 ),
+                    //                               ),
+                    //                             ),
+                    //                             const SizedBox(
+                    //                               width: 8,
+                    //                             ),
+                    //                             Text(
+                    //                               data[index]['name'],
+                    //                               style: Theme.of(context)
+                    //                                   .textTheme
+                    //                                   .labelLarge
+                    //                                   ?.copyWith(
+                    //                                     fontWeight:
+                    //                                         FontWeight.bold,
+                    //                                   ),
+                    //                             ),
+                    //                           ],
+                    //                         ),
+                    //                         box.read('token') == null
+                    //                             ? IconButton(
+                    //                                 color: Colors.grey[500],
+                    //                                 onPressed: () {
+                    //                                   Get.to(() =>
+                    //                                       const LoginPage());
+                    //                                 },
+                    //                                 icon: const Icon(
+                    //                                     Icons.favorite_outline),
+                    //                               )
+                    //                             : data[index]['serviceFav'] ==
+                    //                                     true
+                    //                                 ? IconButton(
+                    //                                     color: Colors.red,
+                    //                                     onPressed: () {
+                    //                                       setState(() {
+                    //                                         serviceController
+                    //                                             .deleteSavedService(
+                    //                                                 serviceId);
+                    //                                         data[index][
+                    //                                                 'serviceFav'] =
+                    //                                             false;
+                    //                                       });
+                    //                                     },
+                    //                                     icon: const Icon(
+                    //                                         Icons.favorite),
+                    //                                   )
+                    //                                 : IconButton(
+                    //                                     color: Colors.grey[500],
+                    //                                     onPressed: () {
+                    //                                       setState(() {
+                    //                                         serviceController
+                    //                                             .saveService(
+                    //                                                 serviceId);
+                    //                                         data[index][
+                    //                                                 'serviceFav'] =
+                    //                                             true;
+                    //                                       });
+                    //                                     },
+                    //                                     icon: const Icon(Icons
+                    //                                         .favorite_outline),
+                    //                                   ),
+                    //                       ],
+                    //                     ),
+                    //                     const SizedBox(
+                    //                       height: 0,
+                    //                     ),
+                    //                     Text(data[index]['title'],
+                    //                         maxLines: 2,
+                    //                         overflow: TextOverflow.ellipsis,
+                    //                         style: Theme.of(context)
+                    //                             .textTheme
+                    //                             .titleSmall),
+                    //                     const SizedBox(
+                    //                       height: 8,
+                    //                     ),
+                    //                     RichText(
+                    //                       text: TextSpan(
+                    //                         children: [
+                    //                           TextSpan(
+                    //                             text: "From",
+                    //                             style: Theme.of(context)
+                    //                                 .textTheme
+                    //                                 .bodySmall
+                    //                                 ?.copyWith(
+                    //                                   color: Colors.grey[600],
+                    //                                 ),
+                    //                           ),
+                    //                           TextSpan(
+                    //                             text:
+                    //                                 " ${fmf.output.symbolOnLeft}",
+                    //                             style: Theme.of(context)
+                    //                                 .textTheme
+                    //                                 .titleSmall
+                    //                                 ?.copyWith(
+                    //                                   fontWeight:
+                    //                                       FontWeight.bold,
+                    //                                 ),
+                    //                           ),
+                    //                         ],
+                    //                       ),
+                    //                     ),
+                    //                     Row(
+                    //                       children: [
+                    //                         const Icon(
+                    //                           Icons.star,
+                    //                           color: Colors.orange,
+                    //                           size: 15,
+                    //                         ),
+                    //                         const SizedBox(
+                    //                           width: 4,
+                    //                         ),
+                    //                         data[index]['rating'] == null
+                    //                             ? Text(
+                    //                                 "0",
+                    //                                 style: Theme.of(context)
+                    //                                     .textTheme
+                    //                                     .bodyMedium
+                    //                                     ?.copyWith(
+                    //                                       color: Colors.orange,
+                    //                                     ),
+                    //                               )
+                    //                             : Text(
+                    //                                 rating,
+                    //                                 style: Theme.of(context)
+                    //                                     .textTheme
+                    //                                     .bodyMedium
+                    //                                     ?.copyWith(
+                    //                                       color: Colors.orange,
+                    //                                     ),
+                    //                               ),
+                    //                         const SizedBox(
+                    //                           width: 4,
+                    //                         ),
+                    //                         Text(
+                    //                           "($count)",
+                    //                           style: Theme.of(context)
+                    //                               .textTheme
+                    //                               .bodySmall
+                    //                               ?.copyWith(
+                    //                                 color: Colors.grey[600],
+                    //                               ),
+                    //                         ),
+                    //                       ],
+                    //                     ),
+                    //                   ],
+                    //                 ),
+                    //               ),
+                    //             ],
+                    //           )),
+                    //         ],
+                    //       ),
+                    //     ),
+                    //   ),
+                    // ),
                     //     Card(
                     //   shape: RoundedRectangleBorder(
                     //     borderRadius: BorderRadius.circular(5.0),

@@ -422,15 +422,16 @@
 //   }
 // }
 
-
 import 'dart:io';
 import 'package:clone_freelancer_mobile/views/User/add_card_page.dart';
+import 'package:clone_freelancer_mobile/views/User/generate_qrcode.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
+import 'package:qr_flutter/qr_flutter.dart';
 
 class QrisPage extends StatefulWidget {
   const QrisPage({super.key});
@@ -458,7 +459,7 @@ class _QrisPageState extends State<QrisPage> {
 
   @override
   void dispose() {
-     // Mengembalikan orientasi ke default saat halaman ditutup
+    // Mengembalikan orientasi ke default saat halaman ditutup
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.portraitUp,
       DeviceOrientation.portraitDown,
@@ -522,7 +523,9 @@ class _QrisPageState extends State<QrisPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('QRIS Payment'),
+        title: const Text('QRIS Payment',
+        style: TextStyle(color:Colors.white),
+        ),
       ),
       body: Column(
         children: [
@@ -556,13 +559,21 @@ class _QrisPageState extends State<QrisPage> {
                   label: const Text('Upload QR Code from Gallery'),
                 ),
                 const SizedBox(height: 10),
+                // ElevatedButton.icon(
+                //   onPressed: () {
+                //     // Navigate to add card page
+                //     Get.to(() => AddCardPage());
+                //   },
+                //   icon: const Icon(Icons.credit_card),
+                //   label: const Text('Add Payment Card'),
+                // ),
                 ElevatedButton.icon(
                   onPressed: () {
-                    // Navigate to add card page
-                    Get.to(() => AddCardPage());
+                    // Navigasi ke halaman generate QR
+                    Get.to(() => HomePage());
                   },
-                  icon: const Icon(Icons.credit_card),
-                  label: const Text('Add Payment Card'),
+                  icon: const Icon(Icons.qr_code),
+                  label: const Text('Generate QR Code'),
                 ),
               ],
             ),

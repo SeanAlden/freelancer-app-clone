@@ -17,8 +17,10 @@ class SubCategoryPage extends StatefulWidget {
 
 // State dari SubCategoryPage untuk menyimpan state dinamis
 class _SubCategoryPageState extends State<SubCategoryPage> {
-  late Future futureAllSubCategory; // Future untuk mendapatkan data subkategori dari API
-  final ServiceController serviceController = Get.put(ServiceController()); // Instansiasi ServiceController dengan GetX
+  late Future
+      futureAllSubCategory; // Future untuk mendapatkan data subkategori dari API
+  final ServiceController serviceController =
+      Get.put(ServiceController()); // Instansiasi ServiceController dengan GetX
 
   @override
   void initState() {
@@ -34,15 +36,23 @@ class _SubCategoryPageState extends State<SubCategoryPage> {
       appBar: AppBar(
         title: Text(
           widget.categoryName, // Menampilkan nama kategori di AppBar
+          style: TextStyle(
+              color: Colors.white),
+        ),
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back),
+          color: Colors.white,
+          onPressed: () => Navigator.of(context).pop(),
         ),
       ),
       body: FutureBuilder(
-        future: futureAllSubCategory, // Future yang digunakan untuk mendapatkan data subkategori
+        future:
+            futureAllSubCategory, // Future yang digunakan untuk mendapatkan data subkategori
         builder: (context, snapshot) {
           // Jika ada error saat mengambil data
           if (snapshot.hasError) {
             return Text('Error: ${snapshot.error}'); // Menampilkan pesan error
-          } 
+          }
           // Jika data berhasil diambil
           else if (snapshot.hasData) {
             final data = snapshot.data; // Menyimpan data yang diterima dari API
@@ -52,7 +62,8 @@ class _SubCategoryPageState extends State<SubCategoryPage> {
               },
               shrinkWrap: true,
               scrollDirection: Axis.vertical, // Membuat ListView vertikal
-              itemCount: data.length, // Jumlah item sesuai dengan panjang data yang diterima
+              itemCount: data
+                  .length, // Jumlah item sesuai dengan panjang data yang diterima
               itemBuilder: (context, index) {
                 return InkWell(
                   // Ketika item diklik
@@ -60,26 +71,32 @@ class _SubCategoryPageState extends State<SubCategoryPage> {
                     // Navigasi ke halaman DisplaySearchPage dengan GetX dan mengirimkan data subkategori
                     Get.to(
                       () => DisplaySearchPage(
-                        subCategoryId: data[index]['subcategory_id'], // Mengirimkan ID subkategori
-                        subCategoryText: data[index]['subcategory_name'], // Mengirimkan nama subkategori
-                        searchText: null, // Nilai searchText diinisialisasi sebagai null
+                        subCategoryId: data[index]
+                            ['subcategory_id'], // Mengirimkan ID subkategori
+                        subCategoryText: data[index][
+                            'subcategory_name'], // Mengirimkan nama subkategori
+                        searchText:
+                            null, // Nilai searchText diinisialisasi sebagai null
                       ),
                     );
                   },
                   child: ListTile(
                     title: Text(
-                      data[index]['subcategory_name'], // Menampilkan nama subkategori
+                      data[index]
+                          ['subcategory_name'], // Menampilkan nama subkategori
                     ),
-                    trailing: const Icon(Icons.arrow_forward_ios), // Menambahkan ikon panah di sebelah kanan item
+                    trailing: const Icon(Icons
+                        .arrow_forward_ios), // Menambahkan ikon panah di sebelah kanan item
                   ),
                 );
               },
             );
-          } 
+          }
           // Jika data masih dalam proses diambil
           else {
             return const Center(
-              child: CircularProgressIndicator(), // Menampilkan loading indicator saat data belum ada
+              child:
+                  CircularProgressIndicator(), // Menampilkan loading indicator saat data belum ada
             );
           }
         },
