@@ -1670,6 +1670,18 @@ class _EditServicePageState extends State<EditServicePage> {
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: <Widget>[
                           TextButton(
+                            style: ButtonStyle(
+                              backgroundColor: MaterialStateProperty.all<Color>(
+                                  Colors.grey), // Warna latar belakang
+                              foregroundColor: MaterialStateProperty.all<Color>(
+                                  Colors.white), // Warna teks atau ikon
+                              shape: MaterialStateProperty.all<
+                                  RoundedRectangleBorder>(
+                                RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(8.0),
+                                ),
+                              ),
+                            ),
                             onPressed:
                                 _index == 0 ? null : details.onStepCancel,
                             child: const Text('Back'),
@@ -1678,6 +1690,18 @@ class _EditServicePageState extends State<EditServicePage> {
                             width: 8,
                           ),
                           ElevatedButton(
+                            style: ButtonStyle(
+                              backgroundColor: MaterialStateProperty.all<Color>(
+                                  Colors.blue), // Warna latar belakang
+                              foregroundColor: MaterialStateProperty.all<Color>(
+                                  Colors.white), // Warna teks atau ikon
+                              shape: MaterialStateProperty.all<
+                                  RoundedRectangleBorder>(
+                                RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(8.0),
+                                ),
+                              ),
+                            ),
                             onPressed: details.onStepContinue,
                             child: const Text('Continue'),
                           ),

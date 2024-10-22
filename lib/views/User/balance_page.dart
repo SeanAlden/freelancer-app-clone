@@ -197,6 +197,10 @@ class _WalletPageState extends State<WalletPage> {
                 Expanded(
                   child: ElevatedButton(
                     style: ButtonStyle(
+                      backgroundColor: MaterialStateProperty.all<Color>(
+                          Colors.blue), // Warna latar belakang
+                      foregroundColor: MaterialStateProperty.all<Color>(
+                          Colors.white), // Warna teks atau ikon
                       shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                         RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(8.0),

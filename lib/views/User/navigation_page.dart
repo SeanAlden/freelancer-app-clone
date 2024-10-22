@@ -1,4 +1,4 @@
-import 'package:clone_freelancer_mobile/views/User/qris_page.dart';
+import 'package:clone_freelancer_mobile/views/User/qr_code_page.dart';
 import 'package:flutter/material.dart';
 import 'package:clone_freelancer_mobile/constant/globals.dart';
 import 'package:clone_freelancer_mobile/views/Auth/login.dart';
@@ -35,7 +35,7 @@ class _NavigationPageState extends State<NavigationPage> {
   static const List<Widget> _widgetOptions = <Widget>[
     HomePage(), // Halaman Home
     ChatPage(), // Halaman Chat (Inbox)
-    QrisPage(), // Halaman Qris   
+    QrPage(), // Halaman QR Code
     ListOrderPage(), // Halaman Pesanan
     ProfilePage(), // Halaman Profil
   ];
@@ -53,11 +53,11 @@ class _NavigationPageState extends State<NavigationPage> {
     BottomNavigationBarItem(
       icon: ImageIcon(
         AssetImage(
-            'assets/images/qris.png', // Menggunakan gambar khusus untuk QRIS
+            'assets/images/qrscanner.png', // Menggunakan gambar khusus untuk QR
             ),
-            size: 50, // Mengatur ukuran ikon
+            size: 35, // Mengatur ukuran ikon
       ),
-      label: 'QRIS', // Label untuk QRIS
+      label: 'QR', // Label untuk QR
     ),
     BottomNavigationBarItem(
       icon: Icon(Icons.list_alt_outlined),

@@ -200,7 +200,18 @@ class _SavedServicesPageState extends State<SavedServicesPage> {
                                                   width: 8,
                                                 ),
                                                 Text(
-                                                  data[index]['name'],
+                                                  MediaQuery.of(context)
+                                                              .orientation ==
+                                                          Orientation.portrait
+                                                      // Jika orientasi potret dan panjang nama lebih dari 6 karakter, potong nama
+                                                      ? (data[index]['name']
+                                                                  .length >
+                                                              6
+                                                          ? '${data[index]['name'].substring(0, 6)}...' // Memotong karakter ke-7 dan menambahkan "..."
+                                                          : data[index][
+                                                              'name']) // Tampilkan nama jika kurang dari atau sama dengan 6 karakter
+                                                      : data[index][
+                                                          'name'], // Tampilkan nama lengkap di mode landscape
                                                   style: Theme.of(context)
                                                       .textTheme
                                                       .labelLarge

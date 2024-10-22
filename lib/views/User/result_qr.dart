@@ -12,9 +12,19 @@ class ResultQRPage extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Color.fromARGB(255, 93, 82, 255),
-        title: const Text('Result QR Code'),
         centerTitle: true,
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back),
+          color: Colors.white,
+          onPressed: () => Navigator.of(context).pop(),
+        ),
+        title: const Text(
+          'Result QR Code', // Judul AppBar
+          style: TextStyle(
+            color: Colors.white, // Ganti dengan warna yang diinginkan
+            fontSize: 20, // Ukuran teks bisa disesuaikan
+          ),
+        ),
       ),
       body: Container(
         height: size.height * 0.50,

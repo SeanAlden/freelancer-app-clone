@@ -797,6 +797,25 @@ class _SellerReqPageState extends State<SellerReqPage> {
                                             children: [
                                               Expanded(
                                                 child: ElevatedButton(
+                                                  style: ButtonStyle(
+                                                    backgroundColor:
+                                                        MaterialStateProperty
+                                                            .all<Color>(Colors
+                                                                .blue), // Warna latar belakang
+                                                    foregroundColor:
+                                                        MaterialStateProperty
+                                                            .all<Color>(Colors
+                                                                .white), // Warna teks atau ikon
+                                                    shape: MaterialStateProperty
+                                                        .all<
+                                                            RoundedRectangleBorder>(
+                                                      RoundedRectangleBorder(
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(8.0),
+                                                      ),
+                                                    ),
+                                                  ),
                                                   onPressed: () {
                                                     setState(() {
                                                       visibility = false;
@@ -845,6 +864,25 @@ class _SellerReqPageState extends State<SellerReqPage> {
                                                       );
                                                     }
                                                   },
+                                                  style: ButtonStyle(
+                                                    backgroundColor:
+                                                        MaterialStateProperty
+                                                            .all<Color>(Colors
+                                                                .blue), // Warna latar belakang
+                                                    foregroundColor:
+                                                        MaterialStateProperty
+                                                            .all<Color>(Colors
+                                                                .white), // Warna teks atau ikon
+                                                    shape: MaterialStateProperty
+                                                        .all<
+                                                            RoundedRectangleBorder>(
+                                                      RoundedRectangleBorder(
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(8.0),
+                                                      ),
+                                                    ),
+                                                  ),
                                                   child: const Text("Add"),
                                                 ),
                                               ),
@@ -1395,7 +1433,7 @@ class _SellerReqPageState extends State<SellerReqPage> {
                                                   Icons.clear,
                                                   size: 14,
                                                 ),
-                                                backgroundColor: Colors.white,
+                                                backgroundColor: Theme.of(context).brightness == Brightness.dark ? Colors.black : Colors.white,
                                                 label: Text(
                                                   listSkill[index],
                                                   // style: GoogleFonts.roboto(
@@ -1840,6 +1878,18 @@ class _SellerReqPageState extends State<SellerReqPage> {
                     TextButton(
                       onPressed: _index == 0 ? null : details.onStepCancel,
                       child: const Text('Back'),
+                      style: ButtonStyle(
+                        backgroundColor: MaterialStateProperty.all<Color>(
+                            Colors.grey), // Warna latar belakang
+                        foregroundColor: MaterialStateProperty.all<Color>(
+                            Colors.white), // Warna teks atau ikon
+                        shape:
+                            MaterialStateProperty.all<RoundedRectangleBorder>(
+                          RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8.0),
+                          ),
+                        ),
+                      ),
                     ),
                     const SizedBox(
                       width: 8,
@@ -1847,6 +1897,18 @@ class _SellerReqPageState extends State<SellerReqPage> {
                     ElevatedButton(
                       onPressed: details.onStepContinue,
                       child: const Text('Continue'),
+                      style: ButtonStyle(
+                        backgroundColor: MaterialStateProperty.all<Color>(
+                            Colors.blue), // Warna latar belakang
+                        foregroundColor: MaterialStateProperty.all<Color>(
+                            Colors.white), // Warna teks atau ikon
+                        shape:
+                            MaterialStateProperty.all<RoundedRectangleBorder>(
+                          RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8.0),
+                          ),
+                        ),
+                      ),
                     ),
                   ],
                 );

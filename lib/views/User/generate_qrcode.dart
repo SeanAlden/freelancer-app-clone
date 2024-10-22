@@ -95,9 +95,19 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
         resizeToAvoidBottomInset: false,
         appBar: AppBar(
-          // backgroundColor: Color.fromARGB(255, 93, 82, 255),
-          title: const Text("QR Code"),
           centerTitle: true,
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back),
+          color: Colors.white,
+          onPressed: () => Navigator.of(context).pop(),
+        ),
+        title: const Text(
+          'Generate QR Code', // Judul AppBar
+          style: TextStyle(
+            color: Colors.white, // Ganti dengan warna yang diinginkan
+            fontSize: 20, // Ukuran teks bisa disesuaikan
+          ),
+        ),
         ),
         body: Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
           Container(

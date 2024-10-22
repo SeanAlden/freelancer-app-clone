@@ -3,14 +3,14 @@
 // import 'package:http/http.dart' as http;
 // import 'package:get/get.dart'; // Untuk navigasi dan state management
 
-// class QrisPage extends StatefulWidget {
-//   const QrisPage({super.key});
+// class QrPage extends StatefulWidget {
+//   const QrPage({super.key});
 
 //   @override
-//   _QrisPageState createState() => _QrisPageState();
+//   _QrPageState createState() => _QrPageState();
 // }
 
-// class _QrisPageState extends State<QrisPage> {
+// class _QrPageState extends State<QrPage> {
 //   String? qrCodeUrl; // URL untuk QR Code
 //   bool isLoading = false; // Untuk menunjukkan progress loading
 //   final String serverKey =
@@ -102,14 +102,14 @@
 // import 'package:flutter/material.dart';
 // import 'package:image_picker/image_picker.dart';
 
-// class QrisPage extends StatefulWidget {
-//   const QrisPage ({super.key});
+// class QrPage extends StatefulWidget {
+//   const QrPage ({super.key});
 
 //   @override
-//   _QrisPageState createState() => _QrisPageState();
+//   _QrPageState createState() => _QrPageState();
 // }
 
-// class _QrisPageState extends State<QrisPage> {
+// class _QrPageState extends State<QrPage> {
 //   final ImagePicker _picker = ImagePicker();
 //   XFile? _imageFile;
 
@@ -233,14 +233,14 @@
 // import 'package:path_provider/path_provider.dart';
 // import 'package:image_picker/image_picker.dart';
 
-// class QrisPage extends StatefulWidget {
-//   const QrisPage({super.key});
+// class QrPage extends StatefulWidget {
+//   const QrPage({super.key});
 
 //   @override
-//   _QrisPageState createState() => _QrisPageState();
+//   _QrPageState createState() => _QrPageState();
 // }
 
-// class _QrisPageState extends State<QrisPage> {
+// class _QrPageState extends State<QrPage> {
 //   final ImagePicker _picker = ImagePicker();
 //   XFile? _imageFile;
 //   CameraController? _cameraController;
@@ -433,14 +433,14 @@ import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:qr_flutter/qr_flutter.dart';
 
-class QrisPage extends StatefulWidget {
-  const QrisPage({super.key});
+class QrPage extends StatefulWidget {
+  const QrPage({super.key});
 
   @override
-  State<QrisPage> createState() => _QrisPageState();
+  State<QrPage> createState() => _QrPageState();
 }
 
-class _QrisPageState extends State<QrisPage> {
+class _QrPageState extends State<QrPage> {
   final GlobalKey qrKey = GlobalKey(debugLabel: 'QR');
   Barcode? result; // Untuk menyimpan hasil scan QR
   QRViewController? controller;
@@ -523,7 +523,7 @@ class _QrisPageState extends State<QrisPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('QRIS Payment',
+        title: const Text('QR Code Scan & Generate',
         style: TextStyle(color:Colors.white),
         ),
       ),

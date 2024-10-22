@@ -122,7 +122,19 @@ class _WithdrawDialogState extends State<WithdrawDialog> {
     return Dialog.fullscreen(
       child: Scaffold(
         appBar: AppBar(
-          title: const Center(child: Text('Withdraw')),
+          centerTitle: true,
+          leading: IconButton(
+            icon: Icon(Icons.arrow_back),
+            color: Colors.white,
+            onPressed: () => Navigator.of(context).pop(),
+          ),
+          title: const Text(
+            'Withdraw', // Judul AppBar
+            style: TextStyle(
+              color: Colors.white, // Ganti dengan warna yang diinginkan
+              fontSize: 20, // Ukuran teks bisa disesuaikan
+            ),
+          ),
         ),
         body: Container(
           padding: const EdgeInsets.all(16),
@@ -349,6 +361,10 @@ class _WithdrawDialogState extends State<WithdrawDialog> {
                     Expanded(
                       child: ElevatedButton(
                         style: ButtonStyle(
+                          backgroundColor: MaterialStateProperty.all<Color>(
+                              Colors.blue), // Warna latar belakang
+                          foregroundColor: MaterialStateProperty.all<Color>(
+                              Colors.white), // Warna teks atau ikon
                           shape:
                               MaterialStateProperty.all<RoundedRectangleBorder>(
                             RoundedRectangleBorder(

@@ -118,6 +118,7 @@ flutter:
   - assets/images/wall-clock.png
   - assets/images/report.jpg
   - assets/images/confirmed.jpg
+  - assets/images/qrscanner.png
   - assets/images/qris.png
   - assets/icons/whatsapp.png
   - assets/icons/email.png

@@ -234,6 +234,11 @@ class _ChatDetailPageState extends State<ChatDetailPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back),
+          color: Colors.white,
+          onPressed: () => Navigator.of(context).pop(),
+        ),
         title: Row(
           children: [
             widget.userList[1].piclink == null
@@ -263,7 +268,23 @@ class _ChatDetailPageState extends State<ChatDetailPage> {
                           .name) // Tampilkan nama jika kurang dari atau sama dengan 10 karakter
                   : widget.userList[1]
                       .name, // Tampilkan nama lengkap di mode landscape
+              style: TextStyle(
+                color: Theme.of(context).brightness == Brightness.dark
+                    ? Colors.white // Warna teks untuk mode gelap
+                    : Colors.white, // Warna teks untuk mode terang
+              ),
             ),
+
+            // Text(
+            //   MediaQuery.of(context).orientation == Orientation.portrait
+            //       // Jika orientasi potret dan panjang nama lebih dari 10 karakter, potong nama
+            //       ? (widget.userList[1].name.length > 10
+            //           ? '${widget.userList[1].name.substring(0, 10)}...' // Memotong karakter ke-11 dan menambahkan "..."
+            //           : widget.userList[1]
+            //               .name) // Tampilkan nama jika kurang dari atau sama dengan 10 karakter
+            //       : widget.userList[1]
+            //           .name, // Tampilkan nama lengkap di mode landscape
+            // ),
           ],
         ),
         actions: [

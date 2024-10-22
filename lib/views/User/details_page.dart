@@ -743,6 +743,14 @@ class _DetailsPageState extends State<DetailsPage>
                                             Expanded(
                                               child: ElevatedButton(
                                                 style: ButtonStyle(
+                                                  backgroundColor:
+                                                      MaterialStateProperty
+                                                          .all<Color>(Colors
+                                                              .blue), // Warna latar belakang
+                                                  foregroundColor:
+                                                      MaterialStateProperty
+                                                          .all<Color>(Colors
+                                                              .white), // Warna teks atau ikon
                                                   shape:
                                                       MaterialStateProperty.all<
                                                           RoundedRectangleBorder>(
@@ -804,6 +812,19 @@ class _DetailsPageState extends State<DetailsPage>
                                                                             Alignment.centerRight,
                                                                         child:
                                                                             IconButton(
+                                                                          style:
+                                                                              ButtonStyle(
+                                                                            backgroundColor:
+                                                                                MaterialStateProperty.all<Color>(Colors.blue), // Warna latar belakang
+                                                                            foregroundColor:
+                                                                                MaterialStateProperty.all<Color>(Colors.white), // Warna teks atau ikon
+                                                                            shape:
+                                                                                MaterialStateProperty.all<RoundedRectangleBorder>(
+                                                                              RoundedRectangleBorder(
+                                                                                borderRadius: BorderRadius.circular(8.0),
+                                                                              ),
+                                                                            ),
+                                                                          ),
                                                                           onPressed:
                                                                               () {
                                                                             Navigator.of(context).pop();
@@ -913,6 +934,12 @@ class _DetailsPageState extends State<DetailsPage>
                                 Expanded(
                                   child: ElevatedButton(
                                     style: ButtonStyle(
+                                      backgroundColor: MaterialStateProperty
+                                          .all<Color>(Colors
+                                              .blue), // Warna latar belakang
+                                      foregroundColor: MaterialStateProperty
+                                          .all<Color>(Colors
+                                              .white), // Warna teks atau ikon
                                       shape: MaterialStateProperty.all<
                                           RoundedRectangleBorder>(
                                         RoundedRectangleBorder(
@@ -1027,6 +1054,12 @@ class _DetailsPageState extends State<DetailsPage>
                                     .createChatRoom(widget.user);
                               },
                               style: ButtonStyle(
+                                backgroundColor:
+                                    MaterialStateProperty.all<Color>(
+                                        Colors.blue), // Warna latar belakang
+                                foregroundColor:
+                                    MaterialStateProperty.all<Color>(
+                                        Colors.white), // Warna teks atau ikon
                                 shape: MaterialStateProperty.all<
                                     RoundedRectangleBorder>(
                                   RoundedRectangleBorder(

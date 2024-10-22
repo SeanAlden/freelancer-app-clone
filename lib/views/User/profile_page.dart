@@ -1081,8 +1081,8 @@ class _ProfilePageState extends State<ProfilePage> {
           // Container untuk mengatur scroll view pada halaman profil
           child: Container(
             color: Theme.of(context).brightness == Brightness.dark
-                ? Colors.grey[900] // Warna teks untuk mode gelap
-                : Colors.grey[100], // Warna teks untuk mode terang
+                ? Colors.grey[900] // Warna untuk mode gelap
+                : Colors.grey[100], // Warna untuk mode terang
             child: Column(
               children: <Widget>[
                 Stack(
@@ -1316,8 +1316,8 @@ class _ProfilePageState extends State<ProfilePage> {
                       Container(
                         // Bagian Container untuk mengatur title "Selling" pada profil mode seller
                         color: Theme.of(context).brightness == Brightness.dark
-                            ? Colors.grey[900] // Warna teks untuk mode gelap
-                            : Colors.grey[100], // Warna teks untuk mode terang
+                            ? Colors.grey[900] // Warna untuk mode gelap
+                            : Colors.grey[100], // Warna untuk mode terang
                         child: Align(
                           alignment: Alignment.centerLeft,
                           child: Padding(
@@ -1344,8 +1344,8 @@ class _ProfilePageState extends State<ProfilePage> {
                             // Bagian mengatur warna container
                             color: Theme.of(context).brightness ==
                                     Brightness.dark
-                                ? Colors.black // Warna teks untuk mode gelap
-                                : Colors.white, // Warna teks untuk mode terang
+                                ? Colors.black // Warna untuk mode gelap
+                                : Colors.white, // Warna untuk mode terang
                             border: Border(
                               bottom:
                                   BorderSide(color: Colors.grey, width: 0.2),
