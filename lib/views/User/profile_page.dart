@@ -1892,6 +1892,57 @@ class _ProfilePageState extends State<ProfilePage> {
                               ),
                             ),
                           ),
+                          GestureDetector(
+                            onTap: () {
+                              // Menuju ke halaman "Support"
+                              // Get.to(() => const SupportListPage());
+                            },
+                            child: Container(
+                              // mengatur container untuk tombol support
+                              decoration: BoxDecoration(
+                                color: Theme.of(context).brightness ==
+                                        Brightness.dark
+                                    ? Colors
+                                        .black // Warna teks untuk mode gelap
+                                    : Colors
+                                        .white, // Warna teks untuk mode terang
+                                border: Border(
+                                  bottom: BorderSide(
+                                      color: Colors.grey, width: 0.2),
+                                ),
+                              ),
+                              padding: const EdgeInsets.all(16),
+                              child: const Row(
+                                // mengatur icon dan teks pada tombol support
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  // icon dan teks tombol support
+                                  Row(
+                                    children: [
+                                      Padding(
+                                        padding: EdgeInsets.only(
+                                          right: 8,
+                                        ),
+                                        child: Icon(
+                                          Icons.translate,
+                                          size: 25,
+                                          color: Colors.grey,
+                                        ),
+                                      ),
+                                      Text("Language"),
+                                    ],
+                                  ),
+                                  Icon(
+                                    // icon panah di bagian kanan
+                                    Icons.arrow_forward_ios_outlined,
+                                    size: 20,
+                                    color: Colors.grey,
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
                         ],
                       ),
                     // kalau ada user, maka menampilkan tombol logout

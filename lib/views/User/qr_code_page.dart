@@ -523,8 +523,9 @@ class _QrPageState extends State<QrPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('QR Code Scan & Generate',
-        style: TextStyle(color:Colors.white),
+        title: const Text(
+          'QR Code Scan & Generate',
+          style: TextStyle(color: Colors.white),
         ),
       ),
       body: Column(
@@ -557,6 +558,17 @@ class _QrPageState extends State<QrPage> {
                   onPressed: _pickImage,
                   icon: const Icon(Icons.upload),
                   label: const Text('Upload QR Code from Gallery'),
+                  style: ButtonStyle(
+                    backgroundColor:
+                        MaterialStateProperty.all<Color>(Colors.blue),
+                    foregroundColor:
+                        MaterialStateProperty.all<Color>(Colors.white),
+                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                      RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8.0),
+                      ),
+                    ),
+                  ),
                 ),
                 const SizedBox(height: 10),
                 // ElevatedButton.icon(
@@ -574,6 +586,17 @@ class _QrPageState extends State<QrPage> {
                   },
                   icon: const Icon(Icons.qr_code),
                   label: const Text('Generate QR Code'),
+                  style: ButtonStyle(
+                    backgroundColor:
+                        MaterialStateProperty.all<Color>(Colors.blue),
+                    foregroundColor:
+                        MaterialStateProperty.all<Color>(Colors.white),
+                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                      RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8.0),
+                      ),
+                    ),
+                  ),
                 ),
               ],
             ),
