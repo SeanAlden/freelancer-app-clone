@@ -153,7 +153,7 @@ class _SellerReqPageState extends State<SellerReqPage> {
     } on PlatformException catch (e) {
       Get.snackbar(
         "Error",
-        'Failed to pick image: $e',
+        "${'image_pick_fail'.tr}: $e",
         snackPosition: SnackPosition.TOP,
         backgroundColor: Colors.red,
         colorText: Colors.white,
@@ -176,7 +176,7 @@ class _SellerReqPageState extends State<SellerReqPage> {
     } on PlatformException catch (e) {
       Get.snackbar(
         "Error",
-        'Failed to pick image: $e',
+        "${'image_pick_fail'.tr}: $e",
         snackPosition: SnackPosition.TOP,
         backgroundColor: Colors.red,
         colorText: Colors.white,
@@ -386,8 +386,8 @@ class _SellerReqPageState extends State<SellerReqPage> {
           color: Colors.white,
           onPressed: () => Navigator.of(context).pop(),
         ),
-        title: const Text(
-          'Seller Request Form', // Judul AppBar
+        title: Text(
+          'seller_request_form'.tr, // Judul AppBar
           style: TextStyle(
             color: Colors.white, // Ganti dengan warna yang diinginkan
             fontSize: 20, // Ukuran teks bisa disesuaikan
@@ -429,7 +429,7 @@ class _SellerReqPageState extends State<SellerReqPage> {
                   } else {
                     Get.snackbar(
                       "Error",
-                      "Please fill out all required fields.",
+                      'fill_required'.tr,
                       snackPosition: SnackPosition.TOP,
                       backgroundColor: Colors.red,
                       colorText: Colors.white,
@@ -453,7 +453,7 @@ class _SellerReqPageState extends State<SellerReqPage> {
                   } else {
                     Get.snackbar(
                       "Error",
-                      "Please fill out all required fields",
+                      'fill_required'.tr,
                       snackPosition: SnackPosition.TOP,
                       backgroundColor: Colors.red,
                       colorText: Colors.white,
@@ -488,7 +488,7 @@ class _SellerReqPageState extends State<SellerReqPage> {
                   } else {
                     Get.snackbar(
                       "Error",
-                      "Please fill out all required fields",
+                      'fill_required'.tr,
                       snackPosition: SnackPosition.TOP,
                       backgroundColor: Colors.red,
                       colorText: Colors.white,
@@ -507,7 +507,7 @@ class _SellerReqPageState extends State<SellerReqPage> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
                         Text(
-                          "Personal Info",
+                          'personal_info'.tr,
                           style: Theme.of(context).textTheme.headlineSmall,
                         ),
                         const Divider(),
@@ -516,7 +516,7 @@ class _SellerReqPageState extends State<SellerReqPage> {
                           text: TextSpan(
                             children: [
                               TextSpan(
-                                text: "Profile Picture",
+                                text: 'profile_picture'.tr,
                                 style: Theme.of(context).textTheme.titleMedium,
                               ),
                               TextSpan(
@@ -585,7 +585,7 @@ class _SellerReqPageState extends State<SellerReqPage> {
                           text: TextSpan(
                             children: [
                               TextSpan(
-                                text: "Name",
+                                text: 'name'.tr,
                                 style: Theme.of(context).textTheme.titleMedium,
                               ),
                               TextSpan(
@@ -606,12 +606,12 @@ class _SellerReqPageState extends State<SellerReqPage> {
                         TextFormField(
                           validator: (value) {
                             return value!.length < 2
-                                ? 'Name cannot be empty'
+                                ? 'name_must_filled'.tr
                                 : null;
                           },
                           controller: nameController,
                           decoration: InputDecoration(
-                            hintText: "Name",
+                            hintText: 'name'.tr,
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(5.0),
                             ),
@@ -625,7 +625,7 @@ class _SellerReqPageState extends State<SellerReqPage> {
                           text: TextSpan(
                             children: [
                               TextSpan(
-                                text: "Description",
+                                text: 'description'.tr,
                                 style: Theme.of(context).textTheme.titleMedium,
                               ),
                               TextSpan(
@@ -646,15 +646,14 @@ class _SellerReqPageState extends State<SellerReqPage> {
                         TextFormField(
                           validator: (value) {
                             return value!.length < 150
-                                ? 'Please enter at least 150 characters'
+                                ? 'user_information_length'.tr
                                 : null;
                           },
                           controller: descController,
                           maxLines: 5,
                           maxLength: 500,
                           decoration: InputDecoration(
-                            hintText:
-                                "Provide insight into your professional journey.",
+                            hintText: 'description_hint'.tr,
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(5.0),
                             ),
@@ -682,7 +681,7 @@ class _SellerReqPageState extends State<SellerReqPage> {
                           text: TextSpan(
                             children: [
                               TextSpan(
-                                text: "Languages",
+                                text: 'languages'.tr,
                                 style: Theme.of(context).textTheme.titleMedium,
                               ),
                               TextSpan(
@@ -714,7 +713,7 @@ class _SellerReqPageState extends State<SellerReqPage> {
                                           DropdownButtonHideUnderline(
                                             child: DropdownButton2<String>(
                                               isExpanded: true,
-                                              hint: const Text("Language"),
+                                              hint: Text('language'.tr),
                                               items: languages
                                                   .map((String item) =>
                                                       DropdownMenuItem<String>(
@@ -785,7 +784,7 @@ class _SellerReqPageState extends State<SellerReqPage> {
                                             decoration: InputDecoration(
                                               suffixIcon: const Icon(
                                                   Icons.keyboard_arrow_down),
-                                              hintText: "Language Level",
+                                              hintText: 'language_level'.tr,
                                               border: OutlineInputBorder(
                                                 borderRadius:
                                                     BorderRadius.circular(5.0),
@@ -821,7 +820,7 @@ class _SellerReqPageState extends State<SellerReqPage> {
                                                       visibility = false;
                                                     });
                                                   },
-                                                  child: const Text("Cancel"),
+                                                  child: Text('cancel'.tr),
                                                 ),
                                               ),
                                               const SizedBox(
@@ -855,7 +854,7 @@ class _SellerReqPageState extends State<SellerReqPage> {
                                                     } else {
                                                       Get.snackbar(
                                                         "Error",
-                                                        "Languages field can't be empty",
+                                                        'language_required'.tr,
                                                         snackPosition:
                                                             SnackPosition.TOP,
                                                         backgroundColor:
@@ -883,7 +882,7 @@ class _SellerReqPageState extends State<SellerReqPage> {
                                                       ),
                                                     ),
                                                   ),
-                                                  child: const Text("Add"),
+                                                  child: Text('add'.tr),
                                                 ),
                                               ),
                                             ],
@@ -909,12 +908,12 @@ class _SellerReqPageState extends State<SellerReqPage> {
                                   headingRowColor:
                                       MaterialStateColor.resolveWith((states) =>
                                           Colors.grey.withOpacity(0.20)),
-                                  columns: const <DataColumn>[
+                                  columns: <DataColumn>[
                                     DataColumn(
-                                      label: Text("Language"),
+                                      label: Text('language'.tr),
                                     ),
                                     DataColumn(
-                                      label: Text("Level"),
+                                      label: Text('level'.tr),
                                     ),
                                     DataColumn(
                                       label: Text(""),
@@ -962,7 +961,7 @@ class _SellerReqPageState extends State<SellerReqPage> {
                           text: TextSpan(
                             children: [
                               TextSpan(
-                                text: "Add Language",
+                                text: 'add_language'.tr,
                                 style: Theme.of(context)
                                     .textTheme
                                     .bodySmall
@@ -989,7 +988,7 @@ class _SellerReqPageState extends State<SellerReqPage> {
                 Step(
                   state: _index > 1 ? StepState.complete : StepState.indexed,
                   isActive: _index >= 1,
-                  title: const Text('Freelance'),
+                  title: Text('freelance'.tr),
                   content: Form(
                     autovalidateMode: AutovalidateMode.onUserInteraction,
                     key: formKeys[1],
@@ -997,7 +996,7 @@ class _SellerReqPageState extends State<SellerReqPage> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          "Freelance Info",
+                          'freelance_info'.tr,
                           style: Theme.of(context).textTheme.headlineSmall,
                         ),
                         const Divider(),
@@ -1006,7 +1005,7 @@ class _SellerReqPageState extends State<SellerReqPage> {
                           text: TextSpan(
                             children: [
                               TextSpan(
-                                text: "Occupation",
+                                text: 'occupation'.tr,
                                 style: Theme.of(context).textTheme.titleMedium,
                               ),
                               TextSpan(
@@ -1027,7 +1026,7 @@ class _SellerReqPageState extends State<SellerReqPage> {
                         DropdownButtonHideUnderline(
                           child: DropdownButton2<String>(
                             isExpanded: true,
-                            hint: const Text("Profession"),
+                            hint: Text('profession'.tr),
                             items: listProfession.map<DropdownMenuItem<String>>(
                               (String value) {
                                 return DropdownMenuItem<String>(
@@ -1216,7 +1215,7 @@ class _SellerReqPageState extends State<SellerReqPage> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            const Text("From"),
+                            Text("From"),
                             const SizedBox(
                               width: 8,
                             ),
@@ -1250,7 +1249,7 @@ class _SellerReqPageState extends State<SellerReqPage> {
                                     Icons.keyboard_arrow_down,
                                   ),
                                 ),
-                                hint: const Text("Year"),
+                                hint: Text("Year"),
                                 items: fromList.map<DropdownMenuItem<String>>(
                                   (String value) {
                                     return DropdownMenuItem<String>(
@@ -1278,7 +1277,7 @@ class _SellerReqPageState extends State<SellerReqPage> {
                             const SizedBox(
                               width: 8,
                             ),
-                            const Text("To"),
+                            Text("To"),
                             const SizedBox(
                               width: 8,
                             ),
@@ -1312,7 +1311,7 @@ class _SellerReqPageState extends State<SellerReqPage> {
                                     Icons.keyboard_arrow_down,
                                   ),
                                 ),
-                                hint: const Text("Year"),
+                                hint: Text("Year"),
                                 items: toList.map<DropdownMenuItem<String>>(
                                   (String value) {
                                     return DropdownMenuItem<String>(
@@ -1339,7 +1338,7 @@ class _SellerReqPageState extends State<SellerReqPage> {
                           text: TextSpan(
                             children: [
                               TextSpan(
-                                text: "Skills",
+                                text: 'skills'.tr,
                                 style: Theme.of(context).textTheme.titleMedium,
                               ),
                               TextSpan(
@@ -1367,7 +1366,7 @@ class _SellerReqPageState extends State<SellerReqPage> {
                                   TextFormField(
                                     validator: (value) {
                                       if (listSkill.isEmpty) {
-                                        return 'Skill cannot be empty.';
+                                        return 'skills_required'.tr;
                                       }
                                       return null;
                                     },
@@ -1383,8 +1382,7 @@ class _SellerReqPageState extends State<SellerReqPage> {
                                     },
                                     controller: skillsController,
                                     decoration: InputDecoration(
-                                      hintText:
-                                          "End input with with 'space' to add skill",
+                                      hintText: 'skills_hint'.tr,
                                       border: OutlineInputBorder(
                                         borderRadius:
                                             BorderRadius.circular(5.0),
@@ -1433,7 +1431,12 @@ class _SellerReqPageState extends State<SellerReqPage> {
                                                   Icons.clear,
                                                   size: 14,
                                                 ),
-                                                backgroundColor: Theme.of(context).brightness == Brightness.dark ? Colors.black : Colors.white,
+                                                backgroundColor:
+                                                    Theme.of(context)
+                                                                .brightness ==
+                                                            Brightness.dark
+                                                        ? Colors.black
+                                                        : Colors.white,
                                                 label: Text(
                                                   listSkill[index],
                                                   // style: GoogleFonts.roboto(
@@ -1464,7 +1467,7 @@ class _SellerReqPageState extends State<SellerReqPage> {
                           height: 16,
                         ),
                         Text(
-                          "Showcase portfolio Url",
+                          'showcase_portfolio_url'.tr,
                           style: Theme.of(context).textTheme.titleMedium,
                         ),
                         const SizedBox(
@@ -1473,7 +1476,7 @@ class _SellerReqPageState extends State<SellerReqPage> {
                         TextFormField(
                           controller: urlController,
                           decoration: InputDecoration(
-                            hintText: "End input with 'space' to add url",
+                            hintText: 'portfolio_hint'.tr,
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(5.0),
                             ),
@@ -1532,14 +1535,14 @@ class _SellerReqPageState extends State<SellerReqPage> {
                 Step(
                   state: _index > 2 ? StepState.complete : StepState.indexed,
                   isActive: _index >= 2,
-                  title: const Text('KTP'),
+                  title: Text('card'.tr),
                   content: Form(
                     key: formKeys[2],
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          "KTP",
+                          'id_card'.tr,
                           style: Theme.of(context).textTheme.headlineSmall,
                         ),
                         const Divider(),
@@ -1548,7 +1551,7 @@ class _SellerReqPageState extends State<SellerReqPage> {
                           text: TextSpan(
                             children: [
                               TextSpan(
-                                text: "NIK According to KTP",
+                                text: 'nik_according_to_id_card'.tr,
                                 style: Theme.of(context).textTheme.titleMedium,
                               ),
                               TextSpan(
@@ -1569,19 +1572,19 @@ class _SellerReqPageState extends State<SellerReqPage> {
                         TextFormField(
                           validator: (value) {
                             if (value == null || value.isEmpty) {
-                              return 'Number according to ID card  is required';
+                              return 'id_card_number_required'.tr;
                             }
                             if (value.length != 16) {
-                              return 'Number according to ID card must have exactly 16 characters';
+                              return 'id_card_number_length'.tr;
                             }
                             if (!value.containsOnlyDigits()) {
-                              return 'Number according to ID card must contain only digits';
+                              return 'id_card_number_type'.tr;
                             }
                             return null;
                           },
                           controller: nikController,
                           decoration: InputDecoration(
-                            hintText: "Nik",
+                            hintText: 'fill_required'.tr,
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(5.0),
                             ),
@@ -1595,7 +1598,7 @@ class _SellerReqPageState extends State<SellerReqPage> {
                           text: TextSpan(
                             children: [
                               TextSpan(
-                                text: "Name According to KTP",
+                                text: 'name_according_to_id_card'.tr,
                                 style: Theme.of(context).textTheme.titleMedium,
                               ),
                               TextSpan(
@@ -1617,13 +1620,13 @@ class _SellerReqPageState extends State<SellerReqPage> {
                           autovalidateMode: AutovalidateMode.onUserInteraction,
                           validator: (value) {
                             if (value == null || value.isEmpty) {
-                              return 'Name according to ID card is required';
+                              return 'id_card_name_required'.tr;
                             }
                             return null;
                           },
                           controller: nikNameController,
                           decoration: InputDecoration(
-                            hintText: "Name",
+                            hintText: 'name'.tr,
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(5.0),
                             ),
@@ -1637,7 +1640,7 @@ class _SellerReqPageState extends State<SellerReqPage> {
                           text: TextSpan(
                             children: [
                               TextSpan(
-                                text: "Gender According to KTP",
+                                text: 'gender_according_to_id_card'.tr,
                                 style: Theme.of(context).textTheme.titleMedium,
                               ),
                               TextSpan(
@@ -1661,7 +1664,7 @@ class _SellerReqPageState extends State<SellerReqPage> {
                               child: RadioListTile(
                                 value: 'Male',
                                 groupValue: gender,
-                                title: const Text('Male'),
+                                title: Text('male'.tr),
                                 onChanged: (value) {
                                   setState(() {
                                     gender = value!;
@@ -1673,7 +1676,7 @@ class _SellerReqPageState extends State<SellerReqPage> {
                               child: RadioListTile(
                                 value: 'Female',
                                 groupValue: gender,
-                                title: const Text('Female'),
+                                title: Text('female'.tr),
                                 onChanged: (value) {
                                   setState(() {
                                     gender = value!;
@@ -1691,7 +1694,7 @@ class _SellerReqPageState extends State<SellerReqPage> {
                           text: TextSpan(
                             children: [
                               TextSpan(
-                                text: "Address According to KTP",
+                                text: 'address_according_to_id_card'.tr,
                                 style: Theme.of(context).textTheme.titleMedium,
                               ),
                               TextSpan(
@@ -1712,13 +1715,13 @@ class _SellerReqPageState extends State<SellerReqPage> {
                         TextFormField(
                           validator: (value) {
                             if (value == null || value.isEmpty) {
-                              return 'Address according to ID card is required';
+                              return 'id_card_address_required'.tr;
                             }
                             return null;
                           },
                           controller: nikAddressController,
                           decoration: InputDecoration(
-                            hintText: "Address",
+                            hintText: 'address'.tr,
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(5.0),
                             ),
@@ -1732,7 +1735,7 @@ class _SellerReqPageState extends State<SellerReqPage> {
                           text: TextSpan(
                             children: [
                               TextSpan(
-                                text: "KTP Picture",
+                                text: 'id_card_picture'.tr,
                                 style: Theme.of(context).textTheme.titleMedium,
                               ),
                               TextSpan(
@@ -1788,8 +1791,8 @@ class _SellerReqPageState extends State<SellerReqPage> {
                                 onPressed: () {
                                   showOptions(1);
                                 },
-                                child: const Text(
-                                  "Upload Identity Card Picture",
+                                child: Text(
+                                  'upload_card_picture'.tr,
                                 ),
                               ),
                             ),
@@ -1803,7 +1806,7 @@ class _SellerReqPageState extends State<SellerReqPage> {
                           text: TextSpan(
                             children: [
                               TextSpan(
-                                text: "KTP Picture with Selfie",
+                                text: 'id_card_picture_with_selfie'.tr,
                                 style: Theme.of(context).textTheme.titleMedium,
                               ),
                               TextSpan(
@@ -1856,8 +1859,8 @@ class _SellerReqPageState extends State<SellerReqPage> {
                                 onPressed: () {
                                   showOptions(2);
                                 },
-                                child: const Text(
-                                  "Upload Identity Card Picture with Selfie",
+                                child: Text(
+                                  'upload_card_picture_selfie'.tr,
                                 ),
                               ),
                             ),
@@ -1877,7 +1880,7 @@ class _SellerReqPageState extends State<SellerReqPage> {
                   children: <Widget>[
                     TextButton(
                       onPressed: _index == 0 ? null : details.onStepCancel,
-                      child: const Text('Back'),
+                      child: Text('back'.tr),
                       style: ButtonStyle(
                         backgroundColor: MaterialStateProperty.all<Color>(
                             Colors.grey), // Warna latar belakang
@@ -1896,7 +1899,7 @@ class _SellerReqPageState extends State<SellerReqPage> {
                     ),
                     ElevatedButton(
                       onPressed: details.onStepContinue,
-                      child: const Text('Continue'),
+                      child: Text('continue'.tr),
                       style: ButtonStyle(
                         backgroundColor: MaterialStateProperty.all<Color>(
                             Colors.blue), // Warna latar belakang

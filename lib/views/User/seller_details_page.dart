@@ -85,8 +85,8 @@ class _SellerDetailsPageState extends State<SellerDetailsPage> {
             color: Colors.white,
             onPressed: () => Navigator.of(context).pop(),
           ),
-          title: const Text(
-            'Seller Profile', // Judul AppBar
+          title: Text(
+            'seller_profile'.tr, // Judul AppBar
             style: TextStyle(
               color: Colors.white, // Ganti dengan warna yang diinginkan
               fontSize: 20, // Ukuran teks bisa disesuaikan
@@ -152,21 +152,21 @@ class _SellerDetailsPageState extends State<SellerDetailsPage> {
                           ),
                         ],
                       ),
-                      const TabBar(
+                      TabBar(
                         labelColor: Colors.green,
                         indicatorColor: Color(0xff6571ff),
                         tabs: <Widget>[
                           Tab(
-                            text: 'About',
+                            text: 'about'.tr,
                           ),
                           Tab(
-                            text: 'Service',
+                            text: 'service'.tr,
                           ),
                           Tab(
-                            text: 'Reviews',
+                            text: 'reviews'.tr,
                           ),
                           Tab(
-                            text: 'Portfolio',
+                            text: 'portfolio'.tr,
                           ),
                         ],
                       ),
@@ -176,7 +176,7 @@ class _SellerDetailsPageState extends State<SellerDetailsPage> {
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              const Text("User Information"),
+                              Text('user_information'.tr),
                               const SizedBox(
                                 height: 8,
                               ),
@@ -193,7 +193,7 @@ class _SellerDetailsPageState extends State<SellerDetailsPage> {
                               const SizedBox(
                                 height: 8,
                               ),
-                              const Text('Languages'),
+                              Text('languages'.tr),
                               const SizedBox(
                                 height: 8,
                               ),
@@ -234,7 +234,7 @@ class _SellerDetailsPageState extends State<SellerDetailsPage> {
                               const SizedBox(
                                 height: 16,
                               ),
-                              const Text('Skills'),
+                              Text('skills'.tr),
                               const SizedBox(
                                 height: 8,
                               ),
@@ -256,7 +256,7 @@ class _SellerDetailsPageState extends State<SellerDetailsPage> {
                               const SizedBox(
                                 height: 16,
                               ),
-                              const Text('Personal Url'),
+                              Text('personal_url'.tr),
                               const SizedBox(
                                 height: 8,
                               ),

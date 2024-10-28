@@ -155,6 +155,7 @@ import 'package:clone_freelancer_mobile/controllers/auth_service.dart';
 import 'package:clone_freelancer_mobile/controllers/notes_database.dart';
 import 'package:clone_freelancer_mobile/models/notes.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class NotesPage extends StatefulWidget {
   @override
@@ -230,8 +231,8 @@ class _NotesPageState extends State<NotesPage> {
           color: Colors.white,
           onPressed: () => Navigator.of(context).pop(),
         ),
-        title: const Text(
-          'Notes', // Judul AppBar
+        title: Text(
+          'notes'.tr, // Judul AppBar
           style: TextStyle(
             color: Colors.white, // Ganti dengan warna yang diinginkan
             fontSize: 20, // Ukuran teks bisa disesuaikan
@@ -241,7 +242,7 @@ class _NotesPageState extends State<NotesPage> {
       body: isLoading
           ? Center(child: CircularProgressIndicator())
           : notes.isEmpty
-              ? Center(child: Text('No Notes'))
+              ? Center(child: Text('no_notes'.tr))
               : buildNotes(),
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add),
@@ -382,12 +383,12 @@ class _NotesPageState extends State<NotesPage> {
       context: context,
       builder: (context) {
         return AlertDialog(
-          title: Text('Delete Note'),
-          content: Text('Do you want to delete this note?'),
+          title: Text('delete_note'.tr),
+          content: Text('delete_note_confirm'.tr),
           actions: [
             TextButton(
               onPressed: () => Navigator.of(context).pop(), // Close the dialog
-              child: Text('No'),
+              child: Text('no'.tr),
             ),
             TextButton(
               onPressed: () async {
@@ -395,7 +396,7 @@ class _NotesPageState extends State<NotesPage> {
                 Navigator.of(context).pop(); // Close the dialog
                 refreshNotes(); // Refresh notes list after deletion
               },
-              child: Text('Yes', style: TextStyle(color: Colors.red)),
+              child: Text('yes'.tr, style: TextStyle(color: Colors.red)),
             ),
           ],
         );
@@ -639,7 +640,16 @@ class _AddEditNotePageState extends State<AddEditNotePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.note == null ? 'Add Note' : 'Edit Note'),
+        centerTitle: true,
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back),
+          color: Colors.white,
+          onPressed: () => Navigator.of(context).pop(),
+        ),
+        title: Text(
+          widget.note == null ? 'add_note'.tr : 'edit_note'.tr,
+          style: TextStyle(color: Colors.white),
+        ),
       ),
       //     AppBar(
       //   title: Hero(
@@ -780,11 +790,11 @@ class _AddEditNotePageState extends State<AddEditNotePage> {
             children: [
               TextFormField(
                 initialValue: title,
-                decoration: InputDecoration(labelText: 'Title'),
+                decoration: InputDecoration(labelText: 'note_title'.tr),
                 onChanged: (value) => setState(() => title = value),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
-                    return 'Please enter a title';
+                    return 'please_enter_a_title'.tr;
                   }
                   return null;
                 },
@@ -796,7 +806,7 @@ class _AddEditNotePageState extends State<AddEditNotePage> {
               SizedBox(height: 10),
               TextFormField(
                 initialValue: content,
-                decoration: InputDecoration(labelText: 'Content'),
+                decoration: InputDecoration(labelText: 'note_content'.tr),
                 onChanged: (value) => setState(() => content = value),
                 maxLines:
                     null, // memungkinkan TextFormField otomatis membuat baris baru
@@ -804,7 +814,7 @@ class _AddEditNotePageState extends State<AddEditNotePage> {
                     .multiline, // memungkinkan input beberapa baris
                 validator: (value) {
                   if (value == null || value.isEmpty) {
-                    return 'Please enter content';
+                    return 'please_enter_content'.tr;
                   }
                   return null;
                 },
@@ -817,7 +827,7 @@ class _AddEditNotePageState extends State<AddEditNotePage> {
                       await NotesDatabase.instance.create(
                         Note(
                           title: title,
-                          content: content, 
+                          content: content,
                           // userEmail: userEmail,
                           // userEmail: userEmail
                         ),
@@ -847,7 +857,7 @@ class _AddEditNotePageState extends State<AddEditNotePage> {
                         BorderRadius.circular(12), // Radius sudut tombol
                   ),
                 ),
-                child: Text(widget.note == null ? 'Save' : 'Update'),
+                child: Text(widget.note == null ? 'save'.tr : 'update'.tr),
               ),
             ],
           ),

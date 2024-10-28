@@ -965,8 +965,8 @@ class _DetailsPageState extends State<DetailsPage>
                                         }
                                       }
                                     },
-                                    child: const Text(
-                                      "Buy",
+                                    child: Text(
+                                      'buy'.tr,
                                     ),
                                   ),
                                 ),
@@ -1067,8 +1067,8 @@ class _DetailsPageState extends State<DetailsPage>
                                   ),
                                 ),
                               ),
-                              child: const Text(
-                                "Chat",
+                              child: Text(
+                                'chat'.tr,
                               ),
                             ),
                           ],

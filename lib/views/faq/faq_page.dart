@@ -1,6 +1,7 @@
 import 'package:clone_freelancer_mobile/views/faq/contact_page.dart';
 import 'package:clone_freelancer_mobile/views/faq/faq_list.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class FaqPage extends StatelessWidget {
   @override
@@ -10,7 +11,7 @@ class FaqPage extends StatelessWidget {
       child: Scaffold(
         appBar: AppBar(
           title: Text(
-            'Helpdesk',
+            'helpdesk'.tr,
             style: TextStyle(
                 color: Theme.of(context).brightness == Brightness.dark
                     ? Colors.white
@@ -30,9 +31,9 @@ class FaqPage extends StatelessWidget {
               // ),
               ),
           bottom: TabBar(
-            tabs: const [
-              Tab(text: 'FAQ'),
-              Tab(text: 'Contact'),
+            tabs: [
+              Tab(text: 'faq'.tr),
+              Tab(text: 'contact'.tr),
             ],
             labelColor: Theme.of(context).brightness == Brightness.dark
                 ? Colors.yellowAccent[400] // Warna teks tab yang dipilih di mode gelap

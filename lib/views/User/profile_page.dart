@@ -932,6 +932,8 @@
 import 'dart:convert';
 import 'dart:io';
 
+// import 'package:clone_freelancer_mobile/language/language_page.dart';
+import 'package:clone_freelancer_mobile/l10n/language_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -971,7 +973,7 @@ class _ProfilePageState extends State<ProfilePage> {
     } on PlatformException catch (e) {
       Get.snackbar(
         "Error",
-        'Failed to pick image: $e',
+        "${'image_pick_fail'.tr}: $e",
         snackPosition: SnackPosition.TOP,
         backgroundColor: Colors.red,
         colorText: Colors.white,
@@ -991,7 +993,7 @@ class _ProfilePageState extends State<ProfilePage> {
     } on PlatformException catch (e) {
       Get.snackbar(
         "Error",
-        'Failed to pick image: $e',
+        "${'image_pick_fail'.tr}: $e",
         snackPosition: SnackPosition.TOP,
         backgroundColor: Colors.red,
         colorText: Colors.white,
@@ -1069,9 +1071,9 @@ class _ProfilePageState extends State<ProfilePage> {
     return Scaffold(
       appBar: AppBar(
         // title halaman profil
-        title: const Center(
+        title: Center(
           child: Text(
-            "Profile",
+            'profile'.tr,
             style: TextStyle(color: Colors.white),
           ),
         ),
@@ -1283,7 +1285,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                         MainAxisAlignment.spaceBetween,
                                     children: [
                                       Text(
-                                        "Seller Mode",
+                                        'seller_mode'.tr,
                                         style: Theme.of(context)
                                             .textTheme
                                             .titleMedium,
@@ -1323,7 +1325,7 @@ class _ProfilePageState extends State<ProfilePage> {
                           child: Padding(
                             padding: const EdgeInsets.all(16),
                             child: Text(
-                              "Selling",
+                              'selling'.tr,
                               style: Theme.of(context).textTheme.titleLarge,
                             ),
                           ),
@@ -1353,7 +1355,7 @@ class _ProfilePageState extends State<ProfilePage> {
                             ),
                           ),
                           padding: const EdgeInsets.all(16),
-                          child: const Row(
+                          child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Row(
@@ -1369,7 +1371,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                       color: Colors.grey,
                                     ),
                                   ),
-                                  Text("My Profile"),
+                                  Text('my_profile'.tr),
                                 ],
                               ),
                               Icon(
@@ -1491,7 +1493,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                   ),
                                   // Bagian untuk mengatur teks pada tombol
                                   Text(
-                                    "Sign Up",
+                                    'sign_up'.tr,
                                     style: Theme.of(context)
                                         .textTheme
                                         .bodyLarge
@@ -1529,7 +1531,7 @@ class _ProfilePageState extends State<ProfilePage> {
                               ),
                               // bagian untuk mengatur icon dan teks dari tombol login
                               padding: const EdgeInsets.all(16),
-                              child: const Row(
+                              child: Row(
                                 children: [
                                   Padding(
                                     padding: EdgeInsets.only(
@@ -1542,7 +1544,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                     ),
                                   ),
                                   Text(
-                                    "Log In",
+                                    'log_in'.tr,
                                   ),
                                 ],
                               ),
@@ -1569,7 +1571,7 @@ class _ProfilePageState extends State<ProfilePage> {
                               child: Padding(
                                 padding: const EdgeInsets.all(16),
                                 child: Text(
-                                  "Settings",
+                                  'settings'.tr,
                                   style: Theme.of(context).textTheme.titleLarge,
                                 ),
                               ),
@@ -1602,7 +1604,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                 ),
                               ),
                               padding: const EdgeInsets.all(16),
-                              child: const Row(
+                              child: Row(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
                                 children: [
@@ -1619,7 +1621,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                           color: Colors.grey,
                                         ),
                                       ),
-                                      Text("Edit Profile"),
+                                      Text('edit_profile'.tr),
                                     ],
                                   ),
                                   Icon(
@@ -1653,7 +1655,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                 ),
                               ),
                               padding: const EdgeInsets.all(16),
-                              child: const Row(
+                              child: Row(
                                 // mengatur icon dan teks untuk Change Password
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
@@ -1671,7 +1673,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                           color: Colors.grey,
                                         ),
                                       ),
-                                      Text("Change Password"),
+                                      Text('change_password'.tr),
                                     ],
                                   ),
                                   // icon panah di sebelah kanan
@@ -1705,7 +1707,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                       ),
                                     ),
                                     padding: const EdgeInsets.all(16),
-                                    child: const Row(
+                                    child: Row(
                                       mainAxisAlignment:
                                           MainAxisAlignment.spaceBetween,
                                       children: [
@@ -1722,7 +1724,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                                 color: Colors.grey,
                                               ),
                                             ),
-                                            Text("Become a Seller"),
+                                            Text('become_a_seller'.tr),
                                           ],
                                         ),
                                         Icon(
@@ -1757,7 +1759,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                 ),
                               ),
                               padding: const EdgeInsets.all(16),
-                              child: const Row(
+                              child: Row(
                                 // mengatur icon dan teks untuk tombol wallet
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
@@ -1775,7 +1777,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                           color: Colors.grey,
                                         ),
                                       ),
-                                      Text("Wallet"),
+                                      Text('wallet'.tr),
                                     ],
                                   ),
                                   Icon(
@@ -1809,7 +1811,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                 ),
                               ),
                               padding: const EdgeInsets.all(16),
-                              child: const Row(
+                              child: Row(
                                 // bagian untuk mengatur icon dan teks pada tombol saved service
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
@@ -1827,7 +1829,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                           color: Colors.grey,
                                         ),
                                       ),
-                                      Text("Saved Service"),
+                                      Text('saved_service'.tr),
                                     ],
                                   ),
                                   Icon(
@@ -1861,7 +1863,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                 ),
                               ),
                               padding: const EdgeInsets.all(16),
-                              child: const Row(
+                              child: Row(
                                 // mengatur icon dan teks pada tombol support
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
@@ -1879,7 +1881,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                           color: Colors.grey,
                                         ),
                                       ),
-                                      Text("Support"),
+                                      Text('support'.tr),
                                     ],
                                   ),
                                   Icon(
@@ -1894,11 +1896,11 @@ class _ProfilePageState extends State<ProfilePage> {
                           ),
                           GestureDetector(
                             onTap: () {
-                              // Menuju ke halaman "Support"
-                              // Get.to(() => const SupportListPage());
+                              // Menuju ke halaman "Language"
+                              Get.to(() => LanguagePage());
                             },
                             child: Container(
-                              // mengatur container untuk tombol support
+                              // mengatur container untuk tombol language
                               decoration: BoxDecoration(
                                 color: Theme.of(context).brightness ==
                                         Brightness.dark
@@ -1912,12 +1914,12 @@ class _ProfilePageState extends State<ProfilePage> {
                                 ),
                               ),
                               padding: const EdgeInsets.all(16),
-                              child: const Row(
-                                // mengatur icon dan teks pada tombol support
+                              child: Row(
+                                // mengatur icon dan teks pada tombol language
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
                                 children: [
-                                  // icon dan teks tombol support
+                                  // icon dan teks tombol language
                                   Row(
                                     children: [
                                       Padding(
@@ -1930,7 +1932,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                           color: Colors.grey,
                                         ),
                                       ),
-                                      Text("Language"),
+                                      Text('language'.tr),
                                     ],
                                   ),
                                   Icon(
@@ -1969,7 +1971,7 @@ class _ProfilePageState extends State<ProfilePage> {
                             ),
                           ),
                           padding: const EdgeInsets.all(16),
-                          child: const Row(
+                          child: Row(
                             // mengatur icon dan teks untuk tombol logour
                             children: [
                               Padding(
@@ -1983,7 +1985,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                 ),
                               ),
                               Text(
-                                "Log Out",
+                                'log_out'.tr,
                                 style: TextStyle(
                                   color: Colors.red,
                                 ),

@@ -143,11 +143,20 @@ class _EditSellerProfileDialogState extends State<EditSellerProfileDialog> {
     return Dialog.fullscreen(
       child: Scaffold(
         appBar: AppBar(
+          // mengatur title page
+          centerTitle: true,
           leading: IconButton(
-            icon: const Icon(Icons.close),
-            onPressed: () => Navigator.pop(context, true),
+            icon: Icon(Icons.close),
+            color: Colors.white,
+            onPressed: () => Navigator.of(context).pop(),
           ),
-          title: const Text('Edit Seller Profile'),
+          title: Text(
+            "Edit Seller Profile", // Judul AppBar
+            style: TextStyle(
+              color: Colors.white, // Ganti dengan warna yang diinginkan
+              fontSize: 20, // Ukuran teks bisa disesuaikan
+            ),
+          ),
         ),
         body: SingleChildScrollView(
           child: Container(
@@ -370,6 +379,25 @@ class _EditSellerProfileDialogState extends State<EditSellerProfileDialog> {
                                                   levelController.clear();
                                                 });
                                               },
+                                              style: ButtonStyle(
+                                                backgroundColor:
+                                                    MaterialStateProperty
+                                                        .all<Color>(Colors
+                                                            .blue), // Warna latar belakang
+                                                foregroundColor:
+                                                    MaterialStateProperty
+                                                        .all<Color>(Colors
+                                                            .white), // Warna teks atau ikon
+                                                shape:
+                                                    MaterialStateProperty.all<
+                                                        RoundedRectangleBorder>(
+                                                  RoundedRectangleBorder(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            8.0),
+                                                  ),
+                                                ),
+                                              ),
                                               child: const Text("Cancel"),
                                             ),
                                           ),
@@ -410,6 +438,25 @@ class _EditSellerProfileDialogState extends State<EditSellerProfileDialog> {
                                                   );
                                                 }
                                               },
+                                              style: ButtonStyle(
+                                                backgroundColor:
+                                                    MaterialStateProperty
+                                                        .all<Color>(Colors
+                                                            .blue), // Warna latar belakang
+                                                foregroundColor:
+                                                    MaterialStateProperty
+                                                        .all<Color>(Colors
+                                                            .white), // Warna teks atau ikon
+                                                shape:
+                                                    MaterialStateProperty.all<
+                                                        RoundedRectangleBorder>(
+                                                  RoundedRectangleBorder(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            8.0),
+                                                  ),
+                                                ),
+                                              ),
                                               child: const Text("Add"),
                                             ),
                                           ),
@@ -601,7 +648,12 @@ class _EditSellerProfileDialogState extends State<EditSellerProfileDialog> {
                                                     Icons.clear,
                                                     size: 14,
                                                   ),
-                                                  backgroundColor: Colors.white,
+                                                  backgroundColor:
+                                                      Theme.of(context)
+                                                                  .brightness ==
+                                                              Brightness.dark
+                                                          ? Colors.black
+                                                          : Colors.white,
                                                   label: Text(
                                                     listSkill[index],
                                                     // style: GoogleFonts.roboto(
@@ -712,6 +764,12 @@ class _EditSellerProfileDialogState extends State<EditSellerProfileDialog> {
                             alignment: Alignment.centerRight,
                             child: ElevatedButton(
                               style: ButtonStyle(
+                                backgroundColor:
+                                    MaterialStateProperty.all<Color>(
+                                        Colors.blue), // Warna latar belakang
+                                foregroundColor:
+                                    MaterialStateProperty.all<Color>(
+                                        Colors.white), // Warna teks atau ikon
                                 shape: MaterialStateProperty.all<
                                     RoundedRectangleBorder>(
                                   RoundedRectangleBorder(

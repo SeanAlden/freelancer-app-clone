@@ -128,8 +128,8 @@ class _WithdrawDialogState extends State<WithdrawDialog> {
             color: Colors.white,
             onPressed: () => Navigator.of(context).pop(),
           ),
-          title: const Text(
-            'Withdraw', // Judul AppBar
+          title: Text(
+            'withdraw'.tr, // Judul AppBar
             style: TextStyle(
               color: Colors.white, // Ganti dengan warna yang diinginkan
               fontSize: 20, // Ukuran teks bisa disesuaikan
@@ -152,7 +152,7 @@ class _WithdrawDialogState extends State<WithdrawDialog> {
                         text: TextSpan(
                           children: [
                             TextSpan(
-                              text: "Account Name",
+                              text: 'account_name'.tr,
                               style: Theme.of(context).textTheme.titleMedium,
                             ),
                             TextSpan(
@@ -174,12 +174,12 @@ class _WithdrawDialogState extends State<WithdrawDialog> {
                         controller: accountName,
                         validator: (value) {
                           if (value == null || value.isEmpty) {
-                            return 'Account Name is required';
+                            return 'account_name_required'.tr;
                           }
                           return null;
                         },
                         decoration: InputDecoration(
-                          hintText: "Account Name",
+                          hintText: 'account_name'.tr,
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(5.0),
                           ),
@@ -193,7 +193,7 @@ class _WithdrawDialogState extends State<WithdrawDialog> {
                         text: TextSpan(
                           children: [
                             TextSpan(
-                              text: "Account Number",
+                              text: 'account_number'.tr,
                               style: Theme.of(context).textTheme.titleMedium,
                             ),
                             TextSpan(
@@ -216,12 +216,12 @@ class _WithdrawDialogState extends State<WithdrawDialog> {
                         keyboardType: TextInputType.number,
                         validator: (value) {
                           if (value == null || value.isEmpty) {
-                            return 'Account number is required';
+                            return 'account_number_required'.tr;
                           }
                           return null;
                         },
                         decoration: InputDecoration(
-                          hintText: "Account Number",
+                          hintText: 'account_number'.tr,
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(5.0),
                           ),
@@ -235,7 +235,7 @@ class _WithdrawDialogState extends State<WithdrawDialog> {
                         text: TextSpan(
                           children: [
                             TextSpan(
-                              text: "Bank",
+                              text: 'bank'.tr,
                               style: Theme.of(context).textTheme.titleMedium,
                             ),
                             TextSpan(
@@ -256,7 +256,7 @@ class _WithdrawDialogState extends State<WithdrawDialog> {
                       DropdownButtonHideUnderline(
                         child: DropdownButtonFormField2<String>(
                           isExpanded: true,
-                          hint: const Text("Select Bank"),
+                          hint: Text('select_bank'.tr),
                           items: banks.map((Bank bank) {
                             return DropdownMenuItem<String>(
                               value: bank.code,
@@ -265,7 +265,7 @@ class _WithdrawDialogState extends State<WithdrawDialog> {
                           }).toList(),
                           validator: (value) {
                             if (value == null) {
-                              return 'Bank is required';
+                              return 'bank_required'.tr;
                             }
                             return null;
                           },
@@ -316,7 +316,7 @@ class _WithdrawDialogState extends State<WithdrawDialog> {
                         text: TextSpan(
                           children: [
                             TextSpan(
-                              text: "Amount",
+                              text: 'amount'.tr,
                               style: Theme.of(context).textTheme.titleMedium,
                             ),
                             TextSpan(
@@ -339,12 +339,12 @@ class _WithdrawDialogState extends State<WithdrawDialog> {
                         keyboardType: TextInputType.number,
                         validator: (value) {
                           if (value == null || value.isEmpty) {
-                            return 'Title is required';
+                            return 'title_required'.tr;
                           }
                           return null;
                         },
                         decoration: InputDecoration(
-                          hintText: "Amount",
+                          hintText: 'amount'.tr,
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(5.0),
                           ),
@@ -382,7 +382,7 @@ class _WithdrawDialogState extends State<WithdrawDialog> {
                             );
                           }
                         },
-                        child: const Text('Withdraw Balance'),
+                        child: Text('withdraw_balance'.tr),
                       ),
                     ),
                   ],

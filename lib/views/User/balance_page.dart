@@ -60,8 +60,8 @@ class _WalletPageState extends State<WalletPage> {
           color: Colors.white,
           onPressed: () => Navigator.of(context).pop(),
         ),
-        title: const Text(
-          'Wallet', // Judul AppBar
+        title: Text(
+          'wallet'.tr, // Judul AppBar
           style: TextStyle(
             color: Colors.white, // Ganti dengan warna yang diinginkan
             fontSize: 20, // Ukuran teks bisa disesuaikan
@@ -96,7 +96,7 @@ class _WalletPageState extends State<WalletPage> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            'Balance',
+                            'balance'.tr,
                             style: Theme.of(context).textTheme.titleLarge,
                           ),
                           Text(
@@ -119,7 +119,7 @@ class _WalletPageState extends State<WalletPage> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text('Transaction History'),
+                    Text('transaction_history'.tr),
                     const SizedBox(
                       height: 16,
                     ),
@@ -135,8 +135,8 @@ class _WalletPageState extends State<WalletPage> {
                             return Text('Error: ${snapshot.error}');
                           } else if (snapshot.data == null ||
                               snapshot.data.isEmpty) {
-                            return const Center(
-                              child: Text('No Transactions'),
+                            return Center(
+                              child: Text('no_transactions'.tr),
                             );
                           } else {
                             var data = snapshot.data;
@@ -210,7 +210,7 @@ class _WalletPageState extends State<WalletPage> {
                     onPressed: () async {
                       openCustomOrderDialog(context);
                     },
-                    child: const Text('Withdraw Balance'),
+                    child: Text('withdraw_balance'.tr),
                   ),
                 ),
               ],

@@ -523,8 +523,8 @@ class _QrPageState extends State<QrPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
-          'QR Code Scan & Generate',
+        title: Text(
+          'qr_code_scan_generate'.tr,
           style: TextStyle(color: Colors.white),
         ),
       ),
@@ -550,14 +550,14 @@ class _QrPageState extends State<QrPage> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 if (result != null)
-                  Text('Scan result: ${result!.code}')
+                  Text('${'scan_result'.tr}: ${result!.code}')
                 else
-                  const Text('Scan a code'),
+                  Text('scan_a_code'.tr),
                 const SizedBox(height: 20),
                 ElevatedButton.icon(
                   onPressed: _pickImage,
                   icon: const Icon(Icons.upload),
-                  label: const Text('Upload QR Code from Gallery'),
+                  label: Text('upload_qr_code'.tr),
                   style: ButtonStyle(
                     backgroundColor:
                         MaterialStateProperty.all<Color>(Colors.blue),
@@ -585,7 +585,7 @@ class _QrPageState extends State<QrPage> {
                     Get.to(() => HomePage());
                   },
                   icon: const Icon(Icons.qr_code),
-                  label: const Text('Generate QR Code'),
+                  label: Text('generate_qr_code'.tr),
                   style: ButtonStyle(
                     backgroundColor:
                         MaterialStateProperty.all<Color>(Colors.blue),

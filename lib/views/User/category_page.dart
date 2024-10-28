@@ -52,8 +52,8 @@ class _CategoryPageState extends State<CategoryPage> {
           color: Colors.white,
           onPressed: () => Navigator.of(context).pop(),
         ),
-        title: const Text(
-          'Categories', // Judul AppBar
+        title: Text(
+          'categories'.tr, // Judul AppBar
           style: TextStyle(
             color: Colors.white, // Ganti dengan warna yang diinginkan
             fontSize: 20, // Ukuran teks bisa disesuaikan

@@ -21,8 +21,8 @@ class _SupportListPageState extends State<SupportListPage> {
           color: Colors.white,
           onPressed: () => Navigator.of(context).pop(),
         ),
-        title: const Text(
-          'Support', // Judul AppBar
+        title: Text(
+          'support'.tr, // Judul AppBar
           style: TextStyle(
             color: Colors.white, // Ganti dengan warna yang diinginkan
             fontSize: 20, // Ukuran teks bisa disesuaikan
@@ -43,7 +43,7 @@ class _SupportListPageState extends State<SupportListPage> {
                 ),
               ),
               padding: const EdgeInsets.all(16),
-              child: const Row(
+              child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Row(
@@ -58,7 +58,7 @@ class _SupportListPageState extends State<SupportListPage> {
                           color: Colors.grey,
                         ),
                       ),
-                      Text("My Support Request"),
+                      Text('my_support_request'.tr),
                     ],
                   ),
                   Icon(
@@ -82,7 +82,7 @@ class _SupportListPageState extends State<SupportListPage> {
                 ),
               ),
               padding: const EdgeInsets.all(16),
-              child: const Row(
+              child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Row(
@@ -97,7 +97,7 @@ class _SupportListPageState extends State<SupportListPage> {
                           color: Colors.grey,
                         ),
                       ),
-                      Text("Request Support"),
+                      Text('request_support'.tr),
                     ],
                   ),
                   Icon(

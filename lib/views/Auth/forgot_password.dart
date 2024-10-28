@@ -43,7 +43,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
               children: [
                 // Judul halaman
                 Text(
-                  'Forgot Password ?',
+                  'forgot_password_title'.tr,
                   style: Theme.of(context).textTheme.headlineLarge?.copyWith(
                         color: Theme.of(context).brightness == Brightness.dark
                             ? Colors.white // Warna teks untuk mode gelap
@@ -64,7 +64,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
 
                 // Instruksi kepada pengguna
                 Text(
-                  'Please enter your email to receive verification code',
+                  'please_enter_your_email'.tr,
                   style: Theme.of(context).textTheme.titleSmall?.copyWith(
                         color: Colors.grey[600], // Warna teks abu-abu
                       ),
@@ -89,7 +89,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                         borderRadius: BorderRadius.circular(
                             16.0), // Membuat sudut border melengkung
                       ),
-                      labelText: 'Email', // Label dalam input field
+                      labelText: 'email'.tr, // Label dalam input field
                       prefixIcon: const Icon(Icons
                           .mail_outline), // Ikon di bagian kiri input field
                     ),
@@ -97,7 +97,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                     // Validasi input email
                     validator: (value) {
                       if (value == null || value.trim().isEmpty) {
-                        return 'Please enter your email'; // Pesan kesalahan jika email kosong
+                        return 'please_enter_email'.tr; // Pesan kesalahan jika email kosong
                       }
                       return null; // Validasi sukses jika tidak ada masalah
                     }),
@@ -125,14 +125,17 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
 
                         // Gaya tombol
                         style: ButtonStyle(
-                          shape:
-                              MaterialStateProperty.all<RoundedRectangleBorder>(
-                            RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(
-                                  8.0), // Membuat sudut tombol melengkung
-                            ),
+                        backgroundColor: MaterialStateProperty.all<Color>(
+                            Colors.blue), // Warna latar belakang
+                        foregroundColor: MaterialStateProperty.all<Color>(
+                            Colors.white), // Warna teks atau ikon
+                        shape:
+                            MaterialStateProperty.all<RoundedRectangleBorder>(
+                          RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8.0),
                           ),
                         ),
+                      ),
 
                         // Menggunakan Obx untuk memantau perubahan isLoading dari AuthenticationController
                         child: Obx(() {
@@ -145,8 +148,8 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                                   ),
                                 )
                               : Text(
-                                  "Reset Password", // Teks tombol saat tidak loading
-                                  style: TextStyle(color: Theme.of(context).brightness == Brightness.dark ? Colors.white : Colors.black),
+                                  'reset_password'.tr, // Teks tombol saat tidak loading
+                                  style: TextStyle(color: Theme.of(context).brightness == Brightness.dark ? Colors.white : Colors.white),
                                 );
                         }),
                       ),

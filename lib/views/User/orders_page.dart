@@ -94,22 +94,22 @@ class _ListOrderPageState extends State<ListOrderPage> {
       barrierDismissible: true,
       builder: (context) => RatingDialog(
         initialRating: 4.0,
-        title: const Text(
-          'How was your experience?',
+        title: Text(
+          'experience_question'.tr,
           textAlign: TextAlign.center,
           style: TextStyle(
             fontSize: 25,
             fontWeight: FontWeight.bold,
           ),
         ),
-        message: const Text(
-          'Your feedback helps our community thrive! Share your experience by leaving a review for the seller you worked with.',
+        message: Text(
+          'feedback_help'.tr,
           textAlign: TextAlign.center,
           style: TextStyle(fontSize: 15),
         ),
         image: const FlutterLogo(size: 100),
-        submitButtonText: 'Submit',
-        commentHint: 'Write your review here.',
+        submitButtonText: 'submit'.tr,
+        commentHint: 'write_review'.tr,
         onCancelled: () => print('cancelled'),
         onSubmitted: (response) {
           print('rating: ${response.rating}, comment: ${response.comment}');
@@ -144,14 +144,14 @@ class _ListOrderPageState extends State<ListOrderPage> {
                       controller: noteController,
                       maxLines: 5,
                       decoration: InputDecoration(
-                        hintText: 'Type your message here...',
+                        hintText: 'type_message'.tr,
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(5.0),
                         ),
                       ),
                       validator: (value) {
                         if (value!.trim().isEmpty) {
-                          return 'Describe the changes you\'d like';
+                          return 'describe_changes'.tr;
                         }
                         return null;
                       },
@@ -170,7 +170,7 @@ class _ListOrderPageState extends State<ListOrderPage> {
             onPressed: () {
               Navigator.of(dialogContext).pop();
             },
-            child: const Text('No'),
+            child: Text('no'.tr),
           ),
           TextButton(
             onPressed: () async {
@@ -182,10 +182,10 @@ class _ListOrderPageState extends State<ListOrderPage> {
                 Navigator.of(dialogContext).pop();
               }
             },
-            child: const Text('Yes'),
+            child: Text('yes'.tr),
           ),
         ],
-        title: const Text('Revision Details'),
+        title: Text('revision_details'.tr),
       ),
     ).then((value) {
       noteController.clear();
@@ -199,9 +199,9 @@ class _ListOrderPageState extends State<ListOrderPage> {
       length: 8,
       child: Scaffold(
         appBar: AppBar(
-          title: const Center(
+          title: Center(
             child: Text(
-              'Manage Order',
+              'manage_order'.tr,
               style: TextStyle(color: Colors.white),
             ),
           ),
@@ -260,30 +260,30 @@ class _ListOrderPageState extends State<ListOrderPage> {
               }
               fetchData();
             },
-            tabs: const <Widget>[
+            tabs: <Widget>[
               Tab(
-                text: 'All',
+                text: 'all'.tr,
               ),
               Tab(
-                text: 'Awaiting Payment',
+                text: 'awaiting_payment'.tr,
               ),
               Tab(
-                text: 'Pending',
+                text: 'pending'.tr,
               ),
               Tab(
-                text: 'In Progress',
+                text: 'in_progress'.tr,
               ),
               Tab(
-                text: 'Delivered',
+                text: 'delivered'.tr,
               ),
               Tab(
-                text: 'Revision Request',
+                text: 'revision_request'.tr,
               ),
               Tab(
-                text: 'Completed',
+                text: 'completed'.tr,
               ),
               Tab(
-                text: 'Cancelled',
+                text: 'cancelled'.tr,
               ),
             ],
           ),
@@ -303,7 +303,7 @@ class _ListOrderPageState extends State<ListOrderPage> {
                 );
               }
               if (snapshot.data == null || snapshot.data.isEmpty) {
-                return const Center(child: Text('No Data'));
+                return Center(child: Text('no_data'.tr));
               } else if (snapshot.hasData) {
                 final data = snapshot.data;
                 return ListView.separated(
@@ -338,8 +338,8 @@ class _ListOrderPageState extends State<ListOrderPage> {
                                         .millisecondsSinceEpoch,
                                     widgetBuilder: (context, time) {
                                       if (time == null) {
-                                        return const Text(
-                                          'Order has cancelled',
+                                        return Text(
+                                          'order_cancelled'.tr,
                                           style: TextStyle(
                                             color: Colors.red,
                                           ),
@@ -379,7 +379,7 @@ class _ListOrderPageState extends State<ListOrderPage> {
                                                                 .pop();
                                                           },
                                                           child:
-                                                              const Text('No'),
+                                                              Text('no'.tr),
                                                         ),
                                                         TextButton(
                                                           onPressed: () async {
@@ -395,11 +395,11 @@ class _ListOrderPageState extends State<ListOrderPage> {
                                                                         .pop());
                                                           },
                                                           child:
-                                                              const Text('Yes'),
+                                                              Text('yes'.tr),
                                                         ),
                                                       ],
-                                                      title: const Text(
-                                                          'Cancel Order ?'),
+                                                      title: Text(
+                                                          'cancel_order_question'.tr),
                                                     ),
                                                   );
                                                 } else {
@@ -423,8 +423,8 @@ class _ListOrderPageState extends State<ListOrderPage> {
                                             .millisecondsSinceEpoch,
                                         widgetBuilder: (context, time) {
                                           if (time == null) {
-                                            return const Text(
-                                              'Order has cancelled',
+                                            return Text(
+                                              'order_cancelled'.tr,
                                               style: TextStyle(
                                                 color: Colors.red,
                                               ),
@@ -441,17 +441,17 @@ class _ListOrderPageState extends State<ListOrderPage> {
                                                 PopupMenuButton(
                                                   itemBuilder: (context) {
                                                     return [
-                                                      const PopupMenuItem(
+                                                      PopupMenuItem(
                                                         value: '0',
-                                                        child: Text('Cancel'),
+                                                        child: Text('cancel'.tr),
                                                       ),
                                                       if (data[index][
                                                               'order_status'] ==
                                                           'awaiting payment')
-                                                        const PopupMenuItem(
+                                                        PopupMenuItem(
                                                           value: '1',
                                                           child:
-                                                              Text('Pay Now'),
+                                                              Text('pay_now'.tr),
                                                         ),
                                                     ];
                                                   },
@@ -471,8 +471,8 @@ class _ListOrderPageState extends State<ListOrderPage> {
                                                                         context)
                                                                     .pop();
                                                               },
-                                                              child: const Text(
-                                                                  'No'),
+                                                              child: Text(
+                                                                  'no'.tr),
                                                             ),
                                                             TextButton(
                                                               onPressed:
@@ -486,12 +486,12 @@ class _ListOrderPageState extends State<ListOrderPage> {
                                                                         Navigator.of(context)
                                                                             .pop());
                                                               },
-                                                              child: const Text(
-                                                                  'Yes'),
+                                                              child: Text(
+                                                                  'yes'.tr),
                                                             ),
                                                           ],
-                                                          title: const Text(
-                                                              'Cancel Order ?'),
+                                                          title: Text(
+                                                              'cancel_order_question'.tr),
                                                         ),
                                                       );
                                                     }
@@ -508,8 +508,8 @@ class _ListOrderPageState extends State<ListOrderPage> {
                                                 .millisecondsSinceEpoch,
                                             widgetBuilder: (context, time) {
                                               if (time == null) {
-                                                return const Text(
-                                                  'Late',
+                                                return Text(
+                                                  'late'.tr,
                                                   style: TextStyle(
                                                     color: Colors.red,
                                                   ),
@@ -527,8 +527,8 @@ class _ListOrderPageState extends State<ListOrderPage> {
                                                     .millisecondsSinceEpoch,
                                                 widgetBuilder: (context, time) {
                                                   if (time == null) {
-                                                    return const Text(
-                                                      'Late',
+                                                    return Text(
+                                                      'late'.tr,
                                                       style: TextStyle(
                                                         color: Colors.red,
                                                       ),

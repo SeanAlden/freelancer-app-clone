@@ -328,8 +328,8 @@ class _SellerOrderPageState extends State<SellerOrderPage> {
       child: Scaffold(
         appBar: AppBar(
           centerTitle: true,
-          title: const Text(
-            'Manage Order', // Judul AppBar
+          title: Text(
+            'manage_order'.tr, // Judul AppBar
             style: TextStyle(
               color: Colors.white, // Ganti dengan warna yang diinginkan
               fontSize: 20, // Ukuran teks bisa disesuaikan
@@ -385,27 +385,27 @@ class _SellerOrderPageState extends State<SellerOrderPage> {
               }
               fetchData();
             },
-            tabs: const <Widget>[
+            tabs: <Widget>[
               Tab(
-                text: 'All',
+                text: 'all'.tr,
               ),
               Tab(
-                text: 'Pending',
+                text: 'pending'.tr,
               ),
               Tab(
-                text: 'In Progress',
+                text: 'in_progress'.tr,
               ),
               Tab(
-                text: 'Delivered',
+                text: 'delivered'.tr,
               ),
               Tab(
-                text: 'Revision Request',
+                text: 'revision_request'.tr,
               ),
               Tab(
-                text: 'Completed',
+                text: 'completed'.tr,
               ),
               Tab(
-                text: 'Cancelled',
+                text: 'cancelled'.tr,
               ),
             ],
           ),
@@ -420,10 +420,10 @@ class _SellerOrderPageState extends State<SellerOrderPage> {
               } else if (snapshot.hasError) {
                 return Text('Error: ${snapshot.error}');
               } else if (snapshot.data == null || snapshot.data.isEmpty) {
-                return const Center(child: Text('No Order'));
+                return Center(child: Text('no_order'.tr));
               } else if (snapshot.data['package'].length == 0 &&
                   snapshot.data['custom'].length == 0) {
-                return const Center(child: Text('No Order'));
+                return Center(child: Text('no_order'.tr));
               } else {
                 final data = snapshot.data;
                 return SingleChildScrollView(

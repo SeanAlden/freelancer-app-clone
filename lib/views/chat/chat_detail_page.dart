@@ -152,7 +152,7 @@ class _ChatDetailPageState extends State<ChatDetailPage> {
               if (balance < int.parse(price)) {
                 Get.snackbar(
                   "Error",
-                  'Balance not enough',
+                  'balance_status'.tr,
                   snackPosition: SnackPosition.TOP,
                   backgroundColor: Colors.red,
                   colorText: Colors.white,
@@ -184,7 +184,7 @@ class _ChatDetailPageState extends State<ChatDetailPage> {
                     serviceId: serviceId,
                     price: price,
                     freelancerId: freelancerId,
-                  )
+                  )   
                   .then((value) => setState(() {
                         isLoading = false;
                       }));
@@ -292,9 +292,9 @@ class _ChatDetailPageState extends State<ChatDetailPage> {
                   modeController.mode.value
               ? PopupMenuButton(itemBuilder: (context) {
                   return [
-                    const PopupMenuItem<int>(
+                    PopupMenuItem<int>(
                       value: 0,
-                      child: Text("Create Custom Order"),
+                      child: Text('create_custom_order'.tr),
                     ),
                   ];
                 }, onSelected: (value) {
@@ -407,15 +407,16 @@ class _ChatDetailPageState extends State<ChatDetailPage> {
                 Expanded(
                   child: TextField(
                     controller: inputController,
+                    style: TextStyle(color: Theme.of(context).brightness == Brightness.dark ? Colors.black : Colors.black),
                     maxLines: 1,
-                    decoration: const InputDecoration(
+                    decoration: InputDecoration(
                       contentPadding: EdgeInsets.only(
                         left: 8.0,
                         bottom: 8.0,
                         top: 8.0,
                       ),
-                      hintText: "Write message...",
-                      hintStyle: TextStyle(color: Colors.black54),
+                      hintText: 'write_message'.tr,
+                      hintStyle: TextStyle(color:Theme.of(context).brightness == Brightness.dark ? Colors.black54 : Colors.black45),
                       border: InputBorder.none,
                     ),
                   ),
@@ -468,7 +469,7 @@ class _ChatDetailPageState extends State<ChatDetailPage> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                "Custom Order Request",
+                'custom_order_request'.tr,
                 style: Theme.of(context).textTheme.titleMedium,
               ),
               const Divider(),
@@ -574,8 +575,8 @@ class _ChatDetailPageState extends State<ChatDetailPage> {
                           endTime: parsedExpirationDate.millisecondsSinceEpoch,
                           widgetBuilder: (context, time) {
                             if (time == null) {
-                              return const Text(
-                                'Offer has expired',
+                              return Text(
+                                'offer_has_expired'.tr,
                                 style: TextStyle(color: Colors.red),
                               );
                             }
@@ -594,8 +595,8 @@ class _ChatDetailPageState extends State<ChatDetailPage> {
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceBetween,
                                     children: [
-                                      const Text(
-                                        "Offer Expired in",
+                                      Text(
+                                        'offer_expired_in'.tr,
                                         style: TextStyle(color: Colors.yellow),
                                       ),
                                       Text(
@@ -606,8 +607,8 @@ class _ChatDetailPageState extends State<ChatDetailPage> {
                                     ],
                                   );
                                 } else {
-                                  return const Text(
-                                    'Offer has expired',
+                                  return Text(
+                                    'offer_has_expired'.tr,
                                     style: TextStyle(color: Colors.red),
                                   );
                                 }
@@ -628,7 +629,7 @@ class _ChatDetailPageState extends State<ChatDetailPage> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        "Here's your Custom Order",
+                        'your_custom_order'.tr,
                         style: Theme.of(context).textTheme.labelMedium,
                       ),
                       Text(
@@ -651,8 +652,8 @@ class _ChatDetailPageState extends State<ChatDetailPage> {
                     data['description'],
                   ),
                   const Divider(),
-                  const Text(
-                    "Offer Include",
+                  Text(
+                    'offer_include'.tr,
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                     ),
@@ -709,7 +710,7 @@ class _ChatDetailPageState extends State<ChatDetailPage> {
                                 ),
                               ),
                               child: Text(
-                                "Withdraw Custom Order",
+                                'withdraw_custom_order'.tr,
                                 style: Theme.of(context)
                                     .textTheme
                                     .titleSmall
@@ -750,7 +751,7 @@ class _ChatDetailPageState extends State<ChatDetailPage> {
                                     ),
                                   ),
                                   child: Text(
-                                    "Accept",
+                                    'accept'.tr,
                                     style: Theme.of(context)
                                         .textTheme
                                         .titleSmall
@@ -786,7 +787,7 @@ class _ChatDetailPageState extends State<ChatDetailPage> {
                                     ),
                                   ),
                                   child: Text(
-                                    "Reject",
+                                    'reject'.tr,
                                     style: Theme.of(context)
                                         .textTheme
                                         .titleSmall

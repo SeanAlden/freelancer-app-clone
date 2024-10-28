@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:clone_freelancer_mobile/models/news.dart';
 import 'package:clone_freelancer_mobile/views/news/news_detail_page.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 // import 'package:pusher_channels_flutter/pusher-js/core/transports/url_schemes.dart';
 import 'package:http/http.dart' as http;
 
@@ -38,7 +39,7 @@ class _NewsWidgetState extends State<NewsWidget> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          "News",
+          'news'.tr,
           style: Theme.of(context).textTheme.headlineSmall,
         ),
         FutureBuilder<List<NewsArticle>>(
@@ -66,7 +67,7 @@ class _NewsWidgetState extends State<NewsWidget> {
                               title: article.title,
                               imageUrl: article.imageUrl,
                               description: article.description ??
-                                  'No description available.',
+                                  'no_desc'.tr,
                               publishedAt: article.publishedAt,
                               url: article.url,
                             ),

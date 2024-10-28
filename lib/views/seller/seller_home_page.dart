@@ -48,8 +48,8 @@ class _SellerHomePageState extends State<SellerHomePage> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: const Text(
-          'Home', // Judul AppBar
+        title: Text(
+          'home'.tr, // Judul AppBar
           style: TextStyle(
             color: Colors.white, // Ganti dengan warna yang diinginkan
             fontSize: 20, // Ukuran teks bisa disesuaikan
@@ -178,7 +178,7 @@ class _SellerHomePageState extends State<SellerHomePage> {
                         Get.to(() => const AddServicePage());
                       },
                       icon: const Icon(Icons.add),
-                      label: const Text("Add New Services"),
+                      label: Text('add_new_services'.tr),
                     ),
                     // ElevatedButton.icon(
                     //   onPressed: () {},
@@ -191,7 +191,7 @@ class _SellerHomePageState extends State<SellerHomePage> {
                   height: 16,
                 ),
                 Text(
-                  "Your Services",
+                  'your_services'.tr,
                   style: Theme.of(context).textTheme.headlineSmall,
                 ),
                 const SizedBox(

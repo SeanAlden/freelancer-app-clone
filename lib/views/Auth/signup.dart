@@ -61,7 +61,7 @@ class _SignUpPageState extends State<SignUpPage> {
                 children: [
                   // Menampilkan teks Sign Up sebagai judul halaman
                   Text(
-                    'Sign Up',
+                    'sign_up'.tr,
                     style: Theme.of(context).textTheme.headlineLarge,
                   ),
                   const SizedBox(height: 30),
@@ -74,13 +74,13 @@ class _SignUpPageState extends State<SignUpPage> {
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(16.0),
                       ),
-                      labelText: 'Name',
+                      labelText: 'name'.tr,
                       prefixIcon: const Icon(Icons.person_outline),
                     ),
                     validator: (value) {
                       // Validasi untuk memeriksa jika input kosong
                       if (value == null || value.trim().isEmpty) {
-                        return 'Please enter your name.';
+                        return 'name_required'.tr;
                       }
                       return null;
                     },
@@ -96,13 +96,13 @@ class _SignUpPageState extends State<SignUpPage> {
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(16.0),
                       ),
-                      labelText: 'Email',
+                      labelText: 'email'.tr,
                       prefixIcon: const Icon(Icons.mail_outline),
                     ),
                     validator: (value) {
                       // Validasi jika email kosong
                       if (value == null || value.trim().isEmpty) {
-                        return 'Please enter your email';
+                        return 'please_enter_email'.tr;
                       }
                       return null;
                     },
@@ -117,7 +117,7 @@ class _SignUpPageState extends State<SignUpPage> {
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(16.0),
                       ),
-                      labelText: 'Password',
+                      labelText: 'password'.tr,
                       prefixIcon: const Icon(Icons.lock_outline),
                       // Icon untuk toggle visibilitas password
                       suffixIcon: IconButton(
@@ -132,9 +132,9 @@ class _SignUpPageState extends State<SignUpPage> {
                     validator: (value) {
                       // Validasi jika password kosong atau kurang dari 8 karakter
                       if (value == null || value.trim().isEmpty) {
-                        return 'Please enter your password.';
+                        return 'please_enter_password'.tr;
                       } else if (value.length < 8) {
-                        return 'Password must be at least 8 characters long.';
+                        return 'pass_rule'.tr;
                       }
                       return null;
                     },
@@ -150,7 +150,7 @@ class _SignUpPageState extends State<SignUpPage> {
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(16.0),
                       ),
-                      labelText: 'Confirm Password',
+                      labelText: 'confirm_password'.tr,
                       prefixIcon: const Icon(Icons.lock_outline),
                       // Icon untuk toggle visibilitas konfirmasi password
                       suffixIcon: IconButton(
@@ -165,9 +165,9 @@ class _SignUpPageState extends State<SignUpPage> {
                     validator: (value) {
                       // Validasi jika konfirmasi password kosong atau tidak sesuai
                       if (value == null || value.trim().isEmpty) {
-                        return 'Please enter your password confirmation.';
+                        return 'confirm_password_required'.tr;
                       } else if (value != _passwordController.text.trim()) {
-                        return 'Passwords do not match.';
+                        return 'password_not_match'.tr;
                       }
                       return null;
                     },
@@ -208,8 +208,8 @@ class _SignUpPageState extends State<SignUpPage> {
                                       color: Colors.white,
                                     ),
                                   )
-                                : const Text(
-                                    "Sign Up",
+                                : Text(
+                                    'sign_up'.tr,
                                     style: TextStyle(
                                       color: Colors.white,
                                     ),
@@ -228,12 +228,12 @@ class _SignUpPageState extends State<SignUpPage> {
                           text: TextSpan(
                             children: [
                               TextSpan(
-                                text: "Already have an account ? ",
+                                text: 'already_have_account'.tr,
                                 style: Theme.of(context).textTheme.bodyLarge,
                               ),
                               // Teks untuk login, menggunakan TapGestureRecognizer untuk navigasi ke halaman login
                               TextSpan(
-                                text: "Login here",
+                                text: 'login_here'.tr,
                                 style: Theme.of(context)
                                     .textTheme
                                     .bodyLarge

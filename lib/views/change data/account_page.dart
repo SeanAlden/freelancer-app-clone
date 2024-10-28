@@ -40,7 +40,7 @@ class _AccountPageState extends State<AccountPage> {
     showDialog<void>(
       context: context,
       builder: (context) => AlertDialog(
-        title: Text('Close Account ?', style: textTheme.titleLarge!),
+        title: Text('close_account_question'.tr, style: textTheme.titleLarge!),
         content: SizedBox(
           width: MediaQuery.of(context).size.width,
           child: SingleChildScrollView(
@@ -58,10 +58,10 @@ class _AccountPageState extends State<AccountPage> {
             onPressed: () {
               Navigator.of(context).pop();
             },
-            child: const Text('No'),
+            child: Text('no'.tr),
           ),
           TextButton(
-            child: const Text('OK'),
+            child: Text('ok'.tr),
             onPressed: () async {
               Navigator.of(context).pop();
               await authController.closeAccount();
@@ -219,8 +219,8 @@ class _AccountPageState extends State<AccountPage> {
           color: Colors.white,
           onPressed: () => Navigator.of(context).pop(),
         ),
-        title: const Text(
-          'Account', // Judul AppBar
+        title: Text(
+          'account'.tr, // Judul AppBar
           style: TextStyle(
             color: Colors.white, // Ganti dengan warna yang diinginkan
             fontSize: 20, // Ukuran teks bisa disesuaikan
@@ -236,7 +236,7 @@ class _AccountPageState extends State<AccountPage> {
             children: [
               // mengatur nama baru
               Text(
-                'Name',
+                'edit_profile_name'.tr,
                 style: Theme.of(context).textTheme.titleMedium,
               ),
               const SizedBox(
@@ -246,7 +246,7 @@ class _AccountPageState extends State<AccountPage> {
                 controller: nameController,
                 decoration: InputDecoration(
                   // bagian text box untuk mengisi nama baru
-                  hintText: "Name",
+                  hintText: 'edit_profile_name'.tr,
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(5.0),
                   ),
@@ -254,11 +254,11 @@ class _AccountPageState extends State<AccountPage> {
                 validator: (value) {
                   // validator untuk mengecek apakah nama telah diisi dan dengan jumlah karakter minimum
                   if (value == null || value.isEmpty) {
-                    return 'Please enter your name';
+                    return 'name_required'.tr;
                   } else if (value.length < 3) {
-                    return 'Name must be at least 5 characters long';
+                    return 'name_length_min'.tr;
                   } else if (value.length > 17) {
-                    return 'Name must not be more than 17 characters';
+                    return 'name_length_max'.tr;
                   }
                   return null;
                 },
@@ -268,7 +268,7 @@ class _AccountPageState extends State<AccountPage> {
               ),
               // mengatur email baru
               Text(
-                'Email',
+                'edit_profile_email'.tr,
                 style: Theme.of(context).textTheme.titleMedium,
               ),
               const SizedBox(
@@ -278,7 +278,7 @@ class _AccountPageState extends State<AccountPage> {
                 controller: emailController,
                 decoration: InputDecoration(
                   // bagian text box untuk mengisi email baru
-                  hintText: "Email",
+                  hintText: 'edit_profile_email'.tr,
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(5.0),
                   ),
@@ -286,9 +286,9 @@ class _AccountPageState extends State<AccountPage> {
                 validator: (value) {
                   // validator yang mengecek apakah email telah diisi dan dengan format yang benar
                   if (value == null || value.isEmpty) {
-                    return 'Please enter an email address';
+                    return 'email_null_check'.tr;
                   } else if (!value.endsWith('@gmail.com')) {
-                    return 'Please enter your email address';
+                    return 'email_format_required'.tr;
                   }
                   return null;
                 },
@@ -301,7 +301,7 @@ class _AccountPageState extends State<AccountPage> {
                   children: [
                     TextSpan(
                       // bagian untuk menutup akun
-                      text: "Close Account",
+                      text: 'close_account'.tr,
                       style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                             color: Colors.red,
                           ),
@@ -352,8 +352,8 @@ class _AccountPageState extends State<AccountPage> {
                                 ),
                               )
                             // teks "Save"
-                            : const Text(
-                                "Save",
+                            : Text(
+                                'save'.tr,
                                 style: TextStyle(
                                     fontWeight: FontWeight.bold), // Gaya teks
                               );

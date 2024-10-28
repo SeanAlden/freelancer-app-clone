@@ -67,11 +67,20 @@ class _AddPortfolioDialogState extends State<AddPortfolioDialog> {
     return Dialog.fullscreen(
       child: Scaffold(
         appBar: AppBar(
+          // mengatur title page
+          centerTitle: true,
           leading: IconButton(
-            icon: const Icon(Icons.close),
-            onPressed: () => Navigator.pop(context, true),
+            icon: Icon(Icons.close),
+            color: Colors.white,
+            onPressed: () => Navigator.of(context).pop(),
           ),
-          title: const Text('Add Portfolio'),
+          title: Text(
+            "Add Portfolio", // Judul AppBar
+            style: TextStyle(
+              color: Colors.white, // Ganti dengan warna yang diinginkan
+              fontSize: 20, // Ukuran teks bisa disesuaikan
+            ),
+          ),
         ),
         body: SingleChildScrollView(
           child: Container(
@@ -243,6 +252,18 @@ class _AddPortfolioDialogState extends State<AddPortfolioDialog> {
                           onPressed: () {
                             pickImageGallery();
                           },
+                          style: ButtonStyle(
+                            backgroundColor: MaterialStateProperty.all<Color>(
+                                Colors.blue), // Warna latar belakang
+                            foregroundColor: MaterialStateProperty.all<Color>(
+                                Colors.white), // Warna teks atau ikon
+                            shape: MaterialStateProperty.all<
+                                RoundedRectangleBorder>(
+                              RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(8.0),
+                              ),
+                            ),
+                          ),
                           child: const Text(
                             "Choose Image",
                           ),
@@ -257,6 +278,10 @@ class _AddPortfolioDialogState extends State<AddPortfolioDialog> {
                     alignment: Alignment.centerRight,
                     child: ElevatedButton(
                       style: ButtonStyle(
+                        backgroundColor: MaterialStateProperty.all<Color>(
+                            Colors.blue), // Warna latar belakang
+                        foregroundColor: MaterialStateProperty.all<Color>(
+                            Colors.white), // Warna teks atau ikon
                         shape:
                             MaterialStateProperty.all<RoundedRectangleBorder>(
                           RoundedRectangleBorder(

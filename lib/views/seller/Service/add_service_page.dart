@@ -375,7 +375,7 @@ class _AddServicePageState extends State<AddServicePage> {
                           text: TextSpan(
                             children: [
                               TextSpan(
-                                text: "Service Type",
+                                text: 'service_type'.tr,
                                 style: Theme.of(context).textTheme.titleMedium,
                               ),
                               TextSpan(
@@ -396,7 +396,7 @@ class _AddServicePageState extends State<AddServicePage> {
                         DropdownButtonHideUnderline(
                           child: DropdownButton2<String>(
                             isExpanded: true,
-                            hint: const Text("Select Service Type"),
+                            hint: Text('select_service_type'.tr),
                             items: const [
                               DropdownMenuItem<String>(
                                 value: 'Digital Service',
@@ -551,7 +551,7 @@ class _AddServicePageState extends State<AddServicePage> {
                           text: TextSpan(
                             children: [
                               TextSpan(
-                                text: "Category",
+                                text: 'category'.tr,
                                 style: Theme.of(context).textTheme.titleMedium,
                               ),
                               TextSpan(
@@ -572,7 +572,7 @@ class _AddServicePageState extends State<AddServicePage> {
                         DropdownButtonHideUnderline(
                           child: DropdownButton2<String>(
                             isExpanded: true,
-                            hint: const Text("Select Category"),
+                            hint: Text('select_category'.tr),
                             items: listProfession.map<DropdownMenuItem<String>>(
                               (String value) {
                                 return DropdownMenuItem<String>(
@@ -670,7 +670,7 @@ class _AddServicePageState extends State<AddServicePage> {
                                 text: TextSpan(
                                   children: [
                                     TextSpan(
-                                      text: "Sub-Category",
+                                      text: 'sub_category'.tr,
                                       style: Theme.of(context)
                                           .textTheme
                                           .titleMedium,
@@ -693,7 +693,7 @@ class _AddServicePageState extends State<AddServicePage> {
                               DropdownButtonHideUnderline(
                                 child: DropdownButton2<String>(
                                   isExpanded: true,
-                                  hint: const Text("Select Sub-Category"),
+                                  hint: Text("Select ${'sub_category'.tr}"),
                                   items: listOccupation
                                       .map<DropdownMenuItem<String>>(
                                     (String value) {
@@ -772,7 +772,7 @@ class _AddServicePageState extends State<AddServicePage> {
                           text: TextSpan(
                             children: [
                               TextSpan(
-                                text: "Title",
+                                text: 'title_service'.tr,
                                 style: Theme.of(context).textTheme.titleMedium,
                               ),
                               TextSpan(
@@ -798,7 +798,7 @@ class _AddServicePageState extends State<AddServicePage> {
                             return null;
                           },
                           decoration: InputDecoration(
-                            hintText: "What will you do",
+                            hintText: 'title_hint'.tr,
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(5.0),
                             ),
@@ -842,7 +842,7 @@ class _AddServicePageState extends State<AddServicePage> {
                           maxLines: 5,
                           maxLength: 1200,
                           decoration: InputDecoration(
-                            hintText: "Please enter brief description",
+                            hintText: 'description_hint_service'.tr,
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(5.0),
                             ),
@@ -870,7 +870,7 @@ class _AddServicePageState extends State<AddServicePage> {
                           text: TextSpan(
                             children: [
                               TextSpan(
-                                text: "Image ($totalImage/5)",
+                                text: 'image'.tr + " ($totalImage/5)",
                                 style: Theme.of(context).textTheme.titleMedium,
                               ),
                               TextSpan(
@@ -886,7 +886,7 @@ class _AddServicePageState extends State<AddServicePage> {
                           ),
                         ),
                         Text(
-                          "Get noticed by the right buyers with visual examples of your services.",
+                          'image_desc'.tr,
                           style: Theme.of(context).textTheme.bodySmall,
                         ),
                         const SizedBox(
@@ -897,9 +897,9 @@ class _AddServicePageState extends State<AddServicePage> {
                             Expanded(
                               child: SizedBox(
                                 child: selectedImages.isEmpty
-                                    ? const Center(
+                                    ? Center(
                                         child: Text(
-                                          'Sorry nothing selected!!',
+                                          'image_warning'.tr,
                                         ),
                                       )
                                     : GridView.builder(
@@ -982,8 +982,8 @@ class _AddServicePageState extends State<AddServicePage> {
                                 onPressed: () {
                                   pickImageGallery();
                                 },
-                                child: const Text(
-                                  "Choose Image",
+                                child: Text(
+                                  'choose_image'.tr,
                                 ),
                               ),
                             ),
@@ -1027,7 +1027,7 @@ class _AddServicePageState extends State<AddServicePage> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text(
-                              "Custom Order",
+                              'custom_order'.tr,
                               style: Theme.of(context).textTheme.titleMedium,
                             ),
                             Switch(
@@ -1053,7 +1053,7 @@ class _AddServicePageState extends State<AddServicePage> {
                               text: TextSpan(
                                 children: [
                                   TextSpan(
-                                    text: "Package & Price",
+                                    text: 'package_and_price'.tr,
                                     style:
                                         Theme.of(context).textTheme.titleMedium,
                                   ),
@@ -1284,7 +1284,7 @@ class _AddServicePageState extends State<AddServicePage> {
                         ),
                       ),
                       onPressed: _index == 0 ? null : details.onStepCancel,
-                      child: const Text('Back'),
+                      child: Text('back'.tr),
                     ),
                     const SizedBox(
                       width: 8,
@@ -1303,7 +1303,7 @@ class _AddServicePageState extends State<AddServicePage> {
                         ),
                       ),
                       onPressed: details.onStepContinue,
-                      child: const Text('Continue'),
+                      child: Text('continue'.tr),
                     ),
                   ],
                 );

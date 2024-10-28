@@ -62,8 +62,8 @@ class _ListSupportTicketState extends State<ListSupportTicket> {
           color: Colors.white,
           onPressed: () => Navigator.of(context).pop(),
         ),
-        title: const Text(
-          'My Support Request', // Judul AppBar
+        title: Text(
+          'my_support_request'.tr, // Judul AppBar
           style: TextStyle(
             color: Colors.white, // Ganti dengan warna yang diinginkan
             fontSize: 20, // Ukuran teks bisa disesuaikan
@@ -79,8 +79,8 @@ class _ListSupportTicketState extends State<ListSupportTicket> {
                 child: Text('Error: ${snapshot.error}'),
               );
             } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-              return const Center(
-                child: Text('No support request available'),
+              return Center(
+                child: Text('no_support_request'.tr),
               );
             } else {
               final data = snapshot.data;

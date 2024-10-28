@@ -36,7 +36,7 @@ class _VerNoticePageState extends State<VerNoticePage> {
                   height: 20, // Menambahkan jarak vertikal sebesar 20
                 ),
                 Text(
-                  'Thank You for Registering', // Menampilkan teks sebagai judul utama
+                  'register_feedback'.tr, // Menampilkan teks sebagai judul utama
                   style: Theme.of(context).textTheme.headlineLarge, // Menggunakan gaya teks yang ada dalam tema
                   textAlign: TextAlign.center, // Teks ditata di tengah secara horizontal
                 ),
@@ -44,7 +44,7 @@ class _VerNoticePageState extends State<VerNoticePage> {
                   height: 20, // Menambahkan jarak vertikal sebesar 20
                 ),
                 Text(
-                  "To finish signing up, please check your email address to confirm your email. ", // Teks instruksi konfirmasi email
+                  'confirm_email'.tr, // Teks instruksi konfirmasi email
                   textAlign: TextAlign.center, // Teks ditata di tengah
                   style: Theme.of(context).textTheme.titleSmall?.copyWith(
                         color: Colors.grey[600], // Mengatur warna teks menjadi abu-abu
@@ -77,8 +77,8 @@ class _VerNoticePageState extends State<VerNoticePage> {
                             ),
                           ),
                         ),
-                        child: const Text(
-                          'Back to Login', // Teks di dalam tombol
+                        child: Text(
+                          'back_to_login'.tr, // Teks di dalam tombol
                           style: TextStyle(
                             color: Colors.white, // Mengatur warna teks menjadi putih
                           ),

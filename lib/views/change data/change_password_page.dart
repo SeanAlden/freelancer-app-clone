@@ -38,15 +38,15 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        // mengatur title pada halaman 
+        // mengatur title pada halaman
         centerTitle: true,
         leading: IconButton(
           icon: Icon(Icons.arrow_back),
           color: Colors.white,
           onPressed: () => Navigator.of(context).pop(),
         ),
-        title: const Text(
-          'Change Password', // Judul AppBar
+        title: Text(
+          'change_password'.tr, // Judul AppBar
           style: TextStyle(
             color: Colors.white, // Ganti dengan warna yang diinginkan
             fontSize: 20, // Ukuran teks bisa disesuaikan
@@ -65,7 +65,7 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
               children: [
                 // Password sekarang
                 Text(
-                  'Current Password',
+                  'current_password'.tr,
                   style: Theme.of(context).textTheme.titleMedium,
                 ),
                 const SizedBox(
@@ -75,7 +75,7 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
                   controller: currentController,
                   obscureText: _obscureText1,
                   decoration: InputDecoration(
-                    hintText: "Current Password",
+                    hintText: 'current_password'.tr,
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(5.0),
                     ),
@@ -90,7 +90,7 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
                   ),
                   validator: (value) {
                     if (value == null || value.isEmpty) {
-                      return 'Please enter an your current password';
+                      return 'current_password_required'.tr;
                     }
                     return null;
                   },
@@ -100,7 +100,7 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
                 ),
                 // Password baru
                 Text(
-                  'New Password',
+                  'new_password'.tr,
                   style: Theme.of(context).textTheme.titleMedium,
                 ),
                 const SizedBox(
@@ -110,7 +110,7 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
                   controller: newController,
                   obscureText: _obscureText2,
                   decoration: InputDecoration(
-                    hintText: "New Password",
+                    hintText: 'new_password'.tr,
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(5.0),
                     ),
@@ -125,9 +125,9 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
                   ),
                   validator: (value) {
                     if (value == null || value.isEmpty) {
-                      return 'Please enter your new password';
+                      return 'please_enter_new_password'.tr;
                     } else if (value.length < 8) {
-                      return 'Password must be at least 8 characters long';
+                      return 'pass_rule'.tr;
                     }
                     return null;
                   },
@@ -137,7 +137,7 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
                 ),
                 // Konfirmasi Password Baru
                 Text(
-                  'Confirm Password',
+                  'confirm_password'.tr,
                   style: Theme.of(context).textTheme.titleMedium,
                 ),
                 const SizedBox(
@@ -147,7 +147,7 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
                   controller: confirmController,
                   obscureText: _obscureText3,
                   decoration: InputDecoration(
-                    hintText: "Confirm Password",
+                    hintText: 'confirm_password'.tr,
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(5.0),
                     ),
@@ -162,9 +162,9 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
                   ),
                   validator: (value) {
                     if (value == null || value.isEmpty) {
-                      return 'Please enter your password confirmation';
+                      return 'confirm_password_required'.tr;
                     } else if (value != newController.text.trim()) {
-                      return 'Passwords do not match';
+                      return 'password_not_match'.tr;
                     }
                     return null;
                   },
@@ -187,8 +187,10 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
                           }
                         },
                         style: ButtonStyle(
-                          backgroundColor: MaterialStateProperty.all<Color>(Colors.blue),
-                          foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
+                          backgroundColor:
+                              MaterialStateProperty.all<Color>(Colors.blue),
+                          foregroundColor:
+                              MaterialStateProperty.all<Color>(Colors.white),
                           shape:
                               MaterialStateProperty.all<RoundedRectangleBorder>(
                             RoundedRectangleBorder(
@@ -203,8 +205,8 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
                                     color: Colors.white,
                                   ),
                                 )
-                              : const Text(
-                                  "Save",
+                              : Text(
+                                  'save'.tr,
                                   style: TextStyle(fontWeight: FontWeight.bold),
                                 );
                         }),

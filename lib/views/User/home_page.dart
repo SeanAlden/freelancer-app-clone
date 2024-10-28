@@ -16,6 +16,7 @@ import 'package:clone_freelancer_mobile/models/chat_user_data.dart';
 import 'package:clone_freelancer_mobile/models/package.dart';
 import 'package:clone_freelancer_mobile/views/User/details_page.dart';
 import 'package:clone_freelancer_mobile/views/User/display_search_page.dart';
+import 'package:get/get.dart';
 import 'package:clone_freelancer_mobile/views/User/navigation_page.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
@@ -63,10 +64,10 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
         appBar: AppBar(
           // backgroundColor: Colors.purple,
-          title: const Center(
+          title: Center(
             // mengatur title untuk Home
             child: Text(
-              "Home",
+              'home'.tr,
               style: TextStyle(color: Colors.white),
             ),
           ),
@@ -391,7 +392,7 @@ class _HomePageState extends State<HomePage> {
                       children: [
                         // bagian title untuk kolom kategori layanan
                         Text(
-                          "Service Categories",
+                          'service_categories'.tr,
                           style: Theme.of(context).textTheme.headlineSmall,
                         ),
                         RichText(
@@ -416,7 +417,7 @@ class _HomePageState extends State<HomePage> {
 
                               // Merubah implementasi ketika tombol "See All" ditekan, maka akan melakukan navigasi ke halaman category page
                               TextSpan(
-                                text: "See All",
+                                text: 'see_all'.tr,
                                 style: Theme.of(context)
                                     .textTheme
                                     .titleSmall
@@ -546,7 +547,7 @@ class _HomePageState extends State<HomePage> {
                                         children: [
                                           // title untuk kolom "Services"
                                           Text(
-                                            "Services",
+                                            'services'.tr,  
                                             style: Theme.of(context)
                                                 .textTheme
                                                 .headlineSmall,

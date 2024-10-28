@@ -59,7 +59,7 @@ class _SetPasswordPageState extends State<SetPasswordPage> {
                   alignment: Alignment
                       .center, // Mencentralkan teks di bagian atas halaman
                   child: Text(
-                    'Set New Password',
+                    'set_new_password'.tr,
                     style: Theme.of(context).textTheme.headlineLarge?.copyWith(
                           color: Theme.of(context).brightness == Brightness.dark
                               ? Colors.white // Warna teks untuk mode gelap
@@ -71,7 +71,7 @@ class _SetPasswordPageState extends State<SetPasswordPage> {
                 Align(
                   alignment: Alignment.center,
                   child: Text(
-                    "Must be at least 8 characters", // Petunjuk tambahan
+                    'set_password_rule'.tr, // Petunjuk tambahan
                     style: Theme.of(context).textTheme.titleSmall?.copyWith(
                           color: Colors
                               .grey[600], // Warna abu-abu untuk teks petunjuk
@@ -82,7 +82,7 @@ class _SetPasswordPageState extends State<SetPasswordPage> {
                   height: 30, // Memberikan jarak antar elemen
                 ),
                 Text(
-                  'New Password', // Label untuk input password baru
+                  'new_password'.tr, // Label untuk input password baru
                   style: Theme.of(context).textTheme.titleMedium,
                 ),
                 const SizedBox(
@@ -93,7 +93,7 @@ class _SetPasswordPageState extends State<SetPasswordPage> {
                   controller: passwordController, // Mengontrol input password
                   obscureText: _obscureText1, // Password akan disembunyikan
                   decoration: InputDecoration(
-                    hintText: "New Password", // Placeholder pada input field
+                    hintText: 'new_password'.tr, // Placeholder pada input field
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(
                           5.0), // Membuat border input rounded
@@ -159,9 +159,9 @@ class _SetPasswordPageState extends State<SetPasswordPage> {
                   // Validasi input konfirmasi password
                   validator: (value) {
                     if (value == null || value.isEmpty) {
-                      return 'Please enter your password confirmation'; // Pesan error jika kosong
+                      return 'confirm_password_required'.tr; // Pesan error jika kosong
                     } else if (value != passwordController.text.trim()) {
-                      return 'Passwords do not match'; // Pesan error jika password tidak sama
+                      return 'password_not_match'.tr; // Pesan error jika password tidak sama
                     }
                     return null;
                   },
@@ -186,11 +186,14 @@ class _SetPasswordPageState extends State<SetPasswordPage> {
                           }
                         },
                         style: ButtonStyle(
+                          backgroundColor: MaterialStateProperty.all<Color>(
+                              Colors.blue), // Warna latar belakang
+                          foregroundColor: MaterialStateProperty.all<Color>(
+                              Colors.white), // Warna teks atau ikon
                           shape:
                               MaterialStateProperty.all<RoundedRectangleBorder>(
                             RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(
-                                  8.0), // Border tombol dibuat rounded
+                              borderRadius: BorderRadius.circular(8.0),
                             ),
                           ),
                         ),
@@ -203,8 +206,8 @@ class _SetPasswordPageState extends State<SetPasswordPage> {
                                         .white, // Loading spinner saat proses reset berlangsung
                                   ),
                                 )
-                              : const Text(
-                                  "Reset Password", // Teks tombol
+                              : Text(
+                                  'reset_password'.tr, // Teks tombol
                                 );
                         }),
                       ),

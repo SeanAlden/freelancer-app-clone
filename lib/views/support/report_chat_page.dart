@@ -59,8 +59,19 @@ class _ReportChatPageState extends State<ReportChatPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Center(
-          child: Text(widget.subject),
+        // mengatur title page
+        centerTitle: true,
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back),
+          color: Colors.white,
+          onPressed: () => Navigator.of(context).pop(),
+        ),
+        title: Text(
+          widget.subject, // Judul AppBar
+          style: TextStyle(
+            color: Colors.white, // Ganti dengan warna yang diinginkan
+            fontSize: 20, // Ukuran teks bisa disesuaikan
+          ),
         ),
       ),
       body: Column(
@@ -95,8 +106,8 @@ class _ReportChatPageState extends State<ReportChatPage> {
                     ),
                   );
                 } else {
-                  return const Center(
-                    child: Text('No Message'),
+                  return Center(
+                    child: Text('no_message'.tr),
                   );
                 }
               },
@@ -116,13 +127,13 @@ class _ReportChatPageState extends State<ReportChatPage> {
                     enabled: widget.status == 'open' ? true : false,
                     controller: inputController,
                     maxLines: 1,
-                    decoration: const InputDecoration(
+                    decoration: InputDecoration(
                         contentPadding: EdgeInsets.only(
                           left: 8.0,
                           bottom: 8.0,
                           top: 8.0,
                         ),
-                        hintText: "Write message...",
+                        hintText: 'write_message'.tr,
                         hintStyle: TextStyle(color: Colors.black54),
                         border: InputBorder.none),
                   ),

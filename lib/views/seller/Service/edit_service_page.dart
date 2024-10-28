@@ -408,8 +408,8 @@ class _EditServicePageState extends State<EditServicePage> {
           color: Colors.white,
           onPressed: () => Navigator.of(context).pop(),
         ),
-        title: const Text(
-          'Edit Service Form', // Judul AppBar
+        title: Text(
+          'edit_service_form'.tr, // Judul AppBar
           style: TextStyle(
             color: Colors.white, // Ganti dengan warna yang diinginkan
             fontSize: 20, // Ukuran teks bisa disesuaikan
@@ -643,7 +643,7 @@ class _EditServicePageState extends State<EditServicePage> {
                                 text: TextSpan(
                                   children: [
                                     TextSpan(
-                                      text: "Service Type",
+                                      text: 'service_type'.tr,
                                       style: Theme.of(context)
                                           .textTheme
                                           .titleMedium,
@@ -826,7 +826,7 @@ class _EditServicePageState extends State<EditServicePage> {
                                 text: TextSpan(
                                   children: [
                                     TextSpan(
-                                      text: "Category",
+                                      text: 'category'.tr,
                                       style: Theme.of(context)
                                           .textTheme
                                           .titleMedium,
@@ -949,7 +949,7 @@ class _EditServicePageState extends State<EditServicePage> {
                                     text: TextSpan(
                                       children: [
                                         TextSpan(
-                                          text: "Sub-Category",
+                                          text: 'sub_category'.tr,
                                           style: Theme.of(context)
                                               .textTheme
                                               .titleMedium,
@@ -972,7 +972,7 @@ class _EditServicePageState extends State<EditServicePage> {
                                   DropdownButtonHideUnderline(
                                     child: DropdownButton2<String>(
                                       isExpanded: true,
-                                      hint: const Text("Select Sub-Category"),
+                                      hint: Text("Select ${'sub_category'.tr}"),
                                       items: listOccupation
                                           .map<DropdownMenuItem<String>>(
                                         (String value) {
@@ -1058,7 +1058,7 @@ class _EditServicePageState extends State<EditServicePage> {
                                 text: TextSpan(
                                   children: [
                                     TextSpan(
-                                      text: "Title",
+                                      text: 'title_service'.tr,
                                       style: Theme.of(context)
                                           .textTheme
                                           .titleMedium,
@@ -1086,7 +1086,7 @@ class _EditServicePageState extends State<EditServicePage> {
                                   return null;
                                 },
                                 decoration: InputDecoration(
-                                  hintText: "What will you do",
+                                  hintText: 'title_hint'.tr,
                                   border: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(5.0),
                                   ),
@@ -1101,7 +1101,7 @@ class _EditServicePageState extends State<EditServicePage> {
                                 text: TextSpan(
                                   children: [
                                     TextSpan(
-                                      text: "Description",
+                                      text: 'description'.tr,
                                       style: Theme.of(context)
                                           .textTheme
                                           .titleMedium,
@@ -1132,7 +1132,7 @@ class _EditServicePageState extends State<EditServicePage> {
                                 maxLines: 5,
                                 maxLength: 1200,
                                 decoration: InputDecoration(
-                                  hintText: "Please enter brief description",
+                                  hintText: 'description_hint_service'.tr,
                                   border: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(5.0),
                                   ),
@@ -1161,7 +1161,7 @@ class _EditServicePageState extends State<EditServicePage> {
                                 text: TextSpan(
                                   children: [
                                     TextSpan(
-                                      text: "Image ($totalImage/5)",
+                                      text: 'image'.tr + " ($totalImage/5)",
                                       style: Theme.of(context)
                                           .textTheme
                                           .titleMedium,
@@ -1179,7 +1179,7 @@ class _EditServicePageState extends State<EditServicePage> {
                                 ),
                               ),
                               Text(
-                                "Get noticed by the right buyers with visual examples of your services.",
+                                'image_desc'.tr,
                                 style: Theme.of(context).textTheme.bodySmall,
                               ),
                               const SizedBox(
@@ -1391,7 +1391,7 @@ class _EditServicePageState extends State<EditServicePage> {
                                     MainAxisAlignment.spaceBetween,
                                 children: [
                                   Text(
-                                    "Custom Order",
+                                    'custom_order'.tr,
                                     style:
                                         Theme.of(context).textTheme.titleMedium,
                                   ),
@@ -1418,7 +1418,7 @@ class _EditServicePageState extends State<EditServicePage> {
                                     text: TextSpan(
                                       children: [
                                         TextSpan(
-                                          text: "Package & Price",
+                                          text: 'package_and_price'.tr,
                                           style: Theme.of(context)
                                               .textTheme
                                               .titleMedium,
@@ -1684,7 +1684,7 @@ class _EditServicePageState extends State<EditServicePage> {
                             ),
                             onPressed:
                                 _index == 0 ? null : details.onStepCancel,
-                            child: const Text('Back'),
+                            child: Text('back'.tr),
                           ),
                           const SizedBox(
                             width: 8,
@@ -1703,7 +1703,7 @@ class _EditServicePageState extends State<EditServicePage> {
                               ),
                             ),
                             onPressed: details.onStepContinue,
-                            child: const Text('Continue'),
+                            child: Text('continue'.tr),
                           ),
                         ],
                       );

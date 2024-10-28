@@ -42,8 +42,8 @@ class _SavedServicesPageState extends State<SavedServicesPage> {
           color: Colors.white,
           onPressed: () => Navigator.of(context).pop(),
         ),
-        title: const Text(
-          'Saved Services', // Judul AppBar
+        title: Text(
+          'saved_service'.tr, // Judul AppBar
           style: TextStyle(
             color: Colors.white, // Ganti dengan warna yang diinginkan
             fontSize: 20, // Ukuran teks bisa disesuaikan
@@ -69,8 +69,8 @@ class _SavedServicesPageState extends State<SavedServicesPage> {
                 child: CircularProgressIndicator(),
               );
             } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-              return const Center(
-                child: Text('No Saved Service Available'),
+              return Center(
+                child: Text('no_saved_service'.tr),
               );
             } else {
               final data = snapshot.data;
@@ -203,13 +203,13 @@ class _SavedServicesPageState extends State<SavedServicesPage> {
                                                   MediaQuery.of(context)
                                                               .orientation ==
                                                           Orientation.portrait
-                                                      // Jika orientasi potret dan panjang nama lebih dari 6 karakter, potong nama
+                                                      // Jika orientasi potret dan panjang nama lebih dari 5 karakter, potong nama
                                                       ? (data[index]['name']
                                                                   .length >
-                                                              6
-                                                          ? '${data[index]['name'].substring(0, 6)}...' // Memotong karakter ke-7 dan menambahkan "..."
+                                                              5
+                                                          ? '${data[index]['name'].substring(0, 5)}...' // Memotong karakter ke-6 dan menambahkan "..."
                                                           : data[index][
-                                                              'name']) // Tampilkan nama jika kurang dari atau sama dengan 6 karakter
+                                                              'name']) // Tampilkan nama jika kurang dari atau sama dengan 5 karakter
                                                       : data[index][
                                                           'name'], // Tampilkan nama lengkap di mode landscape
                                                   style: Theme.of(context)

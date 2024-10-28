@@ -29,8 +29,8 @@ class _RequestSupportPageState extends State<RequestSupportPage> {
           color: Colors.white,
           onPressed: () => Navigator.of(context).pop(),
         ),
-        title: const Text(
-          'Support Request', // Judul AppBar
+        title: Text(
+          'support_request'.tr, // Judul AppBar
           style: TextStyle(
             color: Colors.white, // Ganti dengan warna yang diinginkan
             fontSize: 20, // Ukuran teks bisa disesuaikan
@@ -55,7 +55,7 @@ class _RequestSupportPageState extends State<RequestSupportPage> {
                     height: 8,
                   ),
                   Text(
-                    'Subject',
+                    'subject'.tr,
                     style: Theme.of(context).textTheme.titleLarge,
                     textAlign: TextAlign.center,
                   ),
@@ -72,13 +72,13 @@ class _RequestSupportPageState extends State<RequestSupportPage> {
                     ),
                     validator: (value) {
                       if (value == null || value.trim().isEmpty) {
-                        return 'Please enter support subject.';
+                        return 'enter_support_subject'.tr;
                       }
                       return null;
                     },
                   ),
                   Text(
-                    'What is your issue ?',
+                    'user_issue_question'.tr,
                     style: Theme.of(context).textTheme.titleLarge,
                     textAlign: TextAlign.center,
                   ),
@@ -95,7 +95,7 @@ class _RequestSupportPageState extends State<RequestSupportPage> {
                     ),
                     validator: (value) {
                       if (value == null || value.trim().isEmpty) {
-                        return 'Please enter your issue.';
+                        return 'enter_your_issue'.tr;
                       }
                       return null;
                     },
@@ -135,8 +135,8 @@ class _RequestSupportPageState extends State<RequestSupportPage> {
                                       color: Colors.white,
                                     ),
                                   )
-                                : const Text(
-                                    "Send Request",
+                                : Text(
+                                    'send_request'.tr,
                                   );
                           }),
                         ),

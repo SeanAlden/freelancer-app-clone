@@ -53,11 +53,20 @@ class _CustomOrderDialogState extends State<CustomOrderDialog> {
     return Dialog.fullscreen(
       child: Scaffold(
         appBar: AppBar(
-          leading: IconButton(
-            icon: const Icon(Icons.close),
-            onPressed: () => Navigator.pop(context, true),
+       // mengatur title page
+        centerTitle: true,
+        leading: IconButton(
+          icon: Icon(Icons.close),
+          color: Colors.white,
+          onPressed: () => Navigator.of(context).pop(),
+        ),
+        title: Text(
+          'create_offer'.tr, // Judul AppBar
+          style: TextStyle(
+            color: Colors.white, // Ganti dengan warna yang diinginkan
+            fontSize: 20, // Ukuran teks bisa disesuaikan
           ),
-          title: const Text('Create an Offer'),
+        ),
         ),
         body: SingleChildScrollView(
           child: Container(
@@ -72,7 +81,7 @@ class _CustomOrderDialogState extends State<CustomOrderDialog> {
                     text: TextSpan(
                       children: [
                         TextSpan(
-                          text: "Select Service Type",
+                          text: 'select_service_type'.tr,
                           style: Theme.of(context).textTheme.titleMedium,
                         ),
                         TextSpan(
@@ -92,15 +101,15 @@ class _CustomOrderDialogState extends State<CustomOrderDialog> {
                     child: DropdownButtonFormField2<String>(
                       value: selectedServiceType,
                       isExpanded: true,
-                      hint: const Text("Select Service Type"),
-                      items: const [
+                      hint: Text('select_service_type'.tr),
+                      items: [
                         DropdownMenuItem(
                           value: 'Digital Service',
-                          child: Text('Digital Service'),
+                          child: Text('digital_service'.tr),
                         ),
                         DropdownMenuItem(
                           value: 'On-Site Service',
-                          child: Text('On-Site Service'),
+                          child: Text('on_site_service'.tr),
                         ),
                       ],
                       onChanged: (String? value) {
@@ -143,7 +152,7 @@ class _CustomOrderDialogState extends State<CustomOrderDialog> {
                       ),
                       validator: (value) {
                         if (value == null) {
-                          return 'Please select service type.';
+                          return 'select_service_type_required'.tr;
                         }
                         return null;
                       },
@@ -161,7 +170,7 @@ class _CustomOrderDialogState extends State<CustomOrderDialog> {
                           text: TextSpan(
                             children: [
                               TextSpan(
-                                text: "Select Date & Time",
+                                text: 'select_date_time'.tr,
                                 style: Theme.of(context).textTheme.titleMedium,
                               ),
                               TextSpan(
@@ -207,8 +216,8 @@ class _CustomOrderDialogState extends State<CustomOrderDialog> {
                                 Color(0xff6571ff),
                               ),
                             ),
-                            child: const Text(
-                              'Select Date & Time',
+                            child: Text(
+                              'select_date_time'.tr,
                               style: TextStyle(color: Colors.white),
                             ),
                           ),
@@ -221,7 +230,7 @@ class _CustomOrderDialogState extends State<CustomOrderDialog> {
                           text: TextSpan(
                             children: [
                               TextSpan(
-                                text: "Select Address",
+                                text: 'select_address'.tr,
                                 style: Theme.of(context).textTheme.titleMedium,
                               ),
                               TextSpan(
@@ -288,8 +297,8 @@ class _CustomOrderDialogState extends State<CustomOrderDialog> {
                                 Color(0xff6571ff),
                               ),
                             ),
-                            child: const Text(
-                              'Select Address',
+                            child: Text(
+                              'select_address'.tr,
                               style: TextStyle(color: Colors.white),
                             ),
                           ),
@@ -304,7 +313,7 @@ class _CustomOrderDialogState extends State<CustomOrderDialog> {
                     text: TextSpan(
                       children: [
                         TextSpan(
-                          text: "Select a Service To Offer",
+                          text: 'select_a_service'.tr,
                           style: Theme.of(context).textTheme.titleMedium,
                         ),
                         TextSpan(
@@ -330,14 +339,14 @@ class _CustomOrderDialogState extends State<CustomOrderDialog> {
                       } else if (snapshot.hasError) {
                         return Text('Error: ${snapshot.error}');
                       } else if (!snapshot.hasData) {
-                        return const Text(
-                            'No data available'); // Placeholder when no data is available
+                        return Text(
+                            'no_data_available'.tr); // Placeholder when no data is available
                       } else {
                         return DropdownButtonHideUnderline(
                           child: DropdownButtonFormField2<String>(
                             value: selectedService,
                             isExpanded: true,
-                            hint: const Text("Select Service"),
+                            hint: Text('select_service'.tr),
                             items: snapshot.data,
                             onChanged: (String? value) {
                               setState(() {
@@ -375,7 +384,7 @@ class _CustomOrderDialogState extends State<CustomOrderDialog> {
                             ),
                             validator: (value) {
                               if (value == null) {
-                                return 'Please select your service.';
+                                return 'please_select_service'.tr;
                               }
                               return null;
                             },
@@ -392,7 +401,7 @@ class _CustomOrderDialogState extends State<CustomOrderDialog> {
                     text: TextSpan(
                       children: [
                         TextSpan(
-                          text: "Description",
+                          text: 'description'.tr,
                           style: Theme.of(context).textTheme.titleMedium,
                         ),
                         TextSpan(
@@ -412,14 +421,14 @@ class _CustomOrderDialogState extends State<CustomOrderDialog> {
                     maxLines: 5,
                     controller: desc,
                     decoration: InputDecoration(
-                      hintText: "Describe your offer.",
+                      hintText: 'describe_offer'.tr,
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(5.0),
                       ),
                     ),
                     validator: (value) {
                       if (value == null || value.isEmpty) {
-                        return 'Description is required.';
+                        return 'description_required'.tr;
                       }
                       return null;
                     },
@@ -438,7 +447,7 @@ class _CustomOrderDialogState extends State<CustomOrderDialog> {
                               text: TextSpan(
                                 children: [
                                   TextSpan(
-                                    text: "Delivery Days",
+                                    text: 'delivery_days'.tr,
                                     style:
                                         Theme.of(context).textTheme.titleMedium,
                                   ),
@@ -471,9 +480,9 @@ class _CustomOrderDialogState extends State<CustomOrderDialog> {
                                     ),
                                     validator: (value) {
                                       if (value == null || value.isEmpty) {
-                                        return 'Delivery day is required.';
+                                        return 'delivery_day_required'.tr;
                                       } else if (value == '0') {
-                                        return 'Delivery day must > 0.';
+                                        return 'delivery_day_morethan_zero'.tr;
                                       }
                                       return null;
                                     },
@@ -499,7 +508,7 @@ class _CustomOrderDialogState extends State<CustomOrderDialog> {
                               text: TextSpan(
                                 children: [
                                   TextSpan(
-                                    text: "Number of Revision",
+                                    text: 'number_of_revision'.tr,
                                     style:
                                         Theme.of(context).textTheme.titleMedium,
                                   ),
@@ -532,7 +541,7 @@ class _CustomOrderDialogState extends State<CustomOrderDialog> {
                                     ),
                                     validator: (value) {
                                       if (value == null || value.isEmpty) {
-                                        return 'Revision is required.';
+                                        return 'revision_required'.tr;
                                       }
                                       return null;
                                     },
@@ -552,7 +561,7 @@ class _CustomOrderDialogState extends State<CustomOrderDialog> {
                     height: 8,
                   ),
                   Text(
-                    'Expiration Time Days (Optional)',
+                    'expiration_time'.tr,
                     style: Theme.of(context).textTheme.titleMedium,
                     textAlign: TextAlign.center,
                   ),
@@ -582,7 +591,7 @@ class _CustomOrderDialogState extends State<CustomOrderDialog> {
                     text: TextSpan(
                       children: [
                         TextSpan(
-                          text: "Price",
+                          text: 'price'.tr,
                           style: Theme.of(context).textTheme.titleMedium,
                         ),
                         TextSpan(
@@ -600,7 +609,7 @@ class _CustomOrderDialogState extends State<CustomOrderDialog> {
                   ),
                   Row(
                     children: [
-                      const Text('Rp'),
+                      const Text('IDR'),
                       const SizedBox(
                         width: 16,
                       ),
@@ -615,7 +624,7 @@ class _CustomOrderDialogState extends State<CustomOrderDialog> {
                           ),
                           validator: (value) {
                             if (value == null || value.isEmpty) {
-                              return 'Price is required.';
+                              return 'price_is_required'.tr;
                             }
                             return null;
                           },
@@ -633,6 +642,10 @@ class _CustomOrderDialogState extends State<CustomOrderDialog> {
                     alignment: Alignment.centerRight,
                     child: ElevatedButton(
                       style: ButtonStyle(
+                        backgroundColor: MaterialStateProperty.all<Color>(
+                            Colors.blue), // Warna latar belakang
+                        foregroundColor: MaterialStateProperty.all<Color>(
+                            Colors.white), // Warna teks atau ikon
                         shape:
                             MaterialStateProperty.all<RoundedRectangleBorder>(
                           RoundedRectangleBorder(
@@ -716,8 +729,8 @@ class _CustomOrderDialogState extends State<CustomOrderDialog> {
                           }
                         }
                       },
-                      child: const Text(
-                        "Submit Offer",
+                      child: Text(
+                        'submit_offer'.tr,
                       ),
                     ),
                   ),

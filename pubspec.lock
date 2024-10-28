@@ -237,10 +237,10 @@ packages:
     dependency: "direct main"
     description:
       name: dash_chat_2
-      sha256: "9de2deb3eec21f788bf761861aae54ac1d6cd23ab607606b848ba1fd2116c31d"
+      sha256: "87ff33cbd1d5fe6241eb6c2044de32d64ef888f5d2ec9b4ab75a949d4b3742d3"
       url: "https://pub.dev"
     source: hosted
-    version: "0.0.20"
+    version: "0.0.21"
   dio:
     dependency: "direct main"
     description:
@@ -402,10 +402,10 @@ packages:
     dependency: transitive
     description:
       name: flutter_form_builder
-      sha256: "560eb5e367d81170c6ade1e7ae63ecc5167936ae2cdfaae8a345e91bce19d2f2"
+      sha256: "447f8808f68070f7df968e8063aada3c9d2e90e789b5b70f3b44e4b315212656"
       url: "https://pub.dev"
     source: hosted
-    version: "9.2.1"
+    version: "9.3.0"
   flutter_keyboard_visibility:
     dependency: transitive
     description:
@@ -462,14 +462,19 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.0.2"
+  flutter_localizations:
+    dependency: "direct main"
+    description: flutter
+    source: sdk
+    version: "0.0.0"
   flutter_markdown:
     dependency: transitive
     description:
       name: flutter_markdown
-      sha256: "04c4722cc36ec5af38acc38ece70d22d3c2123c61305d555750a091517bbe504"
+      sha256: f0e599ba89c9946c8e051780f0ec99aba4ba15895e0380a7ab68f420046fc44e
       url: "https://pub.dev"
     source: hosted
-    version: "0.6.23"
+    version: "0.7.4+1"
   flutter_parsed_text:
     dependency: transitive
     description:
@@ -548,10 +553,10 @@ packages:
     dependency: transitive
     description:
       name: form_builder_extra_fields
-      sha256: f0abee7a3bbb1f71ca456213be313121a6a7e6d32610c8edd841b97c787fc399
+      sha256: "901687417f3f4fd957227f2303314a27c01d5480467a2dfce2c1e43a76558c3f"
       url: "https://pub.dev"
     source: hosted
-    version: "10.1.0"
+    version: "10.2.0"
   geocoding:
     dependency: "direct main"
     description:
@@ -828,10 +833,10 @@ packages:
     dependency: "direct main"
     description:
       name: intl
-      sha256: "3bc132a9dbce73a7e4a21a17d06e1878839ffbf975568bc875c60537824b0c4d"
+      sha256: d6f56758b7d3014a48af9701c085700aac781a92a87a62b1333b46d8879661cf
       url: "https://pub.dev"
     source: hosted
-    version: "0.18.1"
+    version: "0.19.0"
   js:
     dependency: transitive
     description:
@@ -980,10 +985,10 @@ packages:
     dependency: "direct main"
     description:
       name: money_formatter
-      sha256: "485ec13dced43238018108201a8229c531fd9270e6b2e601e42b4095dd9ac625"
+      sha256: "8e1cb4cd9c766ff9ec5caf7d1275bd738f48a3cc43c661f0790baead292989fb"
       url: "https://pub.dev"
     source: hosted
-    version: "0.0.5"
+    version: "0.0.6"
   nested:
     dependency: transitive
     description:

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 // Mendefinisikan class "RequestSentPage" yang merupakan StatelessWidget
 class RequestSentPage extends StatelessWidget {
@@ -18,8 +19,8 @@ class RequestSentPage extends StatelessWidget {
           color: Colors.white,
           onPressed: () => Navigator.of(context).pop(),
         ),
-        title: const Text(
-          'Pending Approval', // Judul AppBar
+        title: Text(
+          'pending_approval'.tr, // Judul AppBar
           style: TextStyle(
             color: Colors.white, // Ganti dengan warna yang diinginkan
             fontSize: 20, // Ukuran teks bisa disesuaikan
@@ -55,7 +56,7 @@ class RequestSentPage extends StatelessWidget {
             ),
             // Menampilkan teks dengan gaya teks yang diambil dari tema aplikasi
             Text(
-              "We're evaluating your profile", // Teks yang ditampilkan
+              'evaluating_profile'.tr, // Teks yang ditampilkan
               style: Theme.of(context)
                   .textTheme
                   .titleMedium, // Menggunakan gaya teks 'titleMedium'
@@ -67,7 +68,7 @@ class RequestSentPage extends StatelessWidget {
             ),
             // Teks deskripsi dengan gaya yang lebih kecil
             Text(
-              "In order to make our community holds up a standard, we don't allow any profiles to get in.", // Teks yang ditampilkan
+              'evaluating_profile_desc'.tr, // Teks yang ditampilkan
               style: Theme.of(context)
                   .textTheme
                   .bodySmall, // Menggunakan gaya teks 'bodySmall'

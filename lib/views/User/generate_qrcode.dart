@@ -76,6 +76,7 @@
 // import 'package:clone_freelancer_mobile/views/User/Search/result_page.dart';
 import 'package:clone_freelancer_mobile/views/User/result_qr.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 // import 'package:generate_qr_code/result_qr.dart';
 
 class HomePage extends StatefulWidget {
@@ -101,8 +102,8 @@ class _HomePageState extends State<HomePage> {
           color: Colors.white,
           onPressed: () => Navigator.of(context).pop(),
         ),
-        title: const Text(
-          'Generate QR Code', // Judul AppBar
+        title: Text(
+          'generate_qr_code'.tr, // Judul AppBar
           style: TextStyle(
             color: Colors.white, // Ganti dengan warna yang diinginkan
             fontSize: 20, // Ukuran teks bisa disesuaikan
@@ -135,7 +136,7 @@ class _HomePageState extends State<HomePage> {
                       color: Color.fromARGB(255, 93, 82, 255), width: 2),
                   borderRadius: BorderRadius.circular(15),
                 ),
-                labelText: 'Input your text',
+                labelText: 'input_your_text'.tr,
                 labelStyle: TextStyle(
                     color: Theme.of(context).brightness == Brightness.dark
                         ? Colors.white
@@ -159,7 +160,7 @@ class _HomePageState extends State<HomePage> {
                     setState(() {
                       if (controller.text.isEmpty) {
                         ScaffoldMessenger.of(context)
-                            .showSnackBar(const SnackBar(
+                            .showSnackBar(SnackBar(
                           content: Row(
                             children: [
                               Icon(
@@ -168,7 +169,7 @@ class _HomePageState extends State<HomePage> {
                               ),
                               SizedBox(width: 10),
                               Text(
-                                'Ups, inputan tidak boleh kosong!',
+                                'site_required'.tr,
                                 style: TextStyle(color: Colors.white),
                               )
                             ],
@@ -189,7 +190,7 @@ class _HomePageState extends State<HomePage> {
                   splashColor: Colors.transparent,
                   highlightColor: Colors.transparent,
                   child: Text(
-                    'Generate QR Code',
+                    'generate_qr_code'.tr,
                     textAlign: TextAlign.center,
                     style: TextStyle(
                         color: Colors.white, fontWeight: FontWeight.bold),

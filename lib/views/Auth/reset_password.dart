@@ -35,11 +35,12 @@ class _ResetPasswordState extends State<ResetPassword> {
           child: Form(
             key: _formKey, // Mengaitkan form dengan _formKey untuk validasi
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.center, // Konten berada di tengah secara vertikal
+              mainAxisAlignment: MainAxisAlignment
+                  .center, // Konten berada di tengah secara vertikal
               children: [
                 // Menampilkan judul halaman
                 Text(
-                  'Reset Password',
+                  'reset_password'.tr,
                   style: Theme.of(context).textTheme.headlineLarge?.copyWith(
                         color: Theme.of(context).brightness == Brightness.dark
                             ? Colors.white // Warna teks untuk mode gelap
@@ -56,7 +57,7 @@ class _ResetPasswordState extends State<ResetPassword> {
                   text: TextSpan(
                     children: [
                       TextSpan(
-                        text: "We sent a verification code to ",
+                        text: 'we_sent_verification_code'.tr,
                         style: Theme.of(context).textTheme.titleSmall?.copyWith(
                               color: Colors.grey[600],
                             ),
@@ -65,7 +66,10 @@ class _ResetPasswordState extends State<ResetPassword> {
                       TextSpan(
                         text: widget.email,
                         style: Theme.of(context).textTheme.titleSmall?.copyWith(
-                              color: Theme.of(context).brightness == Brightness.dark ? Colors.white : Colors.black,
+                              color: Theme.of(context).brightness ==
+                                      Brightness.dark
+                                  ? Colors.white
+                                  : Colors.black,
                             ),
                       ),
                     ],
@@ -79,12 +83,16 @@ class _ResetPasswordState extends State<ResetPassword> {
                   appContext: context,
                   length: 4, // Panjang kode PIN adalah 4 digit
                   pinTheme: PinTheme(
-                    shape: PinCodeFieldShape.underline, // Bentuk underline untuk setiap kotak PIN
-                    selectedColor: const Color(0xff6571ff), // Warna untuk kotak terpilih
+                    shape: PinCodeFieldShape
+                        .underline, // Bentuk underline untuk setiap kotak PIN
+                    selectedColor:
+                        const Color(0xff6571ff), // Warna untuk kotak terpilih
                     inactiveColor: Colors.grey, // Warna untuk kotak tidak aktif
                   ),
-                  controller: pinController, // Controller untuk mengatur input teks
-                  keyboardType: TextInputType.number, // Menggunakan keyboard angka
+                  controller:
+                      pinController, // Controller untuk mengatur input teks
+                  keyboardType:
+                      TextInputType.number, // Menggunakan keyboard angka
                   // Memanggil checkCode ketika kode verifikasi selesai diinput
                   onCompleted: (value) async {
                     await _authenticationController.checkCode(
@@ -95,10 +103,10 @@ class _ResetPasswordState extends State<ResetPassword> {
                   // Validator untuk memastikan PIN diinput dan panjangnya 4 digit
                   validator: (v) {
                     if (v == null || v.isEmpty) {
-                      return 'Please enter a valid PIN code.';
+                      return 'pin_request'.tr;
                     }
                     if (v.length != 4) {
-                      return 'PIN code must be 4 digits long.';
+                      return 'pin_validator'.tr;
                     }
                     return null;
                   },
@@ -121,7 +129,10 @@ class _ResetPasswordState extends State<ResetPassword> {
                           }
                         },
                         style: ButtonStyle(
-                          // Membuat tombol dengan sudut membulat
+                          backgroundColor: MaterialStateProperty.all<Color>(
+                              Colors.blue), // Warna latar belakang
+                          foregroundColor: MaterialStateProperty.all<Color>(
+                              Colors.white), // Warna teks atau ikon
                           shape:
                               MaterialStateProperty.all<RoundedRectangleBorder>(
                             RoundedRectangleBorder(
@@ -138,8 +149,8 @@ class _ResetPasswordState extends State<ResetPassword> {
                                     color: Colors.white,
                                   ),
                                 )
-                              : const Text(
-                                  "Continue",
+                              : Text(
+                                  'continue'.tr,
                                 );
                         }),
                       ),
@@ -155,14 +166,14 @@ class _ResetPasswordState extends State<ResetPassword> {
                   text: TextSpan(
                     children: [
                       TextSpan(
-                        text: "Didn't receive the email? ",
+                        text: 'not_receive_email'.tr,
                         style: Theme.of(context).textTheme.titleSmall?.copyWith(
                               color: Colors.grey[600],
                             ),
                       ),
                       // TextSpan interaktif dengan TapGestureRecognizer untuk memicu pengiriman ulang email
                       TextSpan(
-                        text: 'Click Here',
+                        text: 'click_here'.tr,
                         style: Theme.of(context).textTheme.titleSmall?.copyWith(
                               color: const Color(0xff6571ff),
                             ),

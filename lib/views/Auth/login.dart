@@ -71,7 +71,7 @@ class _LoginPageState extends State<LoginPage> {
                   MainAxisAlignment.center, // Konten di tengah secara vertikal
               children: [
                 Text(
-                  'Login', // Judul halaman Login
+                  'login_title'.tr, // Judul halaman Login
                   style: Theme.of(context).textTheme.headlineLarge?.copyWith(
                         color: Theme.of(context).brightness == Brightness.dark
                             ? Colors.white
@@ -91,14 +91,14 @@ class _LoginPageState extends State<LoginPage> {
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(16.0),
                     ),
-                    labelText: 'Email',
+                    labelText: 'email'.tr,
                     prefixIcon: const Icon(
                         Icons.mail_outline), // Icon pada bagian kiri input
                   ),
                   // Validator untuk memastikan email tidak kosong
                   validator: (value) {
                     if (value == null || value.trim().isEmpty) {
-                      return 'Please enter your email';
+                      return 'please_enter_email'.tr;
                     }
                     return null;
                   },
@@ -114,7 +114,7 @@ class _LoginPageState extends State<LoginPage> {
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(16.0),
                     ),
-                    labelText: 'Password',
+                    labelText: 'password'.tr,
                     prefixIcon: const Icon(
                         Icons.lock_outline), // Icon kunci untuk password
                     suffixIcon: IconButton(
@@ -128,7 +128,7 @@ class _LoginPageState extends State<LoginPage> {
                   // Validator untuk memastikan password tidak kosong
                   validator: (value) {
                     if (value == null || value.trim().isEmpty) {
-                      return 'Please enter your password';
+                      return 'please_enter_password'.tr;
                     }
                     return null;
                   },
@@ -143,7 +143,7 @@ class _LoginPageState extends State<LoginPage> {
                     text: TextSpan(
                       children: [
                         TextSpan(
-                          text: "Forgot Password",
+                          text: 'forgot_password'.tr,
                           style:
                               Theme.of(context).textTheme.bodyLarge?.copyWith(
                                     color: const Color(0xff6571ff),
@@ -193,8 +193,8 @@ class _LoginPageState extends State<LoginPage> {
                                     color: Colors.white,
                                   ),
                                 )
-                              : const Text(
-                                  "Login",
+                              : Text(
+                                  'login'.tr,
                                   style: TextStyle(
                                     color: Colors.white,
                                   ),
@@ -214,11 +214,11 @@ class _LoginPageState extends State<LoginPage> {
                         text: TextSpan(
                           children: [
                             TextSpan(
-                              text: "Don't have an account ? ",
+                              text: 'dont_have_account'.tr,
                               style: Theme.of(context).textTheme.bodyLarge,
                             ),
                             TextSpan(
-                              text: "Sign Up",
+                              text: 'sign_up'.tr,
                               style: Theme.of(context)
                                   .textTheme
                                   .bodyLarge

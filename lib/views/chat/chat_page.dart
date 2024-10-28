@@ -74,9 +74,9 @@ class _ChatPageState extends State<ChatPage> {
         MediaQuery.of(context).orientation == Orientation.portrait;
     return Scaffold(
       appBar: AppBar(
-        title: const Center(
+        title: Center(
           child: Text(
-            "Inbox", // Menampilkan judul di tengah AppBar
+            'inbox'.tr, // Menampilkan judul di tengah AppBar
             style: TextStyle(color: Colors.white),
           ),
         ),
@@ -91,9 +91,9 @@ class _ChatPageState extends State<ChatPage> {
                   'Error: ${snapshot.error}'), // Jika ada error, tampilkan pesan error
             );
           } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-            return const Center(
+            return Center(
               child: Text(
-                  'No chat available'), // Jika tidak ada data, tampilkan pesan kosong
+                  'no_chat_available'.tr), // Jika tidak ada data, tampilkan pesan kosong
             );
           } else {
             final chatRoom =
