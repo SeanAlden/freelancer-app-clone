@@ -391,9 +391,20 @@ class _HomePageState extends State<HomePage> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         // bagian title untuk kolom kategori layanan
+                        // Text(
+                        //   'service_categories'.tr,
+                        //   style: Theme.of(context).textTheme.headlineSmall,
+                        // ),
                         Text(
-                          'service_categories'.tr,
+                          MediaQuery.of(context).orientation ==
+                                  Orientation.portrait
+                              ? ('service_categories'.tr.length > 18
+                                  ? '${'service_categories'.tr.substring(0, 18)}...'
+                                  : 'service_categories'.tr)
+                              : 'service_categories'.tr,
                           style: Theme.of(context).textTheme.headlineSmall,
+                          overflow: TextOverflow.ellipsis,
+                          maxLines: 1,
                         ),
                         RichText(
                           text: TextSpan(
@@ -547,7 +558,7 @@ class _HomePageState extends State<HomePage> {
                                         children: [
                                           // title untuk kolom "Services"
                                           Text(
-                                            'services'.tr,  
+                                            'services'.tr,
                                             style: Theme.of(context)
                                                 .textTheme
                                                 .headlineSmall,

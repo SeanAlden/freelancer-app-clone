@@ -92,7 +92,7 @@ class _ContactListViewState extends State<ContactListView> {
   final List<Map<String, dynamic>> contactData = [
     {
       'type': 'WhatsApp',
-      'info': '089669943044',
+      'info': '+6289669943044',
       'icon': 'assets/icons/whatsapp.png',
     },
     {

@@ -432,6 +432,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:qr_flutter/qr_flutter.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class QrPage extends StatefulWidget {
   const QrPage({super.key});
@@ -444,8 +445,8 @@ class _QrPageState extends State<QrPage> {
   final GlobalKey qrKey = GlobalKey(debugLabel: 'QR');
   Barcode? result; // Untuk menyimpan hasil scan QR
   QRViewController? controller;
-  final ImagePicker _picker = ImagePicker();
-  File? _image;
+  // final ImagePicker _picker = ImagePicker();
+  // File? _image;
 
   @override
   void initState() {
@@ -471,172 +472,241 @@ class _QrPageState extends State<QrPage> {
   }
 
   // Fungsi untuk memindai QR code
-  void _onQRViewCreated(QRViewController qrController) {
-    setState(() {
-      this.controller = qrController;
-    });
-    controller!.scannedDataStream.listen((scanData) {
-      setState(() {
-        result = scanData;
-        if (result != null) {
-          _handleQRResult(result!.code!);
-        }
-      });
-    });
-  }
+  // void _onQRViewCreated(QRViewController qrController) {
+  //   setState(() {
+  //     this.controller = qrController;
+  //   });
+  //   controller!.scannedDataStream.listen((scanData) {
+  //     setState(() {
+  //       result = scanData;
+  //       if (result != null) {
+  //         _handleQRResult(result!.code!);
+  //       }
+  //     });
+  //   });
+  // }
 
   // Fungsi untuk menangani hasil QR code
-  Future<void> _handleQRResult(String qrData) async {
-    try {
-      final response = await http.post(
-        Uri.parse('https://payment-service-sbx.pakar-digital.com'),
-        headers: {
-          'Authorization': 'Bearer SB-Mid-client-wYeSigdies_2dI1d',
-          'Content-Type': 'application/json',
-        },
-        body: '{"qrData": "$qrData"}',
-      );
-      if (response.statusCode == 200) {
-        Get.snackbar('QR Scan Success', 'Redirecting to $qrData');
-        // Mengarahkan ke URL atau halaman tertentu
-        Get.to(() => PaymentPage(qrUrl: qrData));
-      } else {
-        Get.snackbar('QR Scan Failed', 'Failed to find QR source.');
-      }
-    } catch (e) {
-      Get.snackbar('Error', 'Failed to scan QR code');
-    }
-  }
+  // Future<void> _handleQRResult(String qrData) async {
+  //   try {
+  //     final response = await http.post(
+  //       Uri.parse('https://payment-service-sbx.pakar-digital.com'),
+  //       headers: {
+  //         'Authorization': 'Bearer SB-Mid-client-wYeSigdies_2dI1d',
+  //         'Content-Type': 'application/json',
+  //       },
+  //       body: '{"qrData": "$qrData"}',
+  //     );
+  //     if (response.statusCode == 200) {
+  //       Get.snackbar('QR Scan Success', 'Redirecting to $qrData');
+  //       // Mengarahkan ke URL atau halaman tertentu
+  //       Get.to(() => PaymentPage(qrUrl: qrData));
+  //     } else {
+  //       Get.snackbar('QR Scan Failed', 'Failed to find QR source.');
+  //     }
+  //   } catch (e) {
+  //     Get.snackbar('Error', 'Failed to scan QR code');
+  //   }
+  // }
 
   // Fungsi untuk mengunggah gambar dari galeri
-  Future<void> _pickImage() async {
-    final XFile? pickedImage =
-        await _picker.pickImage(source: ImageSource.gallery);
-    if (pickedImage != null) {
-      setState(() {
-        _image = File(pickedImage.path);
-      });
-    }
-  }
+  // Future<void> _pickImage() async {
+  //   final XFile? pickedImage =
+  //       await _picker.pickImage(source: ImageSource.gallery);
+  //   if (pickedImage != null) {
+  //     setState(() {
+  //       _image = File(pickedImage.path);
+  //     });
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          'qr_code_scan_generate'.tr,
-          style: TextStyle(color: Colors.white),
+        appBar: AppBar(
+          title: Text(
+            'qr_code_scan_generate'.tr,
+            style: TextStyle(color: Colors.white),
+          ),
         ),
-      ),
-      body: Column(
-        children: [
-          Expanded(
-            flex: 2,
-            child: QRView(
-              key: qrKey,
-              onQRViewCreated: _onQRViewCreated,
-              overlay: QrScannerOverlayShape(
-                borderColor: Colors.blue,
-                borderRadius: 10,
-                borderLength: 30,
-                borderWidth: 10,
-                cutOutSize: MediaQuery.of(context).size.width * 0.8,
+        body: Column(
+          children: [
+            Expanded(
+                flex: 3,
+                child: QRView(
+                  key: qrKey,
+                  onQRViewCreated: _onQrViewCreated,
+                  overlay: QrScannerOverlayShape(
+                    borderColor: Colors.blue,
+                    borderRadius: 10,
+                    borderLength: 30,
+                    borderWidth: 10,
+                    cutOutSize: MediaQuery.of(context).size.width * 0.8,
+                  ),
+                )),
+            Expanded(
+                flex: 1,
+                child: Center(
+                    child: (result != null)
+                        ? Text("Barcode Data: ${result!.code}")
+                        : const Text("Scan a Code"))),
+            ElevatedButton.icon(
+              onPressed: () {
+                // Navigasi ke halaman generate QR
+                Get.to(() => HomePage());
+              },
+              icon: const Icon(Icons.qr_code),
+              label: Text('generate_qr_code'.tr),
+              style: ButtonStyle(
+                backgroundColor: MaterialStateProperty.all<Color>(Colors.blue),
+                foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
+                shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                  RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8.0),
+                  ),
+                ),
               ),
             ),
-          ),
-          Expanded(
-            flex: 1,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                if (result != null)
-                  Text('${'scan_result'.tr}: ${result!.code}')
-                else
-                  Text('scan_a_code'.tr),
-                const SizedBox(height: 20),
-                ElevatedButton.icon(
-                  onPressed: _pickImage,
-                  icon: const Icon(Icons.upload),
-                  label: Text('upload_qr_code'.tr),
-                  style: ButtonStyle(
-                    backgroundColor:
-                        MaterialStateProperty.all<Color>(Colors.blue),
-                    foregroundColor:
-                        MaterialStateProperty.all<Color>(Colors.white),
-                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                      RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(8.0),
-                      ),
-                    ),
-                  ),
-                ),
-                const SizedBox(height: 10),
-                // ElevatedButton.icon(
-                //   onPressed: () {
-                //     // Navigate to add card page
-                //     Get.to(() => AddCardPage());
-                //   },
-                //   icon: const Icon(Icons.credit_card),
-                //   label: const Text('Add Payment Card'),
-                // ),
-                ElevatedButton.icon(
-                  onPressed: () {
-                    // Navigasi ke halaman generate QR
-                    Get.to(() => HomePage());
-                  },
-                  icon: const Icon(Icons.qr_code),
-                  label: Text('generate_qr_code'.tr),
-                  style: ButtonStyle(
-                    backgroundColor:
-                        MaterialStateProperty.all<Color>(Colors.blue),
-                    foregroundColor:
-                        MaterialStateProperty.all<Color>(Colors.white),
-                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                      RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(8.0),
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ],
-      ),
-    );
+          ],
+        ));
   }
+
+  void _onQrViewCreated(QRViewController controller) {
+    this.controller = controller;
+    controller.scannedDataStream.listen((scanData) {
+      setState(() {
+        result = scanData;
+        _launchInBrowser(result!.code.toString());
+      });
+    });
+  }
+
+  void _launchInBrowser(String url) async {
+    final Uri uri = Uri.parse(url.startsWith('http') ? url : 'https://$url');
+    if (await canLaunchUrl(uri)) {
+      await launchUrl(uri);
+    } else {
+      throw 'Could not launch $url';
+    }
+  }
+  // @override
+  // Widget build(BuildContext context) {
+  //   return Scaffold(
+  //     appBar: AppBar(
+  //       title: Text(
+  //         'qr_code_scan_generate'.tr,
+  //         style: TextStyle(color: Colors.white),
+  //       ),
+  //     ),
+  //     body: Column(
+  //       children: [
+  //         Expanded(
+  //           flex: 2,
+  //           child: QRView(
+  //             key: qrKey,
+  //             onQRViewCreated: _onQRViewCreated,
+  //             overlay: QrScannerOverlayShape(
+  //               borderColor: Colors.blue,
+  //               borderRadius: 10,
+  //               borderLength: 30,
+  //               borderWidth: 10,
+  //               cutOutSize: MediaQuery.of(context).size.width * 0.8,
+  //             ),
+  //           ),
+  //         ),
+  //         Expanded(
+  //           flex: 1,
+  //           child: Column(
+  //             mainAxisAlignment: MainAxisAlignment.center,
+  //             children: [
+  //               if (result != null)
+  //                 Text('${'scan_result'.tr}: ${result!.code}')
+  //               else
+  //                 Text('scan_a_code'.tr),
+  //               const SizedBox(height: 20),
+  //               ElevatedButton.icon(
+  //                 onPressed: _pickImage,
+  //                 icon: const Icon(Icons.upload),
+  //                 label: Text('upload_qr_code'.tr),
+  //                 style: ButtonStyle(
+  //                   backgroundColor:
+  //                       MaterialStateProperty.all<Color>(Colors.blue),
+  //                   foregroundColor:
+  //                       MaterialStateProperty.all<Color>(Colors.white),
+  //                   shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+  //                     RoundedRectangleBorder(
+  //                       borderRadius: BorderRadius.circular(8.0),
+  //                     ),
+  //                   ),
+  //                 ),
+  //               ),
+  //               const SizedBox(height: 10),
+  //               // ElevatedButton.icon(
+  //               //   onPressed: () {
+  //               //     // Navigate to add card page
+  //               //     Get.to(() => AddCardPage());
+  //               //   },
+  //               //   icon: const Icon(Icons.credit_card),
+  //               //   label: const Text('Add Payment Card'),
+  //               // ),
+  // ElevatedButton.icon(
+  //   onPressed: () {
+  //     // Navigasi ke halaman generate QR
+  //     Get.to(() => HomePage());
+  //   },
+  //   icon: const Icon(Icons.qr_code),
+  //   label: Text('generate_qr_code'.tr),
+  //   style: ButtonStyle(
+  //     backgroundColor:
+  //         MaterialStateProperty.all<Color>(Colors.blue),
+  //     foregroundColor:
+  //         MaterialStateProperty.all<Color>(Colors.white),
+  //     shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+  //       RoundedRectangleBorder(
+  //         borderRadius: BorderRadius.circular(8.0),
+  //       ),
+  //     ),
+  //   ),
+  // ),
+  // ],
+  // ),
+  //         ),
+  //       ],
+  //     ),
+  //   );
+  // }
 }
 
 // Halaman untuk pembayaran
-class PaymentPage extends StatelessWidget {
-  final String qrUrl;
+// class PaymentPage extends StatelessWidget {
+//   final String qrUrl;
 
-  const PaymentPage({super.key, required this.qrUrl});
+//   const PaymentPage({super.key, required this.qrUrl});
 
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Payment Redirect'),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const Text('You are being redirected to the payment page.'),
-            Text('URL: $qrUrl'),
-            ElevatedButton(
-              onPressed: () {
-                // bagian implementasi logika untuk pembayaran
-              },
-              child: const Text('Proceed'),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       appBar: AppBar(
+//         title: const Text('Payment Redirect'),
+//       ),
+//       body: Center(
+//         child: Column(
+//           mainAxisAlignment: MainAxisAlignment.center,
+//           children: [
+//             const Text('You are being redirected to the payment page.'),
+//             Text('URL: $qrUrl'),
+//             ElevatedButton(
+//               onPressed: () {
+//                 // bagian implementasi logika untuk pembayaran
+//               },
+//               child: const Text('Proceed'),
+//             ),
+//           ],
+//         ),
+//       ),
+//     );
+//   }
+// }
 
 // Halaman dummy untuk menambahkan kartu pembayaran
 // class AddCardPage extends StatelessWidget {

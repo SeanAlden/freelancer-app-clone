@@ -67,7 +67,7 @@ dependencies:
   shared_preferences: ^2.2.2
   money_formatter: ^0.0.5
   midtrans_sdk: ^0.4.0
-  webview_flutter: ^4.4.2
+  webview_flutter: ^3.0.4
   flutter_timer_countdown: ^1.0.7
   flutter_countdown_timer: ^4.1.0
   contentsize_tabbarview: ^0.0.2
@@ -89,6 +89,7 @@ dependencies:
   group_button: ^5.3.4
   pin_code_fields: ^8.0.1
   provider: ^6.0.0
+  flutter_local_notifications: ^9.0.0+1
 
 dev_dependencies:
   flutter_test:

@@ -258,7 +258,7 @@ class _MyAppState extends State<MyApp> {
           appBarTheme: const AppBarTheme(
             color: Color.fromARGB(255, 33, 33, 33),
           )),
-      debugShowCheckedModeBanner: false,
+      debugShowCheckedModeBanner: false,  
       title: 'Freelancer-App',
       home: const NavigationPage(),
       initialBinding: BindingsBuilder(() {

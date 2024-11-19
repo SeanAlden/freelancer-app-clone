@@ -4,6 +4,7 @@ import 'package:clone_freelancer_mobile/controllers/pusher_controller.dart';
 import 'package:clone_freelancer_mobile/models/chat_user_data.dart';
 import 'package:clone_freelancer_mobile/views/chat/chat_detail_page.dart';
 import 'package:clone_freelancer_mobile/widgets/conversation_list.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:intl/intl.dart';
@@ -31,17 +32,53 @@ class _ChatPageState extends State<ChatPage> {
   // Inisialisasi service Pusher untuk real-time messaging
   final PusherService _pusherService = PusherService();
 
+  //
+  final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+  FlutterLocalNotificationsPlugin();
+
   // Fungsi untuk menangani event pesan baru
   void onNewMessage(PusherEvent event) {
     refreshData(); // Memuat ulang data ketika ada pesan baru
+    _showNotification(event.data['last_message']); // Menampilkan notifikasi
+  }
+
+  Future<void> _showNotification(String message) async {
+    const AndroidNotificationDetails androidPlatformChannelSpecifics =
+    AndroidNotificationDetails(
+      'chat_notifications', // id channel
+      'Chat Notifications', // nama channel
+      // 'Channel untuk notifikasi pesan baru', // deskripsi channel
+      importance: Importance.max,
+      priority: Priority.high,
+      showWhen: false,
+    );
+    const NotificationDetails platformChannelSpecifics =
+    NotificationDetails(android: androidPlatformChannelSpecifics);
+    await flutterLocalNotificationsPlugin.show(
+      0, // id notifikasi
+      'Pesan Baru', // judul notifikasi
+      message, // teks notifikasi, dalam hal ini 'last_message'
+      platformChannelSpecifics,
+      payload: 'Default_Sound',
+    );
   }
 
   @override
   void initState() {
     super.initState();
+    _initializeNotifications(); //
     futureAllChat =
         chatController.fetchAllChat(); // Mem-fetch semua chat pada awal
     connect(); // Menghubungkan Pusher untuk mendengar pesan baru
+  }
+
+  // Fungsi untuk notifikasi
+  void _initializeNotifications() async {
+    const AndroidInitializationSettings initializationSettingsAndroid =
+    AndroidInitializationSettings('@mipmap/ic_launcher');
+    const InitializationSettings initializationSettings =
+    InitializationSettings(android: initializationSettingsAndroid);
+    await flutterLocalNotificationsPlugin.initialize(initializationSettings);
   }
 
   // Fungsi untuk menghubungkan ke channel Pusher

@@ -251,7 +251,8 @@ class _DetailsPageState extends State<DetailsPage>
       };
 
       var response = await http.post(
-        Uri.parse('${url}midtrans/payment'),
+        // Uri.parse('${url}midtrans/payment'),
+        Uri.parse('${url}midtrans/payment/custom_order'),
         headers: {
           'Accept': 'application/json',
           'Authorization': 'Bearer ${box.read('token')}',
@@ -371,9 +372,6 @@ class _DetailsPageState extends State<DetailsPage>
           CupertinoActionSheetAction(
             child: const Text('Payment Gateway'),
             onPressed: () async {
-              setState(() {
-                isLoading = true;
-              });
               await getToken(
                 packageId: widget.packages[_tabController.index].id!,
                 packageName: widget.packages[_tabController.index].title,
@@ -389,6 +387,13 @@ class _DetailsPageState extends State<DetailsPage>
                   }));
               Navigator.of(context).pop();
             },
+
+            // onPressed: () async {
+            //   Navigator.push(
+            //     context,
+            //     MaterialPageRoute(builder: (context) => PaymentController()),
+            //   );
+            // },
           ),
         ],
       ),
