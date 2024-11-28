@@ -16,10 +16,13 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 # https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
 # In Windows, build-name is used as the major, minor, and patch parts
 # of the product and file versions while build-number is used as the build suffix.
-version: 1.0.0+1
+# version: 1.0.0+1
+version: 0.4.0
 
 environment:
-  sdk: '>=3.4.3 <4.0.0'
+  # sdk: '>=3.4.3 <4.0.0'
+  sdk: '>=3.0.5 <4.0.0'
+  flutter: ">=1.20.0"
 
 # Dependencies specify other packages that your package needs in order to work.
 # To automatically upgrade your package dependencies to the latest versions
@@ -39,6 +42,8 @@ dependencies:
   sqflite: ^2.0.0+4
   path: ^1.6.0
 
+  uni_links: ^0.5.1
+
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   # cupertino_icons: ^1.0.2
@@ -51,7 +56,8 @@ dependencies:
   smooth_page_indicator: ^1.1.0
   expandable_text: ^2.3.00
   flutter_rating_bar: ^4.0.1
-  http: ^1.1.0
+  # http: ^0.13.3
+  http: ^1.0.0
   get: ^4.6.5
   get_storage: ^2.1.1
   image_picker: ^1.0.4
@@ -67,7 +73,8 @@ dependencies:
   shared_preferences: ^2.2.2
   money_formatter: ^0.0.5
   midtrans_sdk: ^0.4.0
-  webview_flutter: ^4.4.2
+  # webview_flutter: ^4.8.0
+  webview_flutter: ^3.0.4
   flutter_timer_countdown: ^1.0.7
   flutter_countdown_timer: ^4.1.0
   contentsize_tabbarview: ^0.0.2
@@ -105,7 +112,7 @@ dev_dependencies:
 # following page: https://dart.dev/tools/pub/pubspec
 
 # The following section is specific to Flutter packages.
-flutter:
+flutter: 
 
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in

@@ -2,6 +2,7 @@
 
 import 'dart:convert';
 
+import 'package:clone_freelancer_mobile/views/User/payment_screen.dart';
 import 'package:contentsize_tabbarview/contentsize_tabbarview.dart';
 import 'package:expandable_text/expandable_text.dart';
 import 'package:flutter/cupertino.dart';
@@ -18,8 +19,9 @@ import 'package:get_storage/get_storage.dart';
 import 'package:midtrans_sdk/midtrans_sdk.dart';
 import 'package:money_formatter/money_formatter.dart';
 import 'package:http/http.dart' as http;
+// import 'package:path/path.dart';
+// import 'package:path/path.dart';
 import 'package:permission_handler/permission_handler.dart';
-
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class DetailsPage extends StatefulWidget {
@@ -202,82 +204,82 @@ class _DetailsPageState extends State<DetailsPage>
     );
   }
 
-  Future initSDK() async {
-    _midtrans = await MidtransSDK.init(
-      config: MidtransConfig(
-        clientKey: "SB-Mid-client-wYeSigdies_2dI1d",
-        colorTheme: ColorTheme(
-          colorPrimary: Theme.of(context).colorScheme.secondary,
-          colorPrimaryDark: Theme.of(context).colorScheme.secondary,
-          colorSecondary: Theme.of(context).colorScheme.secondary,
-        ),
-        merchantBaseUrl: url,
-      ),
-    );
-    _midtrans?.setUIKitCustomSetting(
-      skipCustomerDetailsPages: true,
-    );
-    _midtrans!.setTransactionFinishedCallback((result) {
-      print(result.toJson());
-    });
-  }
+  // Future initSDK() async {
+  //   _midtrans = await MidtransSDK.init(
+  //     config: MidtransConfig(
+  //       clientKey: "SB-Mid-client-wYeSigdies_2dI1d",
+  //       colorTheme: ColorTheme(
+  //         colorPrimary: Theme.of(context).colorScheme.secondary,
+  //         colorPrimaryDark: Theme.of(context).colorScheme.secondary,
+  //         colorSecondary: Theme.of(context).colorScheme.secondary,
+  //       ),
+  //       merchantBaseUrl: url,
+  //     ),
+  //   );
+  //   _midtrans?.setUIKitCustomSetting(
+  //     skipCustomerDetailsPages: true,
+  //   );
+  //   _midtrans!.setTransactionFinishedCallback((result) {
+  //     print(result.toJson());
+  //   });
+  // }
 
-  Future getToken({
-    required int packageId,
-    required String packageName,
-    required String serviceName,
-    required int price,
-    required String merchantName,
-    required String subCategoryName,
-    required DateTime? dateTemp,
-    required LatLng? latlng,
-    required String? loc,
-  }) async {
-    try {
-      var data = {
-        'name': box.read('user')['name'],
-        'email': box.read('user')['email'],
-        'package_id': packageId.toString(),
-        'price': price.toString(),
-        'service_name': serviceName,
-        'package_name': packageName,
-        'sub_category': subCategoryName,
-        'merchant_name': merchantName,
-        'seller_id': widget.user.userId.toString(),
-        if (dateTemp != null) 'onsite_date': dateTemp.toIso8601String(),
-        if (latlng != null) 'lat': latlng.latitude.toString(),
-        if (latlng != null) 'lng': latlng.longitude.toString(),
-        if (loc != null) 'loc': loc,
-      };
+  // Future getToken({
+  //   required int packageId,
+  //   required String packageName,
+  //   required String serviceName,
+  //   required int price,
+  //   required String merchantName,
+  //   required String subCategoryName,
+  //   required DateTime? dateTemp,
+  //   required LatLng? latlng,
+  //   required String? loc,
+  // }) async {
+  //   try {
+  //     var data = {
+  //       'name': box.read('user')['name'],
+  //       'email': box.read('user')['email'],
+  //       'package_id': packageId.toString(),
+  //       'price': price.toString(),
+  //       'service_name': serviceName,
+  //       'package_name': packageName,
+  //       'sub_category': subCategoryName,
+  //       'merchant_name': merchantName,
+  //       'seller_id': widget.user.userId.toString(),
+  //       if (dateTemp != null) 'onsite_date': dateTemp.toIso8601String(),
+  //       if (latlng != null) 'lat': latlng.latitude.toString(),
+  //       if (latlng != null) 'lng': latlng.longitude.toString(),
+  //       if (loc != null) 'loc': loc,
+  //     };
 
-      var response = await http.post(
-        Uri.parse('${url}midtrans/payment'),
-        headers: {
-          'Accept': 'application/json',
-          'Authorization': 'Bearer ${box.read('token')}',
-        },
-        body: data,
-      );
+  //     var response = await http.post(
+  //       Uri.parse('${url}midtrans/payment'),
+  //       headers: {
+  //         'Accept': 'application/json',
+  //         'Authorization': 'Bearer ${box.read('token')}',
+  //       },
+  //       body: data,
+  //     );
 
-      if (response.statusCode == 200) {
-        var data = json.decode(response.body)['data'];
-        await initSDK();
-        await _midtrans?.startPaymentUiFlow(
-          token: data,
-        );
-      } else {
-        Get.snackbar(
-          "Error",
-          json.decode(response.body)['message'],
-          snackPosition: SnackPosition.TOP,
-          backgroundColor: Colors.red,
-          colorText: Colors.white,
-        );
-      }
-    } catch (e) {
-      print(e.toString());
-    }
-  }
+  //     if (response.statusCode == 200) {
+  //       var data = json.decode(response.body)['data'];
+  //       await initSDK();
+  //       await _midtrans?.startPaymentUiFlow(
+  //         token: data,
+  //       );
+  //     } else {
+  //       Get.snackbar(
+  //         "Error",
+  //         json.decode(response.body)['message'],
+  //         snackPosition: SnackPosition.TOP,
+  //         backgroundColor: Colors.red,
+  //         colorText: Colors.white,
+  //       );
+  //     }
+  //   } catch (e) {
+  //     print(e.toString());
+  //   }
+  // }
 
   Future payWithBalance({
     required int itemId,
@@ -291,7 +293,8 @@ class _DetailsPageState extends State<DetailsPage>
         'type': 'package',
         'itemId': itemId.toString(),
         'freelancer_id': widget.user.userId.toString(),
-        'price': price.toString(),
+        // 'price': price.toString(),
+        'price': price,
         if (dateTemp != null) 'onsite_date': dateTemp.toIso8601String(),
         if (latlng != null) 'lat': latlng.latitude.toString(),
         if (latlng != null) 'lng': latlng.longitude.toString(),
@@ -328,6 +331,71 @@ class _DetailsPageState extends State<DetailsPage>
       print(e.toString());
     }
   }
+
+  // Future<void> _createTransaction(
+  //     // {
+  //     // // required int packageId,
+  //     // // required String packageName,
+  //     // // required String serviceName,
+  //     // // required int price,
+  //     // // required String merchantName,
+  //     // // required String subCategoryName,
+  //     // // required DateTime? dateTemp,
+  //     // // required LatLng? latlng,
+  //     // // required String? loc,
+  //     // }
+  //     ) async {
+  //   // final amount = _amountController.text;
+  //   // final quantity = _quantityController.text;
+
+  //   final response = await http.post(
+  //     Uri.parse('${url}create-transaction'),
+  //     headers: {'Content-Type': 'application/json'},
+  //     body: jsonEncode({
+  //       // 'name': 'Sean',
+  //       // 'email': 'sean.alden@example.com',
+  //       // 'phone': '08123456789',
+  //       // 'quantity': int.parse(quantity),
+  //       // 'gross_amount': int.parse(amount),
+  //       'name': box.read('user')['name'],
+  //       'email': box.read('user')['email'],
+  //       'package_id': widget.packages[_tabController.index].id!,
+  //       'package_name': widget.packages[_tabController.index].title,
+  //       'service_name': widget.title,
+  //       'price': widget.packages[_tabController.index].price,
+  //       'merchant_name': widget.user.name,
+  //       'sub_category': widget.subCategory,
+  //       // 'package_id': packageId.toString(),
+  //       // 'price': price.toString(),
+  //       // 'service_name': serviceName,
+  //       // 'package_name': packageName,
+  //       // 'sub_category': subCategoryName,
+  //       // 'merchant_name': merchantName,
+  //       // 'seller_id': widget.user.userId.toString(),
+  //       // if (dateTemp != null) 'onsite_date': dateTemp.toIso8601String(),
+  //       // if (latlng != null) 'lat': latlng.latitude.toString(),
+  //       // if (latlng != null) 'lng': latlng.longitude.toString(),
+  //       // if (loc != null) 'loc': loc,
+  //     }),
+  //   );
+
+  //   if (response.statusCode == 200) {
+  //     final data = jsonDecode(response.body);
+  //     final snapToken = data['snapToken'];
+  //     final paymentUrl =
+  //         'https://app.sandbox.midtrans.com/snap/v2/vtweb/$snapToken';
+
+  //     // Navigate to the new screen with the payment URL
+  //     Navigator.push(
+  //       context,
+  //       MaterialPageRoute(
+  //         builder: (context) => PaymentWebViewScreen(paymentUrl: paymentUrl),
+  //       ),
+  //     );
+  //   } else {
+  //     print('Error: ${response.body}');
+  //   }
+  // }
 
   Future showPaymentOptions(
       DateTime? dateTemp, LatLng? latlng, String? location) async {
@@ -369,27 +437,59 @@ class _DetailsPageState extends State<DetailsPage>
             },
           ),
           CupertinoActionSheetAction(
-            child: const Text('Payment Gateway'),
-            onPressed: () async {
-              setState(() {
-                isLoading = true;
-              });
-              await getToken(
-                packageId: widget.packages[_tabController.index].id!,
-                packageName: widget.packages[_tabController.index].title,
-                serviceName: widget.title,
-                price: widget.packages[_tabController.index].price,
-                merchantName: widget.user.name,
-                subCategoryName: widget.subCategory,
-                dateTemp: dateTemp,
-                latlng: latlng,
-                loc: location,
-              ).then((value) => setState(() {
-                    isLoading = false;
-                  }));
-              Navigator.of(context).pop();
-            },
-          ),
+              child: const Text('Payment Gateway'),
+              onPressed: () async {
+                //     setState(() {
+                //       isLoading = true;
+                //     });
+                //     await getToken(
+                //       packageId: widget.packages[_tabController.index].id!,
+                //       packageName: widget.packages[_tabController.index].title,
+                //       serviceName: widget.title,
+                //       price: widget.packages[_tabController.index].price,
+                //       merchantName: widget.user.name,
+                //       subCategoryName: widget.subCategory,
+                //       dateTemp: dateTemp,
+                //       latlng: latlng,
+                //       loc: location,
+                //     ).then((value) => setState(() {
+                //           isLoading = false;
+                //         }));
+                //     Navigator.of(context).pop();
+                //   },
+
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => PaymentScreen(
+                      name: box.read('user')['name'],
+                      email: box.read('user')['email'],
+                      packageName: widget.packages[_tabController.index].title,
+                      serviceName: widget.title,
+                      price: widget.packages[_tabController.index].price,
+                      merchantName: widget.user.name,
+                      subCategory: widget.subCategory,
+                    ),
+                  ),
+                );
+
+                // Navigator.push(
+                //   // context,
+                //   // MaterialPageRoute(builder: (context) => PaymentScreen()),
+                // );
+
+                // _createTransaction(
+                //   // packageId: widget.packages[_tabController.index].id!,
+                //   // packageName: widget.packages[_tabController.index].title,
+                //   // serviceName: widget.title,
+                //   // price: widget.packages[_tabController.index].price,
+                //   // merchantName: widget.user.name,
+                //   // subCategoryName: widget.subCategory,
+                //   // dateTemp: dateTemp,
+                //   // latlng: latlng,
+                //   // loc: location,
+                // );
+              }),
         ],
       ),
     );
@@ -1328,3 +1428,7 @@ class ReviewCard extends StatelessWidget {
     );
   }
 }
+
+
+
+

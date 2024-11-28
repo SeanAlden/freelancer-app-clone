@@ -65,7 +65,8 @@ class _ListOrderPageState extends State<ListOrderPage> {
   Future initSDK() async {
     _midtrans = await MidtransSDK.init(
       config: MidtransConfig(
-        clientKey: "SB-Mid-client-wYeSigdies_2dI1d",
+        // clientKey: "SB-Mid-client-wYeSigdies_2dI1d",
+        clientKey: "SB-Mid-client-v6-15hiE40WcarUI",
         colorTheme: ColorTheme(
           colorPrimary: Theme.of(context).colorScheme.secondary,
           colorPrimaryDark: Theme.of(context).colorScheme.secondary,
