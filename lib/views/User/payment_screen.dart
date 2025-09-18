@@ -46,27 +46,6 @@ class _PaymentScreenState extends State<PaymentScreen> {
         // 'phone': int.parse(phone).toString(),
         'quantity': int.parse(quantity),
         'gross_amount': widget.price,
-
-        // 'name': name,
-        // 'email': email,
-        // 'package_name': packageName,
-        // 'service_name': serviceName,
-        // 'price': price,
-        // 'gross_amount': price,
-        // 'merchant_name': merchantName,
-        // 'sub_category': subCategory
-
-        // 'package_id': packageId.toString(),
-        // 'price': price.toString(),
-        // 'service_name': serviceName,
-        // 'package_name': packageName,
-        // 'sub_category': subCategoryName,
-        // 'merchant_name': merchantName,
-        // 'seller_id': widget.user.userId.toString(),
-        // if (dateTemp != null) 'onsite_date': dateTemp.toIso8601String(),
-        // if (latlng != null) 'lat': latlng.latitude.toString(),
-        // if (latlng != null) 'lng': latlng.longitude.toString(),
-        // if (loc != null) 'loc': loc,
       }),
     );
 
@@ -96,56 +75,48 @@ class _PaymentScreenState extends State<PaymentScreen> {
       appBar: AppBar(
         title: Text('Transaction Details'),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text('Client Name: ${widget.name}', style: TextStyle(fontSize: 16)),
-            Text('Client Email: ${widget.email}',
-                style: TextStyle(fontSize: 16)),
-            Text('Package Name: ${widget.packageName}',
-                style: TextStyle(fontSize: 16)),
-            Text('Service Name: ${widget.serviceName}',
-                style: TextStyle(fontSize: 16)),
-            Text('Price: \$${widget.price.toStringAsFixed(2)}',
-                style: TextStyle(fontSize: 16)),
-            Text('Freelancer Name: ${widget.merchantName}',
-                style: TextStyle(fontSize: 16)),
-            Text('Sub Category: ${widget.subCategory}',
-                style: TextStyle(fontSize: 16)),
-            SizedBox(height: 20),
-            // Padding(
-            //   padding: const EdgeInsets.all(16.0),
-            //   child: TextField(
-            //     controller: _phoneController,
-            //     decoration: InputDecoration(
-            //       labelText: 'Phone',
-            //     ),
-            //     keyboardType: TextInputType.number,
-            //   ),
-            // ),
-            Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: TextField(
-                controller: _quantityController,
-                decoration: InputDecoration(
-                  labelText: 'Quantity',
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text('Client Name: ${widget.name}',
+                  style: TextStyle(fontSize: 16)),
+              Text('Client Email: ${widget.email}',
+                  style: TextStyle(fontSize: 16)),
+              Text('Package Name: ${widget.packageName}',
+                  style: TextStyle(fontSize: 16)),
+              Text('Service Name: ${widget.serviceName}',
+                  style: TextStyle(fontSize: 16)),
+              Text('Price: \$${widget.price.toStringAsFixed(2)}',
+                  style: TextStyle(fontSize: 16)),
+              Text('Freelancer Name: ${widget.merchantName}',
+                  style: TextStyle(fontSize: 16)),
+              Text('Sub Category: ${widget.subCategory}',
+                  style: TextStyle(fontSize: 16)),
+              SizedBox(height: 20),
+              Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: TextField(
+                  controller: _quantityController,
+                  decoration: InputDecoration(
+                    labelText: 'Quantity',
+                  ),
+                  keyboardType: TextInputType.number,
                 ),
-                keyboardType: TextInputType.number,
               ),
-            ),
-            Center(
-              child: ElevatedButton(
-                onPressed: () {
-                  _createTransaction();
-                  // TODO: Add payment logic
-                  print('Pay Now button pressed');
-                },
-                child: Text('Pay Now'),
+              Center(
+                child: ElevatedButton(
+                  onPressed: () {
+                    _createTransaction();
+                    print('Pay Now button pressed');
+                  },
+                  child: Text('Pay Now'),
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

@@ -17,7 +17,7 @@ import 'package:omni_datetime_picker/omni_datetime_picker.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:midtrans_sdk/midtrans_sdk.dart';
-import 'package:money_formatter/money_formatter.dart';
+import 'package:intl/intl.dart';
 import 'package:http/http.dart' as http;
 // import 'package:path/path.dart';
 // import 'package:path/path.dart';
@@ -88,12 +88,23 @@ class _DetailsPageState extends State<DetailsPage>
   void initState() {
     _tabController = TabController(vsync: this, length: widget.packages.length);
     for (var item in widget.packages) {
-      MoneyFormatter fmf =
-          MoneyFormatter(amount: double.parse(item.price.toString()))
-              .copyWith(symbol: 'IDR');
+      // MoneyFormatter fmf =
+      //     MoneyFormatter(amount: double.parse(item.price.toString()))
+      //         .copyWith(symbol: 'IDR');
+
+      final NumberFormat currencyFormatter = NumberFormat.currency(
+        locale: 'id_ID',
+        symbol: 'IDR ',
+        decimalDigits: 0,
+      );
+
+      String formattedPrice = currencyFormatter.format(
+        double.tryParse(item.price.toString()) ?? 0,
+      );
       _tabs.add(
         Tab(
-          text: fmf.output.compactSymbolOnLeft,
+          text: formattedPrice
+          ,
         ),
       );
     }
@@ -1428,7 +1439,3 @@ class ReviewCard extends StatelessWidget {
     );
   }
 }
-
-
-
-

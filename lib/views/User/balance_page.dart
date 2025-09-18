@@ -6,7 +6,7 @@ import 'package:clone_freelancer_mobile/controllers/user_controller.dart';
 import 'package:clone_freelancer_mobile/views/User/withdraw_dialog.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:money_formatter/money_formatter.dart';
+import 'package:intl/intl.dart';
 
 class WalletPage extends StatefulWidget {
   const WalletPage({super.key});
@@ -50,6 +50,12 @@ class _WalletPageState extends State<WalletPage> {
     }
   }
 
+  String formatCurrency(dynamic amount) {
+    final formatter = NumberFormat.currency(
+        locale: 'id_ID', symbol: 'IDR ', decimalDigits: 0);
+    return formatter.format(double.tryParse(amount.toString()) ?? 0);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -86,9 +92,9 @@ class _WalletPageState extends State<WalletPage> {
                   );
                 } else {
                   var data = snapshot.data;
-                  MoneyFormatter fmf = MoneyFormatter(
-                          amount: double.parse(data['balance'].toString()))
-                      .copyWith(symbol: 'IDR');
+                  // MoneyFormatter fmf = MoneyFormatter(
+                  //         amount: double.parse(data['balance'].toString()))
+                  //     .copyWith(symbol: 'IDR');
                   return Card(
                     child: Container(
                       padding: const EdgeInsets.all(16),
@@ -100,7 +106,7 @@ class _WalletPageState extends State<WalletPage> {
                             style: Theme.of(context).textTheme.titleLarge,
                           ),
                           Text(
-                            fmf.output.symbolOnLeft,
+                            formatCurrency(data['balance']),
                             style: Theme.of(context).textTheme.titleLarge,
                           ),
                         ],
@@ -146,9 +152,9 @@ class _WalletPageState extends State<WalletPage> {
                                 double number =
                                     double.parse(data[index]['amount']);
                                 int value = number.toInt().abs();
-                                MoneyFormatter fmf = MoneyFormatter(
-                                        amount: double.parse(value.toString()))
-                                    .copyWith(symbol: 'IDR');
+                                // MoneyFormatter fmf = MoneyFormatter(
+                                //         amount: double.parse(value.toString()))
+                                //     .copyWith(symbol: 'IDR');
 
                                 return Row(
                                   mainAxisAlignment:
@@ -175,7 +181,7 @@ class _WalletPageState extends State<WalletPage> {
                                       ],
                                     ),
                                     Text(
-                                      fmf.output.symbolOnLeft,
+                                      formatCurrency(value),
                                     ),
                                   ],
                                 );

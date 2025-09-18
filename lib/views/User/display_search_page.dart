@@ -9,7 +9,7 @@ import 'package:clone_freelancer_mobile/views/User/Search/filter_dialog.dart';
 import 'package:clone_freelancer_mobile/views/User/details_page.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:money_formatter/money_formatter.dart';
+import 'package:intl/intl.dart';
 
 class DisplaySearchPage extends StatefulWidget {
   final int? subCategoryId;
@@ -198,9 +198,19 @@ class _DisplaySearchPageState extends State<DisplaySearchPage> {
                   var count = data[index]['count'].toString();
                   var serviceId = data[index]['service_id'];
                   print(data[index]['servicePic']);
-                  MoneyFormatter fmf =
-                      MoneyFormatter(amount: double.parse(price))
-                          .copyWith(symbol: 'IDR');
+                  // MoneyFormatter fmf =
+                  //     MoneyFormatter(amount: double.parse(price))
+                  //         .copyWith(symbol: 'IDR');
+
+                  final NumberFormat currencyFormatter = NumberFormat.currency(
+                    locale: 'id_ID',
+                    symbol: 'IDR ',
+                    decimalDigits: 0,
+                  );
+
+                  String formattedPrice = currencyFormatter.format(
+                    double.tryParse(price) ?? 0,
+                  );
                   return GestureDetector(
                     onTap: () async {
                       var list =
@@ -409,7 +419,7 @@ class _DisplaySearchPageState extends State<DisplaySearchPage> {
                                                 ),
                                                 TextSpan(
                                                   text:
-                                                      " ${fmf.output.symbolOnLeft}",
+                                                      " ${formattedPrice}",
                                                   style: Theme.of(context)
                                                       .textTheme
                                                       .titleSmall
@@ -890,7 +900,7 @@ class _DisplaySearchPageState extends State<DisplaySearchPage> {
 // import 'package:clone_freelancer_mobile/views/User/details_page.dart';
 // import 'package:get/get.dart';
 // import 'package:get_storage/get_storage.dart';
-// import 'package:money_formatter/money_formatter.dart';
+// import 'package:intl/intl.dart';
 
 // class DisplaySearchPage extends StatefulWidget {
 //   final int? subCategoryId;
@@ -1223,4 +1233,3 @@ class _DisplaySearchPageState extends State<DisplaySearchPage> {
 //     );
 //   }
 // }
-

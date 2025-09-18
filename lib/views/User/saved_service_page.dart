@@ -6,7 +6,7 @@ import 'package:clone_freelancer_mobile/models/package.dart';
 import 'package:clone_freelancer_mobile/views/User/details_page.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:money_formatter/money_formatter.dart';
+import 'package:intl/intl.dart';
 
 class SavedServicesPage extends StatefulWidget {
   const SavedServicesPage({super.key});
@@ -93,9 +93,20 @@ class _SavedServicesPageState extends State<SavedServicesPage> {
                   String linkAvatar = data[index]['picasset'];
                   linkAvatar = url.replaceFirst('/api/', '') + linkAvatar;
 
-                  MoneyFormatter fmf =
-                      MoneyFormatter(amount: double.parse(price))
-                          .copyWith(symbol: 'IDR');
+                  // MoneyFormatter fmf =
+                  //     MoneyFormatter(amount: double.parse(price))
+                  //         .copyWith(symbol: 'IDR');
+
+                  final NumberFormat currencyFormatter = NumberFormat.currency(
+                    locale: 'id_ID',
+                    symbol: 'IDR ',
+                    decimalDigits: 0,
+                  );
+
+                  String formattedPrice = currencyFormatter.format(
+                    double.tryParse(price) ?? 0,
+                  );
+
                   return GestureDetector(
                     onTap: () async {
                       var list =
@@ -261,7 +272,7 @@ class _SavedServicesPageState extends State<SavedServicesPage> {
                                               ),
                                               TextSpan(
                                                 text:
-                                                    " ${fmf.output.symbolOnLeft}",
+                                                    " ${formattedPrice}",
                                                 style: Theme.of(context)
                                                     .textTheme
                                                     .titleSmall

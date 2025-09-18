@@ -25,8 +25,51 @@ if (flutterVersionName == null) {
 
 android {
     namespace = "com.example.clone_freelancer_mobile"
+    // namespace 'com.example.flutter_keyboard_visibility'
+    // namespace "com.flutter.keyboardvisibility"
     compileSdk = flutter.compileSdkVersion
     ndkVersion = flutter.ndkVersion
+    buildscript {
+        ext.kotlin_version = '1.8.22'
+        repositories {
+            google()
+            mavenCentral()
+        }
+        dependencies {
+            classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+            // classpath 'com.android.tools.build:gradle:8.3.0'
+        }
+    }
+
+    allprojects {
+        repositories {
+            google()
+            mavenCentral()
+        }
+    }
+
+    rootProject.buildDir = "../build"
+    subprojects {
+        project.buildDir = "${rootProject.buildDir}/${project.name}"
+    }
+    subprojects {
+        project.evaluationDependsOn(":app")
+    }
+
+    subprojects { subproject ->
+        if(project['name'] == 'c72-rfid-scanner'){
+            project.configurations { compile { } }
+        }else{
+            configurations.all {
+                exclude group: "com.google.errorprone", module: "error_prone_annotations"
+            }
+        }
+    }
+
+    // tasks.register("clean", Delete) {
+    //     delete rootProject.buildDir
+    // }
+
 
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
@@ -34,6 +77,10 @@ android {
         // sourceCompatibility = JavaVersion.VERSION_1_7
         // targetCompatibility = JavaVersion.VERSION_1_7
     }
+
+//    kotlinOptions {
+//        jvmTarget = "1.8"
+//    }
 
     defaultConfig {
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).

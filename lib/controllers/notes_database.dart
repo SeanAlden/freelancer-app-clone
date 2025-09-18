@@ -53,19 +53,6 @@ class NotesDatabase {
     return result.map((json) => Note.fromMap(json)).toList();
   }
 
-  // Future<List<Note>> readAllNotes(String userEmail) async {
-  //   final db = await instance.database;
-
-  //   // Filter notes by userEmail
-  //   final result = await db.query(
-  //     'notes',
-  //     where: 'userEmail = ?',
-  //     whereArgs: [userEmail],
-  //   );
-
-  //   return result.map((json) => Note.fromMap(json)).toList();
-  // }
-
   Future<int> update(Note note) async {
     final db = await instance.database;
     return db.update(

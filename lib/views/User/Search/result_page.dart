@@ -6,7 +6,7 @@ import 'package:clone_freelancer_mobile/views/User/Search/filter_dialog.dart';
 import 'package:clone_freelancer_mobile/views/User/Search/search_page.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:money_formatter/money_formatter.dart';
+import 'package:intl/intl.dart';
 
 class ResultPage extends StatefulWidget {
   const ResultPage({super.key, required this.keyword});
@@ -145,8 +145,18 @@ class _ResultPageState extends State<ResultPage> {
                 var price = dataIndex['lowestPrice'].toString();
                 var rating = dataIndex['rating'].toString();
                 var count = dataIndex['count'].toString();
-                MoneyFormatter fmf = MoneyFormatter(amount: double.parse(price))
-                    .copyWith(symbol: 'IDR');
+                // MoneyFormatter fmf = MoneyFormatter(amount: double.parse(price))
+                //     .copyWith(symbol: 'IDR');
+
+                final NumberFormat currencyFormatter = NumberFormat.currency(
+                  locale: 'id_ID',
+                  symbol: 'IDR ',
+                  decimalDigits: 0,
+                );
+
+                String formattedPrice = currencyFormatter.format(
+                  double.tryParse(price) ?? 0,
+                );
                 return Container(
                   padding: const EdgeInsets.only(left: 16, right: 16),
                   child: GestureDetector(
@@ -356,7 +366,7 @@ class _ResultPageState extends State<ResultPage> {
                             child: Align(
                               alignment: Alignment.centerRight,
                               child: Text(
-                                fmf.output.symbolOnLeft,
+                                formattedPrice,
                               ),
                             ),
                           )

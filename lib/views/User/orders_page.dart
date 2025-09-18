@@ -9,7 +9,7 @@ import 'package:clone_freelancer_mobile/models/launch_map.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:midtrans_sdk/midtrans_sdk.dart';
-import 'package:money_formatter/money_formatter.dart';
+import 'package:intl/intl.dart';
 import 'package:pusher_channels_flutter/pusher_channels_flutter.dart';
 import 'package:rating_dialog/rating_dialog.dart';
 
@@ -322,9 +322,21 @@ class _ListOrderPageState extends State<ListOrderPage> {
                         url.replaceFirst('/api/', '') + linkServicePic;
                     String linkAvatar = data[index]['picasset'];
                     linkAvatar = url.replaceFirst('/api/', '') + linkAvatar;
-                    MoneyFormatter fmf = MoneyFormatter(
-                            amount: double.parse(data[index]['price']))
-                        .copyWith(symbol: 'IDR');
+                    // MoneyFormatter fmf = MoneyFormatter(
+                    //         amount: double.parse(data[index]['price']))
+                    //     .copyWith(symbol: 'IDR');
+
+                    final NumberFormat currencyFormatter =
+                        NumberFormat.currency(
+                      locale: 'id_ID',
+                      symbol: 'IDR ',
+                      decimalDigits: 0,
+                    );
+
+                    String formattedPrice = currencyFormatter.format(
+                      double.tryParse(data[index]['price'].toString()) ?? 0,
+                    );
+
                     var status = data[index]['order_status'];
                     return Card(
                       elevation: 5,
@@ -379,8 +391,7 @@ class _ListOrderPageState extends State<ListOrderPage> {
                                                                     context)
                                                                 .pop();
                                                           },
-                                                          child:
-                                                              Text('no'.tr),
+                                                          child: Text('no'.tr),
                                                         ),
                                                         TextButton(
                                                           onPressed: () async {
@@ -395,12 +406,12 @@ class _ListOrderPageState extends State<ListOrderPage> {
                                                                             context)
                                                                         .pop());
                                                           },
-                                                          child:
-                                                              Text('yes'.tr),
+                                                          child: Text('yes'.tr),
                                                         ),
                                                       ],
                                                       title: Text(
-                                                          'cancel_order_question'.tr),
+                                                          'cancel_order_question'
+                                                              .tr),
                                                     ),
                                                   );
                                                 } else {
@@ -444,15 +455,16 @@ class _ListOrderPageState extends State<ListOrderPage> {
                                                     return [
                                                       PopupMenuItem(
                                                         value: '0',
-                                                        child: Text('cancel'.tr),
+                                                        child:
+                                                            Text('cancel'.tr),
                                                       ),
                                                       if (data[index][
                                                               'order_status'] ==
                                                           'awaiting payment')
                                                         PopupMenuItem(
                                                           value: '1',
-                                                          child:
-                                                              Text('pay_now'.tr),
+                                                          child: Text(
+                                                              'pay_now'.tr),
                                                         ),
                                                     ];
                                                   },
@@ -472,8 +484,8 @@ class _ListOrderPageState extends State<ListOrderPage> {
                                                                         context)
                                                                     .pop();
                                                               },
-                                                              child: Text(
-                                                                  'no'.tr),
+                                                              child:
+                                                                  Text('no'.tr),
                                                             ),
                                                             TextButton(
                                                               onPressed:
@@ -492,7 +504,8 @@ class _ListOrderPageState extends State<ListOrderPage> {
                                                             ),
                                                           ],
                                                           title: Text(
-                                                              'cancel_order_question'.tr),
+                                                              'cancel_order_question'
+                                                                  .tr),
                                                         ),
                                                       );
                                                     }
@@ -752,7 +765,7 @@ class _ListOrderPageState extends State<ListOrderPage> {
                                         CrossAxisAlignment.start,
                                     children: [
                                       Text(
-                                        fmf.output.symbolOnLeft,
+                                        formattedPrice,
                                         style: Theme.of(context)
                                             .textTheme
                                             .titleLarge

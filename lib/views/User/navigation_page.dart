@@ -35,7 +35,7 @@ class _NavigationPageState extends State<NavigationPage> {
   static const List<Widget> _widgetOptions = <Widget>[
     HomePage(), // Halaman Home
     ChatPage(), // Halaman Chat (Inbox)
-    QrPage(), // Halaman QR Code
+    // QrPage(), // Halaman QR Code
     ListOrderPage(), // Halaman Pesanan
     ProfilePage(), // Halaman Profil
   ];
@@ -50,15 +50,15 @@ class _NavigationPageState extends State<NavigationPage> {
       icon: Icon(Icons.mail_outline),
       label: 'Inbox', // Label untuk Inbox
     ),
-    BottomNavigationBarItem(
-      icon: ImageIcon(
-        AssetImage(
-            'assets/images/qrscanner.png', // Menggunakan gambar khusus untuk QR
-            ),
-            size: 35, // Mengatur ukuran ikon
-      ),
-      label: 'QR', // Label untuk QR
-    ),
+    // BottomNavigationBarItem(
+    //   icon: ImageIcon(
+    //     AssetImage(
+    //         'assets/images/qrscanner.png', // Menggunakan gambar khusus untuk QR
+    //         ),
+    //         size: 35, // Mengatur ukuran ikon
+    //   ),
+    //   label: 'QR', // Label untuk QR
+    // ),
     BottomNavigationBarItem(
       icon: Icon(Icons.list_alt_outlined),
       label: 'Order', // Label untuk Pesanan

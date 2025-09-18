@@ -90,7 +90,7 @@ class _HomePageState extends State<HomePage> {
   TextEditingController controller = TextEditingController();
 
   @override
-  Widget build(BuildContext contexr) {
+  Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
 
     return Scaffold(

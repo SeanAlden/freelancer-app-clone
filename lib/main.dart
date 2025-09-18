@@ -183,7 +183,7 @@ import 'package:get_storage/get_storage.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:google_maps_flutter_android/google_maps_flutter_android.dart';
 import 'package:google_maps_flutter_platform_interface/google_maps_flutter_platform_interface.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
+// import 'package:flutter_localizations/flutter_localizations.dart';
 import 'l10n/translations.dart'; // Import file translations
 
 void main() async {
@@ -236,9 +236,9 @@ class _MyAppState extends State<MyApp> {
         Locale('hi', 'IN'), // India
       ],
       localizationsDelegates: const [
-        GlobalMaterialLocalizations.delegate,
-        GlobalWidgetsLocalizations.delegate,
-        GlobalCupertinoLocalizations.delegate,
+        // GlobalMaterialLocalizations.delegate,
+        // GlobalWidgetsLocalizations.delegate,
+        // GlobalCupertinoLocalizations.delegate,
       ],
       themeMode:
           brightness == Brightness.dark ? ThemeMode.dark : ThemeMode.light,

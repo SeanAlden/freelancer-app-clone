@@ -23,12 +23,6 @@ class FaqPage extends StatelessWidget {
             onPressed: () => Navigator.of(context).pop(),
           ),
           flexibleSpace: Container(
-              // decoration: const BoxDecoration(
-              //   gradient: LinearGradient(
-              //     begin: Alignment.topLeft,
-              //     end: Alignment.bottomRight,
-              //   ),
-              // ),
               ),
           bottom: TabBar(
             tabs: [
@@ -46,12 +40,6 @@ class FaqPage extends StatelessWidget {
                 ? Colors.white // Warna indikator tab di mode gelap
                 : Colors.black, // Warna indikator tab di mode terang
           ),
-          // bottom: const TabBar(
-          //   tabs: [
-          //     Tab(text: 'FAQ'),
-          //     Tab(text: 'Contact'),
-          //   ],
-          // ),
         ),
         body: const TabBarView(
           children: [

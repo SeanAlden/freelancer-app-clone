@@ -4,7 +4,6 @@ import 'package:clone_freelancer_mobile/models/news.dart';
 import 'package:clone_freelancer_mobile/views/news/news_detail_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-// import 'package:pusher_channels_flutter/pusher-js/core/transports/url_schemes.dart';
 import 'package:http/http.dart' as http;
 
 class NewsWidget extends StatefulWidget {
@@ -123,21 +122,6 @@ class _NewsWidgetState extends State<NewsWidget> {
                                 left: 100,
                                 right: 0,
                                 child:
-                                    // Container(
-                                    //   padding: EdgeInsets.all(4),
-                                    //   color: Colors
-                                    //       .black54, // Semi-transparent background
-                                    //   child: Text(
-                                    //     article.title,
-                                    //     style: TextStyle(
-                                    //       color: Colors.white,
-                                    //       fontWeight: FontWeight.bold,
-                                    //       fontSize: 16,
-                                    //     ),
-                                    //     maxLines: 8,
-                                    //     overflow: TextOverflow.ellipsis,
-                                    //   ),
-                                    // ),
                                     Container(
                                   padding: EdgeInsets.all(4),
                                   decoration: BoxDecoration(

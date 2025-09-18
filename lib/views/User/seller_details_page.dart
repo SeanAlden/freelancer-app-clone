@@ -7,7 +7,7 @@ import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:clone_freelancer_mobile/controllers/user_controller.dart';
 import 'package:clone_freelancer_mobile/views/seller/Portfolio/show_portfolio_dialog.dart';
 import 'package:get/get.dart';
-import 'package:money_formatter/money_formatter.dart';
+import 'package:intl/intl.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class SellerDetailsPage extends StatefulWidget {
@@ -288,10 +288,25 @@ class _SellerDetailsPageState extends State<SellerDetailsPage> {
                             // Bagian untuk mengatur item service di halaman Service
                             itemBuilder: (context, index) {
                               final dataIndex = data['services'][index];
-                              MoneyFormatter fmf = MoneyFormatter(
-                                      amount: double.parse(
-                                          dataIndex['lowestPrice']))
-                                  .copyWith(symbol: 'IDR');
+                              // MoneyFormatter fmf = MoneyFormatter(
+                              //         amount: double.parse(
+                              //             dataIndex['lowestPrice']))
+                              //     .copyWith(symbol: 'IDR');
+
+                              final NumberFormat currencyFormatter =
+                                  NumberFormat.currency(
+                                locale: 'id_ID',
+                                symbol: 'IDR ',
+                                decimalDigits: 0,
+                              );
+
+                              String formattedLowestPrice =
+                                  currencyFormatter.format(
+                                double.tryParse(
+                                        dataIndex['lowestPrice'].toString()) ??
+                                    0,
+                              );
+
                               return Container(
                                 height: 125,
                                 decoration: BoxDecoration(
@@ -445,7 +460,7 @@ class _SellerDetailsPageState extends State<SellerDetailsPage> {
                                                       ),
                                                       TextSpan(
                                                         text:
-                                                            " ${fmf.output.symbolOnLeft}",
+                                                            " ${formattedLowestPrice}",
                                                         style: Theme.of(context)
                                                             .textTheme
                                                             .titleSmall

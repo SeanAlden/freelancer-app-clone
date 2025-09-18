@@ -432,6 +432,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:qr_flutter/qr_flutter.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class QrPage extends StatefulWidget {
   const QrPage({super.key});
@@ -486,25 +487,43 @@ class _QrPageState extends State<QrPage> {
   }
 
   // Fungsi untuk menangani hasil QR code
-  Future<void> _handleQRResult(String qrData) async {
-    try {
-      final response = await http.post(
-        Uri.parse('https://payment-service-sbx.pakar-digital.com'),
-        headers: {
-          'Authorization': 'Bearer SB-Mid-client-wYeSigdies_2dI1d',
-          'Content-Type': 'application/json',
-        },
-        body: '{"qrData": "$qrData"}',
-      );
-      if (response.statusCode == 200) {
-        Get.snackbar('QR Scan Success', 'Redirecting to $qrData');
-        // Mengarahkan ke URL atau halaman tertentu
-        Get.to(() => PaymentPage(qrUrl: qrData));
+  // Future<void> _handleQRResult(String qrData) async {
+  //   try {
+  //     final response = await http.post(
+  //       Uri.parse('https://payment-service-sbx.pakar-digital.com'),
+  //       headers: {
+  //         'Authorization': 'Bearer SB-Mid-client-wYeSigdies_2dI1d',
+  //         'Content-Type': 'application/json',
+  //       },
+  //       body: '{"qrData": "$qrData"}',
+  //     );
+  //     if (response.statusCode == 200) {
+  //       Get.snackbar('QR Scan Success', 'Redirecting to $qrData');
+  //       // Mengarahkan ke URL atau halaman tertentu
+  //       Get.to(() => PaymentPage(qrUrl: qrData));
+  //     } else {
+  //       Get.snackbar('QR Scan Failed', 'Failed to find QR source.');
+  //     }
+  //   } catch (e) {
+  //     Get.snackbar('Error', 'Failed to scan QR code');
+  //   }
+  // }
+
+   Future<void> _handleQRResult(String? qrCode) async {
+    if (qrCode != null) {
+      // Periksa apakah QR code adalah URL
+      if (Uri.tryParse(qrCode)?.hasAbsolutePath ?? false) {
+        final Uri url = Uri.parse(qrCode);
+
+        // Luncurkan URL menggunakan url_launcher
+        if (await canLaunchUrl(url)) {
+          await launchUrl(url, mode: LaunchMode.externalApplication);
+        } else {
+          Get.snackbar('QR Scan Failed', 'Failed to find QR source.');
+        }
       } else {
-        Get.snackbar('QR Scan Failed', 'Failed to find QR source.');
+        Get.snackbar('QR Scan Failed', 'QR source not valid');
       }
-    } catch (e) {
-      Get.snackbar('Error', 'Failed to scan QR code');
     }
   }
 
@@ -571,14 +590,6 @@ class _QrPageState extends State<QrPage> {
                   ),
                 ),
                 const SizedBox(height: 10),
-                // ElevatedButton.icon(
-                //   onPressed: () {
-                //     // Navigate to add card page
-                //     Get.to(() => AddCardPage());
-                //   },
-                //   icon: const Icon(Icons.credit_card),
-                //   label: const Text('Add Payment Card'),
-                // ),
                 ElevatedButton.icon(
                   onPressed: () {
                     // Navigasi ke halaman generate QR
@@ -638,21 +649,6 @@ class PaymentPage extends StatelessWidget {
   }
 }
 
-// Halaman dummy untuk menambahkan kartu pembayaran
-// class AddCardPage extends StatelessWidget {
-//   const AddCardPage({super.key});
 
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       appBar: AppBar(
-//         title: const Text('Add Payment Card'),
-//       ),
-//       body: Center(
-//         child: Text('Add card functionality coming soon!'),
-//       ),
-//     );
-//   }
-// }
 
 

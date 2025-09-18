@@ -16,7 +16,7 @@ import 'package:clone_freelancer_mobile/models/chat_user_data.dart';
 import 'package:clone_freelancer_mobile/views/chat/custom_order_dialog.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:money_formatter/money_formatter.dart';
+import 'package:intl/intl.dart';
 import 'package:http/http.dart' as http;
 import 'package:pusher_channels_flutter/pusher_channels_flutter.dart';
 
@@ -184,7 +184,7 @@ class _ChatDetailPageState extends State<ChatDetailPage> {
                     serviceId: serviceId,
                     price: price,
                     freelancerId: freelancerId,
-                  )   
+                  )
                   .then((value) => setState(() {
                         isLoading = false;
                       }));
@@ -335,15 +335,40 @@ class _ChatDetailPageState extends State<ChatDetailPage> {
                                 url.replaceFirst('/api/', '') + linkServicePic;
                             return chatBubbleRequest(context, linkServicePic,
                                 allMessage, index, true);
-                          } else if (allMessage[index]['custom_id'] != null) {
+                          }
+                          // else if (allMessage[index]['custom_id'] != null) {
+                          //   var data = allMessage[index]['custom_data'];
+                          //   MoneyFormatter fmf = MoneyFormatter(
+                          //           amount:
+                          //               double.parse(data['price'].toString()))
+                          //       .copyWith(symbol: 'IDR');
+
+                          //   return customChatBubble(
+                          //       data, context, fmf, allMessage, index, true);
+                          // }
+                          else if (allMessage[index]['custom_id'] != null) {
                             var data = allMessage[index]['custom_data'];
-                            MoneyFormatter fmf = MoneyFormatter(
-                                    amount:
-                                        double.parse(data['price'].toString()))
-                                .copyWith(symbol: 'IDR');
+
+                            // Format harga menggunakan intl
+                            final NumberFormat currencyFormatter =
+                                NumberFormat.currency(
+                              locale: 'id_ID', // Locale untuk Indonesia
+                              symbol: 'IDR ',
+                              decimalDigits: 0,
+                            );
+
+                            String formattedPrice = currencyFormatter.format(
+                              double.tryParse(data['price'].toString()) ?? 0,
+                            );
 
                             return customChatBubble(
-                                data, context, fmf, allMessage, index, true);
+                              data,
+                              context,
+                              formattedPrice,
+                              allMessage,
+                              index,
+                              true,
+                            );
                           } else {
                             return normalChatBubble(allMessage, index, true);
                           }
@@ -355,14 +380,40 @@ class _ChatDetailPageState extends State<ChatDetailPage> {
                                 url.replaceFirst('/api/', '') + linkServicePic;
                             return chatBubbleRequest(context, linkServicePic,
                                 allMessage, index, false);
-                          } else if (allMessage[index]['custom_id'] != null) {
+                          }
+                          // else if (allMessage[index]['custom_id'] != null) {
+                          //   var data = allMessage[index]['custom_data'];
+                          //   MoneyFormatter fmf = MoneyFormatter(
+                          //           amount:
+                          //               double.parse(data['price'].toString()))
+                          //       .copyWith(symbol: 'IDR');
+                          //   return customChatBubble(
+                          //       data, context, fmf, allMessage, index, false);
+                          // }
+
+                          else if (allMessage[index]['custom_id'] != null) {
                             var data = allMessage[index]['custom_data'];
-                            MoneyFormatter fmf = MoneyFormatter(
-                                    amount:
-                                        double.parse(data['price'].toString()))
-                                .copyWith(symbol: 'IDR');
+
+                            // Format harga menggunakan intl
+                            final NumberFormat currencyFormatter =
+                                NumberFormat.currency(
+                              locale: 'id_ID',
+                              symbol: 'IDR ',
+                              decimalDigits: 0,
+                            );
+
+                            String formattedPrice = currencyFormatter.format(
+                              double.tryParse(data['price'].toString()) ?? 0,
+                            );
+
                             return customChatBubble(
-                                data, context, fmf, allMessage, index, false);
+                              data,
+                              context,
+                              formattedPrice,
+                              allMessage,
+                              index,
+                              false,
+                            );
                           } else {
                             return normalChatBubble(allMessage, index, false);
                           }
@@ -407,7 +458,10 @@ class _ChatDetailPageState extends State<ChatDetailPage> {
                 Expanded(
                   child: TextField(
                     controller: inputController,
-                    style: TextStyle(color: Theme.of(context).brightness == Brightness.dark ? Colors.black : Colors.black),
+                    style: TextStyle(
+                        color: Theme.of(context).brightness == Brightness.dark
+                            ? Colors.black
+                            : Colors.black),
                     maxLines: 1,
                     decoration: InputDecoration(
                       contentPadding: EdgeInsets.only(
@@ -416,7 +470,10 @@ class _ChatDetailPageState extends State<ChatDetailPage> {
                         top: 8.0,
                       ),
                       hintText: 'write_message'.tr,
-                      hintStyle: TextStyle(color:Theme.of(context).brightness == Brightness.dark ? Colors.black54 : Colors.black45),
+                      hintStyle: TextStyle(
+                          color: Theme.of(context).brightness == Brightness.dark
+                              ? Colors.black54
+                              : Colors.black45),
                       border: InputBorder.none,
                     ),
                   ),
@@ -541,7 +598,7 @@ class _ChatDetailPageState extends State<ChatDetailPage> {
   Container customChatBubble(
     data,
     BuildContext context,
-    MoneyFormatter fmf,
+    String formattedPrice,
     allMessage,
     int index,
     bool user,
@@ -633,7 +690,7 @@ class _ChatDetailPageState extends State<ChatDetailPage> {
                         style: Theme.of(context).textTheme.labelMedium,
                       ),
                       Text(
-                        fmf.output.compactSymbolOnLeft,
+                        formattedPrice,
                         style: Theme.of(context).textTheme.titleLarge,
                       ),
                     ],

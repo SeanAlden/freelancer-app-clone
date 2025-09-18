@@ -11,7 +11,7 @@ import 'package:clone_freelancer_mobile/models/chat_user_data.dart';
 import 'package:clone_freelancer_mobile/models/launch_map.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:money_formatter/money_formatter.dart';
+import 'package:intl/intl.dart';
 import 'package:pusher_channels_flutter/pusher_channels_flutter.dart';
 
 class SellerOrderPage extends StatefulWidget {
@@ -442,11 +442,27 @@ class _SellerOrderPageState extends State<SellerOrderPage> {
                                   shrinkWrap: true,
                                   physics: const NeverScrollableScrollPhysics(),
                                   itemBuilder: (context, index) {
-                                    MoneyFormatter fmf = MoneyFormatter(
-                                            amount: double.parse(data['package']
-                                                    [index]['price']
-                                                .toString()))
-                                        .copyWith(symbol: 'IDR');
+                                    // MoneyFormatter fmf = MoneyFormatter(
+                                    //         amount: double.parse(data['package']
+                                    //                 [index]['price']
+                                    //             .toString()))
+                                    //     .copyWith(symbol: 'IDR');
+
+                                    final NumberFormat currencyFormatter =
+                                        NumberFormat.currency(
+                                      locale: 'id_ID',
+                                      symbol: 'IDR ',
+                                      decimalDigits: 0,
+                                    );
+
+                                    String formattedPrice =
+                                        currencyFormatter.format(
+                                      double.tryParse(data['package'][index]
+                                                  ['price']
+                                              .toString()) ??
+                                          0,
+                                    );
+
                                     DateTime parsedExpirationDate =
                                         DateTime.now();
                                     if (data['package'][index]['due_date'] !=
@@ -631,7 +647,7 @@ class _SellerOrderPageState extends State<SellerOrderPage> {
                                                   CrossAxisAlignment.start,
                                               children: [
                                                 Text(
-                                                  fmf.output.symbolOnLeft,
+                                                  formattedPrice,
                                                   style: Theme.of(context)
                                                       .textTheme
                                                       .titleLarge
@@ -1133,11 +1149,27 @@ class _SellerOrderPageState extends State<SellerOrderPage> {
                                   shrinkWrap: true,
                                   physics: const NeverScrollableScrollPhysics(),
                                   itemBuilder: (context, index) {
-                                    MoneyFormatter fmf = MoneyFormatter(
-                                            amount: double.parse(data['custom']
-                                                    [index]['price']
-                                                .toString()))
-                                        .copyWith(symbol: 'IDR');
+                                    // MoneyFormatter fmf = MoneyFormatter(
+                                    //         amount: double.parse(data['custom']
+                                    //                 [index]['price']
+                                    //             .toString()))
+                                    //     .copyWith(symbol: 'IDR');
+
+                                    final NumberFormat currencyFormatter =
+                                        NumberFormat.currency(
+                                      locale: 'id_ID',
+                                      symbol: 'IDR ',
+                                      decimalDigits: 0,
+                                    );
+
+                                    String formattedPrice =
+                                        currencyFormatter.format(
+                                      double.tryParse(data['custom'][index]
+                                                  ['price']
+                                              .toString()) ??
+                                          0,
+                                    );
+
                                     DateTime parsedExpirationDate =
                                         DateTime.now();
                                     if (data['custom'][index]['due_date'] !=
@@ -1321,7 +1353,7 @@ class _SellerOrderPageState extends State<SellerOrderPage> {
                                                   CrossAxisAlignment.start,
                                               children: [
                                                 Text(
-                                                  fmf.output.symbolOnLeft,
+                                                  formattedPrice,
                                                   style: Theme.of(context)
                                                       .textTheme
                                                       .titleLarge

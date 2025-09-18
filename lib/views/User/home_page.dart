@@ -20,7 +20,7 @@ import 'package:get/get.dart';
 import 'package:clone_freelancer_mobile/views/User/navigation_page.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:money_formatter/money_formatter.dart';
+import 'package:intl/intl.dart';
 import 'package:http/http.dart' as http;
 import 'package:clone_freelancer_mobile/models/news.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -547,7 +547,7 @@ class _HomePageState extends State<HomePage> {
                                         children: [
                                           // title untuk kolom "Services"
                                           Text(
-                                            'services'.tr,  
+                                            'services'.tr,
                                             style: Theme.of(context)
                                                 .textTheme
                                                 .headlineSmall,
@@ -579,13 +579,27 @@ class _HomePageState extends State<HomePage> {
                                                 linkAvatar = url.replaceFirst(
                                                         '/api/', '') +
                                                     linkAvatar;
-                                                MoneyFormatter fmf =
-                                                    MoneyFormatter(
-                                                            amount:
-                                                                double.parse(
-                                                                    price))
-                                                        .copyWith(
-                                                            symbol: 'IDR');
+                                                // MoneyFormatter fmf =
+                                                //     MoneyFormatter(
+                                                //             amount:
+                                                //                 double.parse(
+                                                //                     price))
+                                                //         .copyWith(
+                                                //             symbol: 'IDR');
+
+                                                final NumberFormat
+                                                    currencyFormatter =
+                                                    NumberFormat.currency(
+                                                  locale: 'id_ID',
+                                                  symbol: 'IDR ',
+                                                  decimalDigits: 0,
+                                                );
+
+                                                String formattedPrice =
+                                                    currencyFormatter.format(
+                                                  double.tryParse(price) ?? 0,
+                                                );
+
                                                 return GestureDetector(
                                                   onTap: () async {
                                                     var list =
@@ -886,7 +900,7 @@ class _HomePageState extends State<HomePage> {
                                                                                       ),
                                                                                 ),
                                                                                 TextSpan(
-                                                                                  text: " ${fmf.output.symbolOnLeft}",
+                                                                                  text: " ${formattedPrice}",
                                                                                   style: Theme.of(context).textTheme.titleSmall?.copyWith(
                                                                                         fontWeight: FontWeight.bold,
                                                                                       ),
@@ -914,12 +928,6 @@ class _HomePageState extends State<HomePage> {
                                             height: 32,
                                           ),
                                           // Menambahkan kolom dengan title "News" untuk implementasi tampilan berita mengenai freelancer
-                                          // Text(
-                                          //   "News",
-                                          //   style: Theme.of(context)
-                                          //       .textTheme
-                                          //       .headlineSmall,
-                                          // ),
                                           NewsWidget()
                                         ],
                                       )

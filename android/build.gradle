@@ -1,3 +1,15 @@
+buildscript {
+   ext.kotlin_version = '1.8.22'
+   repositories {
+       google()
+       mavenCentral()
+   }
+   dependencies {
+       classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+       classpath 'com.android.tools.build:gradle:8.3.0'
+   }
+}
+
 allprojects {
     repositories {
         google()
@@ -13,6 +25,17 @@ subprojects {
     project.evaluationDependsOn(":app")
 }
 
+subprojects { subproject ->
+        if(project['name'] == 'c72-rfid-scanner'){    
+            project.configurations { compile { } }
+        }else{
+            configurations.all {
+            exclude group: "com.google.errorprone", module: "error_prone_annotations"
+             }
+        }
+}
+
 tasks.register("clean", Delete) {
     delete rootProject.buildDir
 }
+
