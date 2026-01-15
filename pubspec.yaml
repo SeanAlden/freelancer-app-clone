@@ -110,6 +110,12 @@ dev_dependencies:
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
   flutter_lints: ^3.0.0
+  flutter_launcher_icons: ^0.14.4
+
+flutter_icons:
+  android: true
+  ios: true
+  image_path: assets/icons/freelancer.png
 
 # dependency_overrides:
 #   flutter_keyboard_visibility: ^6.0.0
@@ -139,7 +145,7 @@ flutter:
   - assets/images/qris.png
   - assets/icons/whatsapp.png
   - assets/icons/email.png
-  
+  - assets/images/avatar.png
 
 
   # An image asset can refer to one or more resolution-specific "variants", see
