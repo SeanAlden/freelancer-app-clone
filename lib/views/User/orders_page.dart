@@ -529,8 +529,37 @@ class _ListOrderPageState extends State<ListOrderPage> {
                                                   ),
                                                 );
                                               } else {
-                                                return Text(
-                                                  'Estimated delivery time ${time.days != null ? '${time.days} days ' : ''}${(time.hours ?? 0).toString().padLeft(2, '0')}:${(time.min ?? 0).toString().padLeft(2, '0')}:${(time.sec ?? 0).toString().padLeft(2, '0')}',
+                                                return Row(
+                                                  children: [
+                                                    Text(
+                                                      'Estimated delivery time ${time.days != null ? '${time.days} days ' : ''}${(time.hours ?? 0).toString().padLeft(2, '0')}:${(time.min ?? 0).toString().padLeft(2, '0')}:${(time.sec ?? 0).toString().padLeft(2, '0')}',
+                                                    ),
+                                                    SizedBox(
+                                                      width: 4,
+                                                    ),
+                                                    TextButton(
+                                                      onPressed: status ==
+                                                              'in progress'
+                                                          ? () {
+                                                              // setState(() {
+                                                              //   status =
+                                                              //       'delivered';
+                                                              // });
+                                                              setState(() {
+                                                                data[index][
+                                                                        'order_status'] =
+                                                                    'delivered';
+                                                              });
+                                                            }
+                                                          : null, // tombol disable kalau bukan in progress
+                                                      child: Text(
+                                                        'Delivered',
+                                                        style: TextStyle(
+                                                            color:
+                                                                Colors.green),
+                                                      ),
+                                                    )
+                                                  ],
                                                 );
                                               }
                                             },

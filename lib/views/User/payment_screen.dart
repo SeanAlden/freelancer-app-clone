@@ -157,6 +157,36 @@ class _PaymentScreenState extends State<PaymentScreen> {
 //   }
 // }
 
+// class PaymentWebViewScreen extends StatefulWidget {
+//   final String paymentUrl;
+
+//   const PaymentWebViewScreen({super.key, required this.paymentUrl});
+
+//   @override
+//   State<PaymentWebViewScreen> createState() => _PaymentWebViewScreenState();
+// }
+
+// class _PaymentWebViewScreenState extends State<PaymentWebViewScreen> {
+//   late final WebViewController controller;
+
+//   @override
+//   void initState() {
+//     super.initState();
+
+//     controller = WebViewController()
+//       ..setJavaScriptMode(JavaScriptMode.unrestricted)
+//       ..loadRequest(Uri.parse(widget.paymentUrl));
+//   }
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       appBar: AppBar(title: const Text('Midtrans Payment')),
+//       body: WebViewWidget(controller: controller),
+//     );
+//   }
+// }
+
 class PaymentWebViewScreen extends StatefulWidget {
   final String paymentUrl;
 
@@ -175,14 +205,45 @@ class _PaymentWebViewScreenState extends State<PaymentWebViewScreen> {
 
     controller = WebViewController()
       ..setJavaScriptMode(JavaScriptMode.unrestricted)
+      ..setNavigationDelegate(
+        NavigationDelegate(
+          onNavigationRequest: (request) {
+            final url = request.url;
+            print('Redirected to: $url');
+
+            if (url.contains('transaction_status=settlement') ||
+                url.contains('transaction_status=capture')) {
+              _onPaymentSuccess();
+              return NavigationDecision.prevent;
+            }
+
+            if (url.contains('transaction_status=cancel') ||
+                url.contains('transaction_status=expire')) {
+              _onPaymentFailed();
+              return NavigationDecision.prevent;
+            }
+
+            return NavigationDecision.navigate;
+          },
+        ),
+      )
       ..loadRequest(Uri.parse(widget.paymentUrl));
+  }
+
+  void _onPaymentSuccess() {
+    Navigator.of(context).pop(true); // return success
+  }
+
+  void _onPaymentFailed() {
+    Navigator.of(context).pop(false); // return failed
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Midtrans Payment')),
+      appBar: AppBar(title: const Text('Payment Screen')),
       body: WebViewWidget(controller: controller),
     );
   }
 }
+
