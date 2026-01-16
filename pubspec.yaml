@@ -76,7 +76,8 @@ dependencies:
   money_formatter: ^0.0.5
   midtrans_sdk: ^0.4.0
   # webview_flutter: ^4.8.0
-  webview_flutter: ^3.0.4
+  # webview_flutter: ^3.0.4
+  webview_flutter: ^4.7.0
   flutter_timer_countdown: ^1.0.7
   flutter_countdown_timer: ^4.1.0
   contentsize_tabbarview: ^0.0.2
@@ -145,7 +146,7 @@ flutter:
   - assets/images/qris.png
   - assets/icons/whatsapp.png
   - assets/icons/email.png
-  - assets/images/avatar.png
+  - assets/images/dummy.jpg
 
 
   # An image asset can refer to one or more resolution-specific "variants", see

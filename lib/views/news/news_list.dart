@@ -50,13 +50,14 @@ class _NewsWidgetState extends State<NewsWidget> {
               return Center(child: Text("Error: ${snapshot.error}"));
             } else {
               final newsArticles = snapshot.data!;
+              final limitedNews = newsArticles.take(5).toList();
               return Container(
                 height: 250, // Adjust height as needed
                 child: PageView.builder(
                   controller: PageController(viewportFraction: 0.99),
-                  itemCount: newsArticles.length,
+                  itemCount: limitedNews.length,
                   itemBuilder: (context, index) {
-                    final article = newsArticles[index];
+                    final article = limitedNews[index];
                     return GestureDetector(
                       onTap: () {
                         Navigator.push(
@@ -64,9 +65,8 @@ class _NewsWidgetState extends State<NewsWidget> {
                           MaterialPageRoute(
                             builder: (context) => NewsDetailPage(
                               title: article.title,
-                              imageUrl: article.imageUrl,
-                              description: article.description ??
-                                  'no_desc'.tr,
+                              imageUrl: article.imageUrl ?? '',
+                              description: article.description ?? 'no_desc'.tr,
                               publishedAt: article.publishedAt,
                               url: article.url,
                             ),
@@ -91,11 +91,38 @@ class _NewsWidgetState extends State<NewsWidget> {
                             children: [
                               ClipRRect(
                                 borderRadius: BorderRadius.circular(15),
-                                child: Image.network(
-                                  article.imageUrl,
+                                child:
+                                    // Image.network(
+                                    //   article.imageUrl,
+                                    //   fit: BoxFit.cover,
+                                    //   width: double.infinity,
+                                    //   height: 250,
+                                    // ),
+                                    Image.network(
+                                  article.imageUrl ?? '',
                                   fit: BoxFit.cover,
                                   width: double.infinity,
                                   height: 250,
+
+                                  // Saat loading
+                                  loadingBuilder:
+                                      (context, child, loadingProgress) {
+                                    if (loadingProgress == null) return child;
+                                    return Center(
+                                      child: CircularProgressIndicator(
+                                          strokeWidth: 2),
+                                    );
+                                  },
+
+                                  // Saat error / URL kosong / DNS gagal
+                                  errorBuilder: (context, error, stackTrace) {
+                                    return Image.asset(
+                                      'assets/images/dummy.jpg',
+                                      fit: BoxFit.cover,
+                                      width: double.infinity,
+                                      height: 250,
+                                    );
+                                  },
                                 ),
                               ),
                               Positioned(
@@ -121,8 +148,7 @@ class _NewsWidgetState extends State<NewsWidget> {
                                 bottom: 0,
                                 left: 100,
                                 right: 0,
-                                child:
-                                    Container(
+                                child: Container(
                                   padding: EdgeInsets.all(4),
                                   decoration: BoxDecoration(
                                     color: Colors

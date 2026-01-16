@@ -1,8 +1,9 @@
 import 'dart:convert';
 
+import 'package:clone_freelancer_mobile/constant/const.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
-// import 'package:path/path.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 class PaymentScreen extends StatefulWidget {
@@ -29,16 +30,20 @@ class PaymentScreen extends StatefulWidget {
 }
 
 class _PaymentScreenState extends State<PaymentScreen> {
-  final _phoneController = TextEditingController();
+  // final _phoneController = TextEditingController();
   final _quantityController = TextEditingController();
+  final box = GetStorage();
 
   Future<void> _createTransaction() async {
-    final phone = _phoneController.text;
+    // final phone = _phoneController.text;
     final quantity = _quantityController.text;
 
     final response = await http.post(
-      Uri.parse('https://wearableprojects.petra.ac.id/api/create-transaction'),
-      headers: {'Content-Type': 'application/json'},
+      Uri.parse('${url}create-transaction'),
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ${box.read('token')}',
+      },
       body: jsonEncode({
         'name': widget.name,
         'email': widget.email,
@@ -46,6 +51,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
         // 'phone': int.parse(phone).toString(),
         'quantity': int.parse(quantity),
         'gross_amount': widget.price,
+        'freelancer_id': 1
       }),
     );
 
@@ -65,7 +71,16 @@ class _PaymentScreenState extends State<PaymentScreen> {
             builder: (context) => PaymentWebViewScreen(paymentUrl: paymentUrl),
           ));
     } else {
-      print('Error: ${response.body}');
+      // print('Error: ${response.body}');
+
+      final err = jsonDecode(response.body);
+      showDialog(
+        context: context,
+        builder: (_) => AlertDialog(
+          title: Text('Payment Error'),
+          content: Text(err['error'] ?? 'Unknown error'),
+        ),
+      );
     }
   }
 
@@ -123,21 +138,51 @@ class _PaymentScreenState extends State<PaymentScreen> {
   }
 }
 
-class PaymentWebViewScreen extends StatelessWidget {
+// class PaymentWebViewScreen extends StatelessWidget {
+//   final String paymentUrl;
+
+//   PaymentWebViewScreen({required this.paymentUrl});
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       appBar: AppBar(
+//         title: Text('Midtrans Payment'),
+//       ),
+//       body: WebView(
+//         initialUrl: paymentUrl,
+//         javascriptMode: JavascriptMode.unrestricted,
+//       ),
+//     );
+//   }
+// }
+
+class PaymentWebViewScreen extends StatefulWidget {
   final String paymentUrl;
 
-  PaymentWebViewScreen({required this.paymentUrl});
+  const PaymentWebViewScreen({super.key, required this.paymentUrl});
+
+  @override
+  State<PaymentWebViewScreen> createState() => _PaymentWebViewScreenState();
+}
+
+class _PaymentWebViewScreenState extends State<PaymentWebViewScreen> {
+  late final WebViewController controller;
+
+  @override
+  void initState() {
+    super.initState();
+
+    controller = WebViewController()
+      ..setJavaScriptMode(JavaScriptMode.unrestricted)
+      ..loadRequest(Uri.parse(widget.paymentUrl));
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Midtrans Payment'),
-      ),
-      body: WebView(
-        initialUrl: paymentUrl,
-        javascriptMode: JavascriptMode.unrestricted,
-      ),
+      appBar: AppBar(title: const Text('Midtrans Payment')),
+      body: WebViewWidget(controller: controller),
     );
   }
 }

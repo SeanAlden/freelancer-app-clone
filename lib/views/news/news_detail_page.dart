@@ -168,7 +168,33 @@ class NewsDetailPage extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Image.network(imageUrl, fit: BoxFit.cover),
+            // Image.network(imageUrl, fit: BoxFit.cover),
+
+            Image.network(
+              imageUrl,
+              fit: BoxFit.cover,
+              width: double.infinity,
+
+              // Saat loading
+              loadingBuilder: (context, child, loadingProgress) {
+                if (loadingProgress == null) return child;
+                return Container(
+                  height: 220,
+                  alignment: Alignment.center,
+                  child: CircularProgressIndicator(strokeWidth: 2),
+                );
+              },
+
+              // Saat error / gambar tidak ditemukan
+              errorBuilder: (context, error, stackTrace) {
+                return Image.asset(
+                  'assets/images/dummy.jpg',
+                  fit: BoxFit.cover,
+                  width: double.infinity,
+                  height: 220,
+                );
+              },
+            ),
             SizedBox(height: 16.0),
             Text(
               title,

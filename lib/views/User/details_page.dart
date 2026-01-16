@@ -103,8 +103,7 @@ class _DetailsPageState extends State<DetailsPage>
       );
       _tabs.add(
         Tab(
-          text: formattedPrice
-          ,
+          text: formattedPrice,
         ),
       );
     }
@@ -213,6 +212,58 @@ class _DetailsPageState extends State<DetailsPage>
         ],
       ),
     );
+  }
+
+  Future<void> createTransactionAndPay() async {
+    final response = await http.post(
+      Uri.parse('${url}create-transaction'),
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ${box.read('token')}',
+      },
+      body: jsonEncode({
+        'name': box.read('user')['name'],
+        'email': box.read('user')['email'],
+        'phone': '08123456789',
+        'quantity': 1, // FIXED
+        'gross_amount': widget.packages[_tabController.index].price,
+        'freelancer_id': widget.user.userId,
+        'package_id': widget.packages[_tabController.index].id,
+      }),
+    );
+
+    if (response.statusCode == 200) {
+      final data = jsonDecode(response.body);
+      final snapToken = data['snapToken'];
+
+      final paymentUrl =
+          'https://app.sandbox.midtrans.com/snap/v2/vtweb/$snapToken';
+
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (_) => PaymentWebViewScreen(paymentUrl: paymentUrl),
+        ),
+      );
+    } else {
+      // ⚠️ HANDLE ERROR HTML / NON JSON
+      try {
+        final err = jsonDecode(response.body);
+        Get.snackbar(
+          'Payment Error',
+          err['error'] ?? 'Unknown error',
+          backgroundColor: Colors.red,
+          colorText: Colors.white,
+        );
+      } catch (_) {
+        Get.snackbar(
+          'Payment Error',
+          'Server error, please try again',
+          backgroundColor: Colors.red,
+          colorText: Colors.white,
+        );
+      }
+    }
   }
 
   // Future initSDK() async {
@@ -469,20 +520,23 @@ class _DetailsPageState extends State<DetailsPage>
                 //     Navigator.of(context).pop();
                 //   },
 
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => PaymentScreen(
-                      name: box.read('user')['name'],
-                      email: box.read('user')['email'],
-                      packageName: widget.packages[_tabController.index].title,
-                      serviceName: widget.title,
-                      price: widget.packages[_tabController.index].price,
-                      merchantName: widget.user.name,
-                      subCategory: widget.subCategory,
-                    ),
-                  ),
-                );
+                Navigator.of(context).pop(); // tutup action sheet
+                await createTransactionAndPay();
+
+                // Navigator.push(
+                //   context,
+                //   MaterialPageRoute(
+                //     builder: (context) => PaymentScreen(
+                //       name: box.read('user')['name'],
+                //       email: box.read('user')['email'],
+                //       packageName: widget.packages[_tabController.index].title,
+                //       serviceName: widget.title,
+                //       price: widget.packages[_tabController.index].price,
+                //       merchantName: widget.user.name,
+                //       subCategory: widget.subCategory,
+                //     ),
+                //   ),
+                // );
 
                 // Navigator.push(
                 //   // context,
