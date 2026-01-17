@@ -275,7 +275,7 @@ class NotesPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // controller.fetchNotes();
+    controller.fetchNotes();
 
     return Scaffold(
       appBar: AppBar(

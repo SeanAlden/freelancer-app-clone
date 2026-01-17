@@ -22,8 +22,10 @@ class PaymentController extends GetxController {
   Future initSDK() async {
     _midtrans = await MidtransSDK.init(
       config: MidtransConfig(
-        // clientKey: "SB-Mid-client-wYeSigdies_2dI1d",
-        clientKey: "SB-Mid-client-v6-15hiE40WcarUI",
+        // Sandbox
+        clientKey: clientUrlSandbox,
+        // Production
+        // clientKey: clientUrlProduction,
         colorTheme: ColorTheme(
           colorPrimary: Theme.of(Get.context!).colorScheme.secondary,
           colorPrimaryDark: Theme.of(Get.context!).colorScheme.secondary,

@@ -68,8 +68,10 @@ class _ListOrderPageState extends State<ListOrderPage> {
   Future initSDK() async {
     _midtrans = await MidtransSDK.init(
       config: MidtransConfig(
-        // clientKey: "SB-Mid-client-wYeSigdies_2dI1d",
-        clientKey: "SB-Mid-client-v6-15hiE40WcarUI",
+        // Sandbox
+        clientKey: clientUrlSandbox,
+        // Production
+        // clientKey: clientUrlProduction,
         colorTheme: ColorTheme(
           colorPrimary: Theme.of(context).colorScheme.secondary,
           colorPrimaryDark: Theme.of(context).colorScheme.secondary,
@@ -428,14 +430,119 @@ class _ListOrderPageState extends State<ListOrderPage> {
                                             //   },
                                             // ),
 
+                                            // PopupMenuButton(
+                                            //   itemBuilder: (context) {
+                                            //     return [
+                                            //       const PopupMenuItem(
+                                            //         value: '0',
+                                            //         child: Text('Cancel'),
+                                            //       ),
+                                            //       const PopupMenuItem(
+                                            //         value: '1',
+                                            //         child: Text('Pay Now'),
+                                            //       ),
+                                            //     ];
+                                            //   },
+                                            //   onSelected: (String value) async {
+                                            //     if (value == '0') {
+                                            //       // cancel logic
+                                            //       showDialog(
+                                            //         context: context,
+                                            //         builder: (context) =>
+                                            //             AlertDialog(
+                                            //           title: Text(
+                                            //               'cancel_order_question'
+                                            //                   .tr),
+                                            //           actions: [
+                                            //             TextButton(
+                                            //               onPressed: () =>
+                                            //                   Navigator.of(
+                                            //                           context)
+                                            //                       .pop(),
+                                            //               child: Text('no'.tr),
+                                            //             ),
+                                            //             TextButton(
+                                            //               onPressed: () async {
+                                            //                 await userController
+                                            //                     .cancelOrder(
+                                            //                         orderId: data[index]
+                                            //                                 [
+                                            //                                 'order_id']
+                                            //                             .toString())
+                                            //                     .then((value) =>
+                                            //                         Navigator.of(
+                                            //                                 context)
+                                            //                             .pop());
+                                            //               },
+                                            //               child: Text('yes'.tr),
+                                            //             ),
+                                            //           ],
+                                            //         ),
+                                            //       );
+                                            //     } else if (value == '1') {
+                                            //       // Pay Now logic
+                                            //       final snapToken = data[index][
+                                            //           'snap_token']; // ambil snap token dari API
+                                            //       final paymentUrl =
+                                            //           'https://app.sandbox.midtrans.com/snap/v2/vtweb/$snapToken';
+
+                                            //       // Panggil WebView popup yang sama
+                                            //       final result =
+                                            //           await showDialog<bool>(
+                                            //         context: context,
+                                            //         builder: (context) =>
+                                            //             Dialog(
+                                            //           insetPadding:
+                                            //               EdgeInsets.all(0),
+                                            //           backgroundColor:
+                                            //               Colors.transparent,
+                                            //           child: SizedBox(
+                                            //             width: MediaQuery.of(
+                                            //                     context)
+                                            //                 .size
+                                            //                 .width,
+                                            //             height: MediaQuery.of(
+                                            //                     context)
+                                            //                 .size
+                                            //                 .height,
+                                            //             child:
+                                            //                 PaymentWebViewScreen(
+                                            //                     paymentUrl:
+                                            //                         paymentUrl),
+                                            //           ),
+                                            //         ),
+                                            //       );
+
+                                            //       // result akan true jika sukses, false jika gagal/cancel
+                                            //       if (result == true) {
+                                            //         Get.snackbar(
+                                            //           'Payment Success',
+                                            //           'Order has been paid successfully',
+                                            //           backgroundColor:
+                                            //               Colors.green,
+                                            //           colorText: Colors.white,
+                                            //         );
+                                            //       } else if (result == false) {
+                                            //         Get.snackbar(
+                                            //           'Payment Failed',
+                                            //           'Payment was cancelled or failed',
+                                            //           backgroundColor:
+                                            //               Colors.red,
+                                            //           colorText: Colors.white,
+                                            //         );
+                                            //       }
+                                            //     }
+                                            //   },
+                                            // )
+
                                             PopupMenuButton(
                                               itemBuilder: (context) {
-                                                return [
-                                                  const PopupMenuItem(
+                                                return const [
+                                                  PopupMenuItem(
                                                     value: '0',
                                                     child: Text('Cancel'),
                                                   ),
-                                                  const PopupMenuItem(
+                                                  PopupMenuItem(
                                                     value: '1',
                                                     child: Text('Pay Now'),
                                                   ),
@@ -443,7 +550,7 @@ class _ListOrderPageState extends State<ListOrderPage> {
                                               },
                                               onSelected: (String value) async {
                                                 if (value == '0') {
-                                                  // cancel logic
+                                                  // ===== CANCEL ORDER =====
                                                   showDialog(
                                                     context: context,
                                                     builder: (context) =>
@@ -461,16 +568,33 @@ class _ListOrderPageState extends State<ListOrderPage> {
                                                         ),
                                                         TextButton(
                                                           onPressed: () async {
-                                                            await userController
-                                                                .cancelOrder(
-                                                                    orderId: data[index]
-                                                                            [
-                                                                            'order_id']
-                                                                        .toString())
-                                                                .then((value) =>
-                                                                    Navigator.of(
-                                                                            context)
-                                                                        .pop());
+                                                            try {
+                                                              await userController
+                                                                  .cancelOrder(
+                                                                orderId: data[
+                                                                            index]
+                                                                        [
+                                                                        'order_id']
+                                                                    .toString(),
+                                                              );
+                                                            } catch (e) {
+                                                              Get.snackbar(
+                                                                'Error',
+                                                                'Failed to cancel order',
+                                                                backgroundColor:
+                                                                    Colors.red,
+                                                                colorText:
+                                                                    Colors
+                                                                        .white,
+                                                              );
+                                                            } finally {
+                                                              Navigator.of(
+                                                                      context)
+                                                                  .pop(); // tutup dialog
+                                                              setState(() {
+                                                                fetchData(); // reload halaman utama
+                                                              });
+                                                            }
                                                           },
                                                           child: Text('yes'.tr),
                                                         ),
@@ -478,56 +602,80 @@ class _ListOrderPageState extends State<ListOrderPage> {
                                                     ),
                                                   );
                                                 } else if (value == '1') {
-                                                  // Pay Now logic
-                                                  final snapToken = data[index][
-                                                      'snap_token']; // ambil snap token dari API
-                                                  final paymentUrl =
-                                                      'https://app.sandbox.midtrans.com/snap/v2/vtweb/$snapToken';
+                                                  // ===== PAY NOW =====
+                                                  final snapToken =
+                                                      data[index]['snap_token'];
 
-                                                  // Panggil WebView popup yang sama
-                                                  final result =
-                                                      await showDialog<bool>(
-                                                    context: context,
-                                                    builder: (context) =>
-                                                        Dialog(
-                                                      insetPadding:
-                                                          EdgeInsets.all(0),
-                                                      backgroundColor:
-                                                          Colors.transparent,
-                                                      child: SizedBox(
-                                                        width: MediaQuery.of(
-                                                                context)
-                                                            .size
-                                                            .width,
-                                                        height: MediaQuery.of(
-                                                                context)
-                                                            .size
-                                                            .height,
-                                                        child:
-                                                            PaymentWebViewScreen(
-                                                                paymentUrl:
-                                                                    paymentUrl),
+                                                  // Sandbox
+                                                  final paymentUrl =
+                                                      '${sandboxUrl}snap/v2/vtweb/$snapToken';
+
+                                                  // Production
+                                                  // final paymentUrl =
+                                                  //     '${productionUrl}snap/v2/vtweb/$snapToken';
+
+                                                  // final result =
+                                                  //     await showDialog<bool>(
+                                                  //   context: context,
+                                                  //   builder: (context) =>
+                                                  //       Dialog(
+                                                  //     insetPadding:
+                                                  //         EdgeInsets.zero,
+                                                  //     backgroundColor:
+                                                  //         Colors.transparent,
+                                                  //     child: SizedBox(
+                                                  //       width: MediaQuery.of(
+                                                  //               context)
+                                                  //           .size
+                                                  //           .width,
+                                                  //       height: MediaQuery.of(
+                                                  //               context)
+                                                  //           .size
+                                                  //           .height,
+                                                  //       child:
+                                                  //           PaymentWebViewScreen(
+                                                  //               paymentUrl:
+                                                  //                   paymentUrl),
+                                                  //     ),
+                                                  //   ),
+                                                  // );
+
+                                                  final result = await Navigator
+                                                      .push<bool>(
+                                                    context,
+                                                    MaterialPageRoute(
+                                                      fullscreenDialog: true,
+                                                      builder: (_) =>
+                                                          PaymentWebViewScreen(
+                                                        paymentUrl: paymentUrl,
                                                       ),
                                                     ),
                                                   );
 
-                                                  // result akan true jika sukses, false jika gagal/cancel
-                                                  if (result == true) {
-                                                    Get.snackbar(
-                                                      'Payment Success',
-                                                      'Order has been paid successfully',
-                                                      backgroundColor:
-                                                          Colors.green,
-                                                      colorText: Colors.white,
-                                                    );
-                                                  } else if (result == false) {
-                                                    Get.snackbar(
-                                                      'Payment Failed',
-                                                      'Payment was cancelled or failed',
-                                                      backgroundColor:
-                                                          Colors.red,
-                                                      colorText: Colors.white,
-                                                    );
+                                                  try {
+                                                    if (result == true) {
+                                                      Get.snackbar(
+                                                        'Payment Success',
+                                                        'Order has been paid successfully',
+                                                        backgroundColor:
+                                                            Colors.green,
+                                                        colorText: Colors.white,
+                                                      );
+                                                    } else if (result ==
+                                                        false) {
+                                                      Get.snackbar(
+                                                        'Payment Failed',
+                                                        'Please choose a payment method',
+                                                        backgroundColor:
+                                                            Colors.red,
+                                                        colorText: Colors.white,
+                                                      );
+                                                    }
+                                                  } finally {
+                                                    // selalu reload setelah WebView ditutup
+                                                    setState(() {
+                                                      fetchData();
+                                                    });
                                                   }
                                                 }
                                               },
@@ -558,6 +706,130 @@ class _ListOrderPageState extends State<ListOrderPage> {
                                                 Text(
                                                   'Estimated confirmation ${time.days != null ? '${time.days} days ' : ''}${(time.hours ?? 0).toString().padLeft(2, '0')}:${(time.min ?? 0).toString().padLeft(2, '0')}:${(time.sec ?? 0).toString().padLeft(2, '0')}',
                                                 ),
+                                                // PopupMenuButton(
+                                                //   itemBuilder: (context) {
+                                                //     return [
+                                                //       PopupMenuItem(
+                                                //         value: '0',
+                                                //         child:
+                                                //             Text('cancel'.tr),
+                                                //       ),
+                                                //       if (data[index][
+                                                //                   'order_status'] ==
+                                                //               'awaiting payment' ||
+                                                //           data[index][
+                                                //                   'order_status'] ==
+                                                //               'pending')
+                                                //         PopupMenuItem(
+                                                //           value: '1',
+                                                //           child: Text(
+                                                //               'pay_now'.tr),
+                                                //         ),
+                                                //     ];
+                                                //   },
+                                                //   onSelected:
+                                                //       (String value) async {
+                                                //     if (value == '0') {
+                                                //       showDialog(
+                                                //         context: context,
+                                                //         builder: (context) =>
+                                                //             AlertDialog(
+                                                //           content: const Text(
+                                                //               'Refunded funds will be automatically credited to your balance. You can use this balance for future purchases or withdrawals.'),
+                                                //           actions: [
+                                                //             TextButton(
+                                                //               onPressed: () {
+                                                //                 Navigator.of(
+                                                //                         context)
+                                                //                     .pop();
+                                                //               },
+                                                //               child:
+                                                //                   Text('no'.tr),
+                                                //             ),
+                                                //             TextButton(
+                                                //               onPressed:
+                                                //                   () async {
+                                                //                 await userController
+                                                //                     .cancelRefundOrder(
+                                                //                         orderId:
+                                                //                             data[index]['order_id']
+                                                //                                 .toString())
+                                                //                     .then((value) =>
+                                                //                         Navigator.of(context)
+                                                //                             .pop());
+                                                //               },
+                                                //               child: Text(
+                                                //                   'yes'.tr),
+                                                //             ),
+                                                //           ],
+                                                //           title: Text(
+                                                //               'cancel_order_question'
+                                                //                   .tr),
+                                                //         ),
+                                                //       );
+                                                //     } else if (value == '1') {
+                                                //       // Pay Now logic
+                                                //       final snapToken = data[
+                                                //               index][
+                                                //           'snap_token']; // ambil snap token dari API
+                                                //       final paymentUrl =
+                                                //           'https://app.sandbox.midtrans.com/snap/v2/vtweb/$snapToken';
+
+                                                //       // Panggil WebView popup yang sama
+                                                //       final result =
+                                                //           await showDialog<
+                                                //               bool>(
+                                                //         context: context,
+                                                //         builder: (context) =>
+                                                //             Dialog(
+                                                //           insetPadding:
+                                                //               EdgeInsets.all(0),
+                                                //           backgroundColor:
+                                                //               Colors
+                                                //                   .transparent,
+                                                //           child: SizedBox(
+                                                //             width:
+                                                //                 MediaQuery.of(
+                                                //                         context)
+                                                //                     .size
+                                                //                     .width,
+                                                //             height:
+                                                //                 MediaQuery.of(
+                                                //                         context)
+                                                //                     .size
+                                                //                     .height,
+                                                //             child: PaymentWebViewScreen(
+                                                //                 paymentUrl:
+                                                //                     paymentUrl),
+                                                //           ),
+                                                //         ),
+                                                //       );
+
+                                                //       // result akan true jika sukses, false jika gagal/cancel
+                                                //       if (result == true) {
+                                                //         Get.snackbar(
+                                                //           'Payment Success',
+                                                //           'Order has been paid successfully',
+                                                //           backgroundColor:
+                                                //               Colors.green,
+                                                //           colorText:
+                                                //               Colors.white,
+                                                //         );
+                                                //       } else if (result ==
+                                                //           false) {
+                                                //         Get.snackbar(
+                                                //           'Payment Failed',
+                                                //           'Payment was cancelled or failed',
+                                                //           backgroundColor:
+                                                //               Colors.red,
+                                                //           colorText:
+                                                //               Colors.white,
+                                                //         );
+                                                //       }
+                                                //     }
+                                                //   },
+                                                // )
+
                                                 PopupMenuButton(
                                                   itemBuilder: (context) {
                                                     return [
@@ -582,101 +854,147 @@ class _ListOrderPageState extends State<ListOrderPage> {
                                                   onSelected:
                                                       (String value) async {
                                                     if (value == '0') {
+                                                      // ===== CANCEL + REFUND =====
                                                       showDialog(
                                                         context: context,
                                                         builder: (context) =>
                                                             AlertDialog(
+                                                          title: Text(
+                                                              'cancel_order_question'
+                                                                  .tr),
                                                           content: const Text(
-                                                              'Refunded funds will be automatically credited to your balance. You can use this balance for future purchases or withdrawals.'),
+                                                            'Refunded funds will be automatically credited to your balance. You can use this balance for future purchases or withdrawals.',
+                                                          ),
                                                           actions: [
                                                             TextButton(
-                                                              onPressed: () {
-                                                                Navigator.of(
-                                                                        context)
-                                                                    .pop();
-                                                              },
+                                                              onPressed: () =>
+                                                                  Navigator.of(
+                                                                          context)
+                                                                      .pop(),
                                                               child:
                                                                   Text('no'.tr),
                                                             ),
                                                             TextButton(
                                                               onPressed:
                                                                   () async {
-                                                                await userController
-                                                                    .cancelRefundOrder(
-                                                                        orderId:
-                                                                            data[index]['order_id']
-                                                                                .toString())
-                                                                    .then((value) =>
-                                                                        Navigator.of(context)
-                                                                            .pop());
+                                                                try {
+                                                                  await userController
+                                                                      .cancelRefundOrder(
+                                                                    orderId: data[index]
+                                                                            [
+                                                                            'order_id']
+                                                                        .toString(),
+                                                                  );
+                                                                } catch (e) {
+                                                                  Get.snackbar(
+                                                                    'Error',
+                                                                    'Failed to cancel order',
+                                                                    backgroundColor:
+                                                                        Colors
+                                                                            .red,
+                                                                    colorText:
+                                                                        Colors
+                                                                            .white,
+                                                                  );
+                                                                } finally {
+                                                                  Navigator.of(
+                                                                          context)
+                                                                      .pop(); // tutup dialog
+                                                                  setState(() {
+                                                                    fetchData(); // reload halaman utama
+                                                                  });
+                                                                }
                                                               },
                                                               child: Text(
                                                                   'yes'.tr),
                                                             ),
                                                           ],
-                                                          title: Text(
-                                                              'cancel_order_question'
-                                                                  .tr),
                                                         ),
                                                       );
                                                     } else if (value == '1') {
-                                                      // Pay Now logic
-                                                      final snapToken = data[
-                                                              index][
-                                                          'snap_token']; // ambil snap token dari API
-                                                      final paymentUrl =
-                                                          'https://app.sandbox.midtrans.com/snap/v2/vtweb/$snapToken';
+                                                      // ===== PAY NOW =====
+                                                      final snapToken =
+                                                          data[index]
+                                                              ['snap_token'];
 
-                                                      // Panggil WebView popup yang sama
+                                                      // Sandbox
+                                                      final paymentUrl =
+                                                          '${sandboxUrl}snap/v2/vtweb/$snapToken';
+
+                                                      // Production
+                                                      // final paymentUrl =
+                                                      //     '${productionUrl}snap/v2/vtweb/$snapToken';
+
+                                                      // final result =
+                                                      //     await showDialog<
+                                                      //         bool>(
+                                                      //   context: context,
+                                                      //   builder: (context) =>
+                                                      //       Dialog(
+                                                      //     insetPadding:
+                                                      //         EdgeInsets.zero,
+                                                      //     backgroundColor:
+                                                      //         Colors
+                                                      //             .transparent,
+                                                      //     child: SizedBox(
+                                                      //       width:
+                                                      //           MediaQuery.of(
+                                                      //                   context)
+                                                      //               .size
+                                                      //               .width,
+                                                      //       height:
+                                                      //           MediaQuery.of(
+                                                      //                   context)
+                                                      //               .size
+                                                      //               .height,
+                                                      //       child: PaymentWebViewScreen(
+                                                      //           paymentUrl:
+                                                      //               paymentUrl),
+                                                      //     ),
+                                                      //   ),
+                                                      // );
+
                                                       final result =
-                                                          await showDialog<
+                                                          await Navigator.push<
                                                               bool>(
-                                                        context: context,
-                                                        builder: (context) =>
-                                                            Dialog(
-                                                          insetPadding:
-                                                              EdgeInsets.all(0),
-                                                          backgroundColor:
-                                                              Colors
-                                                                  .transparent,
-                                                          child: SizedBox(
-                                                            width:
-                                                                MediaQuery.of(
-                                                                        context)
-                                                                    .size
-                                                                    .width,
-                                                            height:
-                                                                MediaQuery.of(
-                                                                        context)
-                                                                    .size
-                                                                    .height,
-                                                            child: PaymentWebViewScreen(
-                                                                paymentUrl:
-                                                                    paymentUrl),
+                                                        context,
+                                                        MaterialPageRoute(
+                                                          fullscreenDialog:
+                                                              true,
+                                                          builder: (_) =>
+                                                              PaymentWebViewScreen(
+                                                            paymentUrl:
+                                                                paymentUrl,
                                                           ),
                                                         ),
                                                       );
 
-                                                      // result akan true jika sukses, false jika gagal/cancel
-                                                      if (result == true) {
-                                                        Get.snackbar(
-                                                          'Payment Success',
-                                                          'Order has been paid successfully',
-                                                          backgroundColor:
-                                                              Colors.green,
-                                                          colorText:
-                                                              Colors.white,
-                                                        );
-                                                      } else if (result ==
-                                                          false) {
-                                                        Get.snackbar(
-                                                          'Payment Failed',
-                                                          'Payment was cancelled or failed',
-                                                          backgroundColor:
-                                                              Colors.red,
-                                                          colorText:
-                                                              Colors.white,
-                                                        );
+                                                      try {
+                                                        if (result == true) {
+                                                          Get.snackbar(
+                                                            'Payment Success',
+                                                            'Order has been paid successfully',
+                                                            backgroundColor:
+                                                                Colors.green,
+                                                            colorText:
+                                                                Colors.white,
+                                                          );
+                                                        } else if (result ==
+                                                            false) {
+                                                          Get.snackbar(
+                                                            'Payment Failed',
+                                                            'Payment was pending because user cancelled or failed',
+                                                            backgroundColor:
+                                                                Colors.red,
+                                                            colorText:
+                                                                Colors.white,
+                                                          );
+                                                        }
+                                                      } finally {
+                                                        // selalu reload setelah WebView ditutup
+                                                        setState(() {
+                                                          fetchData();
+                                                        });
                                                       }
                                                     }
                                                   },

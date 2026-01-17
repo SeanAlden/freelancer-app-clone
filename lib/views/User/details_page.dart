@@ -236,8 +236,13 @@ class _DetailsPageState extends State<DetailsPage>
       final data = jsonDecode(response.body);
       final snapToken = data['snapToken'];
 
+      // Sandbox
       final paymentUrl =
-          'https://app.sandbox.midtrans.com/snap/v2/vtweb/$snapToken';
+          '${sandboxUrl}snap/v2/vtweb/$snapToken';
+
+      // Production
+      // final paymentUrl =
+      //     '${productionUrl}snap/v2/vtweb/$snapToken';
 
       Navigator.push(
         context,

@@ -58,12 +58,14 @@ class _PaymentScreenState extends State<PaymentScreen> {
     if (response.statusCode == 200) {
       final data = jsonDecode(response.body);
       final snapToken = data['snapToken'];
-      final paymentUrl =
-          // Sandbox
-          'https://app.sandbox.midtrans.com/snap/v2/vtweb/$snapToken';
-      print(paymentUrl);
+      // Sandbox
+      final paymentUrl = '${sandboxUrl}snap/v2/vtweb/$snapToken';
+
       // Production
-      // 'https://app.midtrans.com/snap/v2/vtweb/$snapToken';
+      // final paymentUrl = '${productionUrl}snap/v2/vtweb/$snapToken';
+      
+      print(paymentUrl);
+      
       // Navigate to the new screen with the payment URL
       Navigator.push(
           context,
@@ -187,6 +189,65 @@ class _PaymentScreenState extends State<PaymentScreen> {
 //   }
 // }
 
+// class PaymentWebViewScreen extends StatefulWidget {
+//   final String paymentUrl;
+
+//   const PaymentWebViewScreen({super.key, required this.paymentUrl});
+
+//   @override
+//   State<PaymentWebViewScreen> createState() => _PaymentWebViewScreenState();
+// }
+
+// class _PaymentWebViewScreenState extends State<PaymentWebViewScreen> {
+//   late final WebViewController controller;
+
+//   @override
+//   void initState() {
+//     super.initState();
+
+//     controller = WebViewController()
+//       ..setJavaScriptMode(JavaScriptMode.unrestricted)
+//       ..setNavigationDelegate(
+//         NavigationDelegate(
+//           onNavigationRequest: (request) {
+//             final url = request.url;
+//             print('Redirected to: $url');
+
+//             if (url.contains('transaction_status=settlement') ||
+//                 url.contains('transaction_status=capture')) {
+//               _onPaymentSuccess();
+//               return NavigationDecision.prevent;
+//             }
+
+//             if (url.contains('transaction_status=cancel') ||
+//                 url.contains('transaction_status=expire')) {
+//               _onPaymentFailed();
+//               return NavigationDecision.prevent;
+//             }
+
+//             return NavigationDecision.navigate;
+//           },
+//         ),
+//       )
+//       ..loadRequest(Uri.parse(widget.paymentUrl));
+//   }
+
+//   void _onPaymentSuccess() {
+//     Navigator.of(context).pop(true); // return success
+//   }
+
+//   void _onPaymentFailed() {
+//     Navigator.of(context).pop(false); // return failed
+//   }
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       appBar: AppBar(title: const Text('Payment Screen')),
+//       body: WebViewWidget(controller: controller),
+//     );
+//   }
+// }
 class PaymentWebViewScreen extends StatefulWidget {
   final String paymentUrl;
 
@@ -198,6 +259,7 @@ class PaymentWebViewScreen extends StatefulWidget {
 
 class _PaymentWebViewScreenState extends State<PaymentWebViewScreen> {
   late final WebViewController controller;
+  bool _isClosing = false;
 
   @override
   void initState() {
@@ -209,17 +271,20 @@ class _PaymentWebViewScreenState extends State<PaymentWebViewScreen> {
         NavigationDelegate(
           onNavigationRequest: (request) {
             final url = request.url;
-            print('Redirected to: $url');
+
+            if (_isClosing) {
+              return NavigationDecision.prevent;
+            }
 
             if (url.contains('transaction_status=settlement') ||
                 url.contains('transaction_status=capture')) {
-              _onPaymentSuccess();
+              _safeClose(true);
               return NavigationDecision.prevent;
             }
 
             if (url.contains('transaction_status=cancel') ||
                 url.contains('transaction_status=expire')) {
-              _onPaymentFailed();
+              _safeClose(false);
               return NavigationDecision.prevent;
             }
 
@@ -230,20 +295,31 @@ class _PaymentWebViewScreenState extends State<PaymentWebViewScreen> {
       ..loadRequest(Uri.parse(widget.paymentUrl));
   }
 
-  void _onPaymentSuccess() {
-    Navigator.of(context).pop(true); // return success
-  }
+  void _safeClose(bool result) {
+    if (_isClosing) return;
+    _isClosing = true;
 
-  void _onPaymentFailed() {
-    Navigator.of(context).pop(false); // return failed
+    // ⏳ Delay WAJIB untuk hindari crash ClipboardService
+    Future.delayed(const Duration(milliseconds: 1000), () {
+      if (mounted) {
+        Navigator.of(context).pop(result);
+      }
+    });
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: const Text('Payment Screen')),
-      body: WebViewWidget(controller: controller),
+    return WillPopScope(
+      onWillPop: () async {
+        _safeClose(false);
+        return false;
+      },
+      child: Scaffold(
+        appBar: AppBar(title: const Text('Payment')),
+        body: SafeArea(
+          child: WebViewWidget(controller: controller),
+        ),
+      ),
     );
   }
 }
-
