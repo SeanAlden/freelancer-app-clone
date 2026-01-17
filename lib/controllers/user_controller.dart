@@ -347,6 +347,57 @@ class UserController extends GetxController {
     }
   }
 
+  // Future<void> markAsDelivered({
+  //   required String orderId,
+  // }) async {
+  //   try {
+  //     final response = await http.post(
+  //       Uri.parse('${url}order/mark-delivered'),
+  //       body: {
+  //         'order_id': orderId,
+  //       },
+  //     );
+
+  //     if (response.statusCode == 200) {
+  //       // if (response.data['success'] == true) {
+  //         Get.snackbar(
+  //           'Success',
+  //           'Order marked as delivered',
+  //           snackPosition: SnackPosition.BOTTOM,
+  //         );
+  //       // } else {
+  //       //   throw Exception(response.data['message']);
+  //       // }
+  //     } else {
+  //       throw Exception('Failed to update order status');
+  //     }
+  //   } catch (e) {
+  //     Get.snackbar(
+  //       'Error',
+  //       e.toString(),
+  //       snackPosition: SnackPosition.BOTTOM,
+  //     );
+  //     rethrow;
+  //   }
+  // }
+
+  Future markAsDelivered({required String orderId}) async {
+    try {
+      var response = await http
+          .post(Uri.parse('${url}order/mark-delivered/$orderId'), headers: {
+        'Accept': 'application/json',
+        'Authorization': 'Bearer ${box.read('token')}',
+      });
+
+      if (response.statusCode == 200) {
+        var data = json.decode(response.body);
+        return data;
+      }
+    } catch (e) {
+      print(e.toString());
+    }
+  }
+
   Future getBalance() async {
     try {
       var response = await http.get(Uri.parse('${url}getBalance'), headers: {

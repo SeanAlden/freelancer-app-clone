@@ -538,20 +538,43 @@ class _ListOrderPageState extends State<ListOrderPage> {
                                                       width: 4,
                                                     ),
                                                     TextButton(
-                                                      onPressed: status ==
-                                                              'in progress'
-                                                          ? () {
-                                                              // setState(() {
-                                                              //   status =
-                                                              //       'delivered';
-                                                              // });
-                                                              setState(() {
-                                                                data[index][
-                                                                        'order_status'] =
-                                                                    'delivered';
-                                                              });
-                                                            }
-                                                          : null, // tombol disable kalau bukan in progress
+                                                      // onPressed: status ==
+                                                      //         'in progress'
+                                                      //     ? () {
+                                                      //         // setState(() {
+                                                      //         //   status =
+                                                      //         //       'delivered';
+                                                      //         // });
+                                                      //         setState(() {
+                                                      //           data[index][
+                                                      //                   'order_status'] =
+                                                      //               'delivered';
+                                                      //         });
+                                                      //       }
+                                                      //     : null, // tombol disable kalau bukan in progress
+                                                      onPressed: () async {
+                                                        setState(() {
+                                                          data[index][
+                                                                  'order_status'] =
+                                                              'delivered';
+                                                        });
+
+                                                        try {
+                                                          await userController
+                                                              .markAsDelivered(
+                                                            orderId: data[index]
+                                                                ['order_id'],
+                                                          );
+                                                        } catch (_) {
+                                                          // rollback jika gagal
+                                                          setState(() {
+                                                            data[index][
+                                                                    'order_status'] =
+                                                                'in progress';
+                                                          });
+                                                        }
+                                                        CircularProgressIndicator();
+                                                      },
                                                       child: Text(
                                                         'Delivered',
                                                         style: TextStyle(
@@ -920,7 +943,7 @@ class _ListOrderPageState extends State<ListOrderPage> {
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
                                 children: [
-                                  if (data[index]['revision'] > 0)
+                                  if (data[index]['revision'] >= 0)
                                     Expanded(
                                       child: Row(
                                         children: [
@@ -947,7 +970,7 @@ class _ListOrderPageState extends State<ListOrderPage> {
                                               child: const Text(
                                                 "Revision",
                                                 style: TextStyle(
-                                                  color: Colors.white,
+                                                  color: Colors.black,
                                                 ),
                                               ),
                                             ),
