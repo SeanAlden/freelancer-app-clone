@@ -362,16 +362,19 @@ class _HomePageState extends State<HomePage> {
                                       Icons.question_answer_outlined),
                                 ),
                                 // Membuat tombol dengan gambar notes untuk menuju ke halaman notes
-                                IconButton(
-                                  onPressed: () {
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) => NotesPage()),
-                                    );
-                                  },
-                                  icon: const Icon(Icons.notes),
-                                )
+                                if (box.read('token') != null)
+                                  IconButton(
+                                    onPressed: () {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) => NotesPage()),
+                                      );
+                                    },
+                                    icon: const Icon(Icons.notes),
+                                  )
+                                  else
+                                  SizedBox(),
                                 // IconButton(
                                 //   onPressed: () {
                                 //     navigationController.selectedIndex.value = 2;

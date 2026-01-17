@@ -1,5 +1,6 @@
 // ignore_for_file: avoid_print
 
+import 'package:clone_freelancer_mobile/views/User/payment_screen.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_countdown_timer/flutter_countdown_timer.dart';
@@ -31,6 +32,8 @@ class _ListOrderPageState extends State<ListOrderPage> {
   final PusherService _pusherService = PusherService();
   MidtransSDK? _midtrans;
   final _formKey = GlobalKey<FormState>();
+
+  bool isLoading = false;
 
   @override
   void initState() {
@@ -365,6 +368,66 @@ class _ListOrderPageState extends State<ListOrderPage> {
                                             Text(
                                               'Due in ${time.days != null ? '${time.days} days ' : ''}${(time.hours ?? 0).toString().padLeft(2, '0')}:${(time.min ?? 0).toString().padLeft(2, '0')}:${(time.sec ?? 0).toString().padLeft(2, '0')}',
                                             ),
+                                            // PopupMenuButton(
+                                            //   itemBuilder: (context) {
+                                            //     return [
+                                            //       const PopupMenuItem(
+                                            //         value: '0',
+                                            //         child: Text('Cancel'),
+                                            //       ),
+                                            //       const PopupMenuItem(
+                                            //         value: '1',
+                                            //         child: Text('Pay Now'),
+                                            //       ),
+                                            //     ];
+                                            //   },
+                                            //   onSelected: (String value) async {
+                                            //     if (value == '0') {
+                                            //       showDialog(
+                                            //         context: context,
+                                            //         builder: (context) =>
+                                            //             AlertDialog(
+                                            //           actions: [
+                                            //             TextButton(
+                                            //               onPressed: () {
+                                            //                 Navigator.of(
+                                            //                         context)
+                                            //                     .pop();
+                                            //               },
+                                            //               child: Text('no'.tr),
+                                            //             ),
+                                            //             TextButton(
+                                            //               onPressed: () async {
+                                            //                 await userController
+                                            //                     .cancelOrder(
+                                            //                         orderId: data[index]
+                                            //                                 [
+                                            //                                 'order_id']
+                                            //                             .toString())
+                                            //                     .then((value) =>
+                                            //                         Navigator.of(
+                                            //                                 context)
+                                            //                             .pop());
+                                            //               },
+                                            //               child: Text('yes'.tr),
+                                            //             ),
+                                            //           ],
+                                            //           title: Text(
+                                            //               'cancel_order_question'
+                                            //                   .tr),
+                                            //         ),
+                                            //       );
+                                            //     } else {
+                                            //       print(data[index]);
+                                            //       // await initSDK();
+                                            //       // await _midtrans
+                                            //       //     ?.startPaymentUiFlow(
+                                            //       //   token: data[index]['token'],
+                                            //       // );
+                                            //     }
+                                            //   },
+                                            // ),
+
                                             PopupMenuButton(
                                               itemBuilder: (context) {
                                                 return [
@@ -380,17 +443,20 @@ class _ListOrderPageState extends State<ListOrderPage> {
                                               },
                                               onSelected: (String value) async {
                                                 if (value == '0') {
+                                                  // cancel logic
                                                   showDialog(
                                                     context: context,
                                                     builder: (context) =>
                                                         AlertDialog(
+                                                      title: Text(
+                                                          'cancel_order_question'
+                                                              .tr),
                                                       actions: [
                                                         TextButton(
-                                                          onPressed: () {
-                                                            Navigator.of(
-                                                                    context)
-                                                                .pop();
-                                                          },
+                                                          onPressed: () =>
+                                                              Navigator.of(
+                                                                      context)
+                                                                  .pop(),
                                                           child: Text('no'.tr),
                                                         ),
                                                         TextButton(
@@ -409,21 +475,63 @@ class _ListOrderPageState extends State<ListOrderPage> {
                                                           child: Text('yes'.tr),
                                                         ),
                                                       ],
-                                                      title: Text(
-                                                          'cancel_order_question'
-                                                              .tr),
                                                     ),
                                                   );
-                                                } else {
-                                                  print(data[index]);
-                                                  await initSDK();
-                                                  await _midtrans
-                                                      ?.startPaymentUiFlow(
-                                                    token: data[index]['token'],
+                                                } else if (value == '1') {
+                                                  // Pay Now logic
+                                                  final snapToken = data[index][
+                                                      'snap_token']; // ambil snap token dari API
+                                                  final paymentUrl =
+                                                      'https://app.sandbox.midtrans.com/snap/v2/vtweb/$snapToken';
+
+                                                  // Panggil WebView popup yang sama
+                                                  final result =
+                                                      await showDialog<bool>(
+                                                    context: context,
+                                                    builder: (context) =>
+                                                        Dialog(
+                                                      insetPadding:
+                                                          EdgeInsets.all(0),
+                                                      backgroundColor:
+                                                          Colors.transparent,
+                                                      child: SizedBox(
+                                                        width: MediaQuery.of(
+                                                                context)
+                                                            .size
+                                                            .width,
+                                                        height: MediaQuery.of(
+                                                                context)
+                                                            .size
+                                                            .height,
+                                                        child:
+                                                            PaymentWebViewScreen(
+                                                                paymentUrl:
+                                                                    paymentUrl),
+                                                      ),
+                                                    ),
                                                   );
+
+                                                  // result akan true jika sukses, false jika gagal/cancel
+                                                  if (result == true) {
+                                                    Get.snackbar(
+                                                      'Payment Success',
+                                                      'Order has been paid successfully',
+                                                      backgroundColor:
+                                                          Colors.green,
+                                                      colorText: Colors.white,
+                                                    );
+                                                  } else if (result == false) {
+                                                    Get.snackbar(
+                                                      'Payment Failed',
+                                                      'Payment was cancelled or failed',
+                                                      backgroundColor:
+                                                          Colors.red,
+                                                      colorText: Colors.white,
+                                                    );
+                                                  }
                                                 }
                                               },
-                                            ),
+                                            )
                                           ],
                                         );
                                       }
@@ -459,8 +567,11 @@ class _ListOrderPageState extends State<ListOrderPage> {
                                                             Text('cancel'.tr),
                                                       ),
                                                       if (data[index][
-                                                              'order_status'] ==
-                                                          'awaiting payment')
+                                                                  'order_status'] ==
+                                                              'awaiting payment' ||
+                                                          data[index][
+                                                                  'order_status'] ==
+                                                              'pending')
                                                         PopupMenuItem(
                                                           value: '1',
                                                           child: Text(
@@ -508,6 +619,65 @@ class _ListOrderPageState extends State<ListOrderPage> {
                                                                   .tr),
                                                         ),
                                                       );
+                                                    } else if (value == '1') {
+                                                      // Pay Now logic
+                                                      final snapToken = data[
+                                                              index][
+                                                          'snap_token']; // ambil snap token dari API
+                                                      final paymentUrl =
+                                                          'https://app.sandbox.midtrans.com/snap/v2/vtweb/$snapToken';
+
+                                                      // Panggil WebView popup yang sama
+                                                      final result =
+                                                          await showDialog<
+                                                              bool>(
+                                                        context: context,
+                                                        builder: (context) =>
+                                                            Dialog(
+                                                          insetPadding:
+                                                              EdgeInsets.all(0),
+                                                          backgroundColor:
+                                                              Colors
+                                                                  .transparent,
+                                                          child: SizedBox(
+                                                            width:
+                                                                MediaQuery.of(
+                                                                        context)
+                                                                    .size
+                                                                    .width,
+                                                            height:
+                                                                MediaQuery.of(
+                                                                        context)
+                                                                    .size
+                                                                    .height,
+                                                            child: PaymentWebViewScreen(
+                                                                paymentUrl:
+                                                                    paymentUrl),
+                                                          ),
+                                                        ),
+                                                      );
+
+                                                      // result akan true jika sukses, false jika gagal/cancel
+                                                      if (result == true) {
+                                                        Get.snackbar(
+                                                          'Payment Success',
+                                                          'Order has been paid successfully',
+                                                          backgroundColor:
+                                                              Colors.green,
+                                                          colorText:
+                                                              Colors.white,
+                                                        );
+                                                      } else if (result ==
+                                                          false) {
+                                                        Get.snackbar(
+                                                          'Payment Failed',
+                                                          'Payment was cancelled or failed',
+                                                          backgroundColor:
+                                                              Colors.red,
+                                                          colorText:
+                                                              Colors.white,
+                                                        );
+                                                      }
                                                     }
                                                   },
                                                 )
@@ -552,6 +722,7 @@ class _ListOrderPageState extends State<ListOrderPage> {
                                                       //         });
                                                       //       }
                                                       //     : null, // tombol disable kalau bukan in progress
+
                                                       onPressed: () async {
                                                         setState(() {
                                                           data[index][
@@ -572,8 +743,12 @@ class _ListOrderPageState extends State<ListOrderPage> {
                                                                     'order_status'] =
                                                                 'in progress';
                                                           });
+                                                        } finally {
+                                                          setState(() {
+                                                            // reload halaman utama (selalu jalan)
+                                                            fetchData();
+                                                          });
                                                         }
-                                                        CircularProgressIndicator();
                                                       },
                                                       child: Text(
                                                         'Delivered',
