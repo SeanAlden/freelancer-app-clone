@@ -5,7 +5,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter/widgets.dart';
 import 'package:clone_freelancer_mobile/constant/const.dart';
 import 'package:clone_freelancer_mobile/constant/globals.dart';
 import 'package:clone_freelancer_mobile/controllers/seller_controller.dart';
@@ -377,7 +376,7 @@ class _SellerReqPageState extends State<SellerReqPage> {
 
   @override
   Widget build(BuildContext context) {
-    final double width = MediaQuery.of(context).size.width;
+    // final double width = MediaQuery.of(context).size.width;
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,

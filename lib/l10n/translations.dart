@@ -5040,7 +5040,6 @@ class AppTranslations extends Translations {
           'card': 'कार्ड',
           'skills_required': "कौशल खाली नहीं हो सकता।",
           'list_skill_cannot_null': "कौशल सूची खाली नहीं हो सकती",
-          'showcase_portfolio_url': 'पोर्टफोलियो प्रदर्शित करने का यूआरएल',
           'scan_result': 'स्कैन परिणाम',
           'write_review': 'यहां अपनी समीक्षा लिखें।',
           'pay_now': 'अभी भुगतान करें',

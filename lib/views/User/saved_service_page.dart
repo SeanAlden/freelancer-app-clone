@@ -233,16 +233,18 @@ class _SavedServicesPageState extends State<SavedServicesPage> {
                                                 ),
                                               ],
                                             ),
-                                            IconButton(
-                                              color: Colors.red,
-                                              onPressed: () async {
-                                                await serviceController
-                                                    .deleteSavedService(
-                                                        serviceId);
-
-                                                fetchData();
-                                              },
-                                              icon: const Icon(Icons.favorite),
+                                            Expanded(
+                                              child: IconButton(
+                                                color: Colors.red,
+                                                onPressed: () async {
+                                                  await serviceController
+                                                      .deleteSavedService(
+                                                          serviceId);
+                                              
+                                                  fetchData();
+                                                },
+                                                icon: const Icon(Icons.favorite),
+                                              ),
                                             ),
                                           ],
                                         ),

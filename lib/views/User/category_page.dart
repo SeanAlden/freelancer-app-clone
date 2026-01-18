@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:clone_freelancer_mobile/controllers/service_controller.dart';
 import 'package:clone_freelancer_mobile/views/User/Search/search_page.dart';

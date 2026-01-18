@@ -423,15 +423,12 @@
 // }
 
 import 'dart:io';
-import 'package:clone_freelancer_mobile/views/User/add_card_page.dart';
 import 'package:clone_freelancer_mobile/views/User/generate_qrcode.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:get/get.dart';
-import 'package:http/http.dart' as http;
-import 'package:qr_flutter/qr_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class QrPage extends StatefulWidget {

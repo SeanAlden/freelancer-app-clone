@@ -241,7 +241,8 @@ class _DisplaySearchPageState extends State<DisplaySearchPage> {
                             name: data[index]['name'],
                           ),
                           packages: itemPackage,
-                          rating: double.parse(data[index]['rating']) ?? 0,
+                          // rating: double.parse(data[index]['rating']) ?? 0,
+                          rating: double.parse(data[index]['rating']),
                           count: data[index]['count'],
                           fav: data[index]['serviceFav'] == true ? true : false,
                           email: data[index]['email'] ?? '',
@@ -351,48 +352,54 @@ class _DisplaySearchPageState extends State<DisplaySearchPage> {
                                                 ],
                                               ),
                                               box.read('token') == null
-                                                  ? IconButton(
-                                                      color: Colors.grey[500],
-                                                      onPressed: () {
-                                                        Get.to(() =>
-                                                            const LoginPage());
-                                                      },
-                                                      icon: const Icon(Icons
-                                                          .favorite_outline),
-                                                    )
+                                                  ? Expanded(
+                                                    child: IconButton(
+                                                        color: Colors.grey[500],
+                                                        onPressed: () {
+                                                          Get.to(() =>
+                                                              const LoginPage());
+                                                        },
+                                                        icon: const Icon(Icons
+                                                            .favorite_outline),
+                                                      ),
+                                                  )
                                                   : data[index]['serviceFav'] ==
                                                           true
-                                                      ? IconButton(
-                                                          color: Colors.red,
-                                                          onPressed: () {
-                                                            setState(() {
-                                                              serviceController
-                                                                  .deleteSavedService(
-                                                                      serviceId);
-                                                              data[index][
-                                                                      'serviceFav'] =
-                                                                  false;
-                                                            });
-                                                          },
-                                                          icon: const Icon(
-                                                              Icons.favorite),
-                                                        )
-                                                      : IconButton(
-                                                          color:
-                                                              Colors.grey[500],
-                                                          onPressed: () {
-                                                            setState(() {
-                                                              serviceController
-                                                                  .saveService(
-                                                                      serviceId);
-                                                              data[index][
-                                                                      'serviceFav'] =
-                                                                  true;
-                                                            });
-                                                          },
-                                                          icon: const Icon(Icons
-                                                              .favorite_outline),
-                                                        ),
+                                                      ? Expanded(
+                                                        child: IconButton(
+                                                            color: Colors.red,
+                                                            onPressed: () {
+                                                              setState(() {
+                                                                serviceController
+                                                                    .deleteSavedService(
+                                                                        serviceId);
+                                                                data[index][
+                                                                        'serviceFav'] =
+                                                                    false;
+                                                              });
+                                                            },
+                                                            icon: const Icon(
+                                                                Icons.favorite),
+                                                          ),
+                                                      )
+                                                      : Expanded(
+                                                        child: IconButton(
+                                                            color:
+                                                                Colors.grey[500],
+                                                            onPressed: () {
+                                                              setState(() {
+                                                                serviceController
+                                                                    .saveService(
+                                                                        serviceId);
+                                                                data[index][
+                                                                        'serviceFav'] =
+                                                                    true;
+                                                              });
+                                                            },
+                                                            icon: const Icon(Icons
+                                                                .favorite_outline),
+                                                          ),
+                                                      ),
                                             ],
                                           ),
                                           const SizedBox(height: 0),

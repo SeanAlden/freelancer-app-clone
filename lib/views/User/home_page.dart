@@ -1,6 +1,5 @@
 // ignore_for_file: avoid_print
 
-import 'dart:convert';
 
 import 'package:clone_freelancer_mobile/views/User/category_page.dart';
 import 'package:clone_freelancer_mobile/views/User/profile_page.dart';
@@ -18,12 +17,8 @@ import 'package:clone_freelancer_mobile/views/User/details_page.dart';
 import 'package:clone_freelancer_mobile/views/User/display_search_page.dart';
 import 'package:get/get.dart';
 import 'package:clone_freelancer_mobile/views/User/navigation_page.dart';
-import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:intl/intl.dart';
-import 'package:http/http.dart' as http;
-import 'package:clone_freelancer_mobile/models/news.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -394,9 +389,11 @@ class _HomePageState extends State<HomePage> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         // bagian title untuk kolom kategori layanan
-                        Text(
-                          'service_categories'.tr,
-                          style: Theme.of(context).textTheme.headlineSmall,
+                        Expanded(
+                          child: Text(
+                            'service_categories'.tr,
+                            style: Theme.of(context).textTheme.headlineSmall,
+                          ),
                         ),
                         RichText(
                           text: TextSpan(

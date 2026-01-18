@@ -299,7 +299,8 @@ class _SellerProfilePageState extends State<SellerProfilePage> {
                                 // data[index]['rating'] == null
                                 //     ?
                                 Text(
-                                  data['avg'].toString() ?? '0',
+                                  // data['avg'].toString() ?? '0',
+                                  data['avg'].toString(),
                                   style: Theme.of(context)
                                       .textTheme
                                       .bodyMedium
@@ -558,9 +559,11 @@ class _SellerProfilePageState extends State<SellerProfilePage> {
                                                     // data[index]['rating'] == null
                                                     //     ?
                                                     Text(
-                                                      dataIndex['avg']
-                                                              .toString() ??
-                                                          '0',
+                                                      // dataIndex['avg']
+                                                      //         .toString() ??
+                                                      //     '0',
+                                                          dataIndex['avg']
+                                                              .toString(),
                                                       style: Theme.of(context)
                                                           .textTheme
                                                           .bodyMedium

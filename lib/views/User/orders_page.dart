@@ -703,8 +703,10 @@ class _ListOrderPageState extends State<ListOrderPage> {
                                                   MainAxisAlignment
                                                       .spaceBetween,
                                               children: [
-                                                Text(
-                                                  'Estimated confirmation ${time.days != null ? '${time.days} days ' : ''}${(time.hours ?? 0).toString().padLeft(2, '0')}:${(time.min ?? 0).toString().padLeft(2, '0')}:${(time.sec ?? 0).toString().padLeft(2, '0')}',
+                                                Expanded(
+                                                  child: Text(
+                                                    'Estimated confirmation ${time.days != null ? '${time.days} days ' : ''}${(time.hours ?? 0).toString().padLeft(2, '0')}:${(time.min ?? 0).toString().padLeft(2, '0')}:${(time.sec ?? 0).toString().padLeft(2, '0')}',
+                                                  ),
                                                 ),
                                                 // PopupMenuButton(
                                                 //   itemBuilder: (context) {
@@ -1005,81 +1007,129 @@ class _ListOrderPageState extends State<ListOrderPage> {
                                         },
                                       )
                                     : status == 'in progress'
-                                        ? CountdownTimer(
-                                            endTime: parsedExpirationDate
-                                                .millisecondsSinceEpoch,
-                                            widgetBuilder: (context, time) {
-                                              if (time == null) {
-                                                return Text(
-                                                  'late'.tr,
-                                                  style: TextStyle(
-                                                    color: Colors.red,
-                                                  ),
-                                                );
-                                              } else {
-                                                return Row(
-                                                  children: [
-                                                    Text(
-                                                      'Estimated delivery time ${time.days != null ? '${time.days} days ' : ''}${(time.hours ?? 0).toString().padLeft(2, '0')}:${(time.min ?? 0).toString().padLeft(2, '0')}:${(time.sec ?? 0).toString().padLeft(2, '0')}',
-                                                    ),
-                                                    SizedBox(
-                                                      width: 4,
-                                                    ),
-                                                    TextButton(
-                                                      // onPressed: status ==
-                                                      //         'in progress'
-                                                      //     ? () {
-                                                      //         // setState(() {
-                                                      //         //   status =
-                                                      //         //       'delivered';
-                                                      //         // });
-                                                      //         setState(() {
-                                                      //           data[index][
-                                                      //                   'order_status'] =
-                                                      //               'delivered';
-                                                      //         });
-                                                      //       }
-                                                      //     : null, // tombol disable kalau bukan in progress
-
-                                                      onPressed: () async {
-                                                        setState(() {
-                                                          data[index][
-                                                                  'order_status'] =
-                                                              'delivered';
-                                                        });
-
-                                                        try {
-                                                          await userController
-                                                              .markAsDelivered(
-                                                            orderId: data[index]
-                                                                ['order_id'],
-                                                          );
-                                                        } catch (_) {
-                                                          // rollback jika gagal
-                                                          setState(() {
-                                                            data[index][
-                                                                    'order_status'] =
-                                                                'in progress';
-                                                          });
-                                                        } finally {
-                                                          setState(() {
-                                                            // reload halaman utama (selalu jalan)
-                                                            fetchData();
-                                                          });
-                                                        }
-                                                      },
-                                                      child: Text(
-                                                        'Delivered',
-                                                        style: TextStyle(
-                                                            color:
-                                                                Colors.green),
+                                        ? Column(
+                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                            children: [
+                                              CountdownTimer(
+                                                endTime: parsedExpirationDate
+                                                    .millisecondsSinceEpoch,
+                                                widgetBuilder: (context, time) {
+                                                  if (time == null) {
+                                                    return Text(
+                                                      'late'.tr,
+                                                      style: TextStyle(
+                                                        color: Colors.red,
                                                       ),
-                                                    )
-                                                  ],
-                                                );
-                                              }
-                                            },
+                                                    );
+                                                  } else {
+                                                    return Row(
+                                                      children: [
+                                                        Text(
+                                                          'Estimated delivery time ${time.days != null ? '${time.days} days ' : ''}${(time.hours ?? 0).toString().padLeft(2, '0')}:${(time.min ?? 0).toString().padLeft(2, '0')}:${(time.sec ?? 0).toString().padLeft(2, '0')}',
+                                                        ),
+                                                        
+                                                      ],
+                                                    );
+                                                  }
+                                                },
+                                              ),
+                                              Row(
+                                                      children: [
+                                              TextButton(
+                                                // onPressed: status ==
+                                                //         'in progress'
+                                                //     ? () {
+                                                //         // setState(() {
+                                                //         //   status =
+                                                //         //       'delivered';
+                                                //         // });
+                                                //         setState(() {
+                                                //           data[index][
+                                                //                   'order_status'] =
+                                                //               'delivered';
+                                                //         });
+                                                //       }
+                                                //     : null, // tombol disable kalau bukan in progress
+
+                                                onPressed: () async {
+                                                  setState(() {
+                                                    data[index]
+                                                            ['order_status'] =
+                                                        'delivered';
+                                                  });
+
+                                                  try {
+                                                    await userController
+                                                        .markAsDelivered(
+                                                      orderId: data[index]
+                                                          ['order_id'],
+                                                    );
+                                                  } catch (_) {
+                                                    // rollback jika gagal
+                                                    setState(() {
+                                                      data[index]
+                                                              ['order_status'] =
+                                                          'in progress';
+                                                    });
+                                                  } finally {
+                                                    setState(() {
+                                                      // reload halaman utama (selalu jalan)
+                                                      fetchData();
+                                                    });
+                                                  }
+                                                },
+                                                child: Text(
+                                                  'Delivered',
+                                                  style: TextStyle(
+                                                      color: Colors.green),
+                                                ),
+                                              )
+                                                      ])
+                                            ],
                                           )
+
+//                                         Row(
+//   children: [
+//     Expanded(
+//       child: Text(
+//         'Estimated delivery time '
+//         '${time.days != null ? '${time.days} days ' : ''}'
+//         '${(time.hours ?? 0).toString().padLeft(2, '0')}:'
+//         '${(time.min ?? 0).toString().padLeft(2, '0')}:'
+//         '${(time.sec ?? 0).toString().padLeft(2, '0')}',
+//         overflow: TextOverflow.ellipsis,
+//       ),
+//     ),
+//     const SizedBox(width: 4),
+//     Align(
+//       alignment: Alignment.centerRight,
+//       child: TextButton(
+//         onPressed: () async {
+//           setState(() {
+//             data[index]['order_status'] = 'delivered';
+//           });
+
+//           try {
+//             await userController.markAsDelivered(
+//               orderId: data[index]['order_id'],
+//             );
+//           } catch (_) {
+//             setState(() {
+//               data[index]['order_status'] = 'in progress';
+//             });
+//           } finally {
+//             fetchData();
+//           }
+//         },
+//         child: const Text(
+//           'Delivered',
+//           style: TextStyle(color: Colors.green),
+//         ),
+//       ),
+//     ),
+//   ],
+// )
+
                                         : status == 'revision requested'
                                             ? CountdownTimer(
                                                 endTime: parsedExpirationDate
@@ -1377,58 +1427,62 @@ class _ListOrderPageState extends State<ListOrderPage> {
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                GestureDetector(
-                                  onTap: () async {
-                                    await chatController.createChatRoom(
-                                      UserData(
-                                        userId: data[index]['freelancerId'],
-                                        piclink: linkAvatar,
-                                        name: data[index]['name'],
-                                      ),
-                                    );
-                                  },
-                                  child: Row(
-                                    children: [
-                                      data[index]['servicePic'] != null
-                                          ? SizedBox(
-                                              width: 40,
-                                              height: 40,
-                                              child: ClipRRect(
-                                                borderRadius:
-                                                    BorderRadius.circular(100),
-                                                child: Image.network(
-                                                  linkAvatar,
-                                                  fit: BoxFit.cover,
+                                Expanded(
+                                  child: GestureDetector(
+                                    onTap: () async {
+                                      await chatController.createChatRoom(
+                                        UserData(
+                                          userId: data[index]['freelancerId'],
+                                          piclink: linkAvatar,
+                                          name: data[index]['name'],
+                                        ),
+                                      );
+                                    },
+                                    child: Row(
+                                      children: [
+                                        data[index]['servicePic'] != null
+                                            ? SizedBox(
+                                                width: 40,
+                                                height: 40,
+                                                child: ClipRRect(
+                                                  borderRadius:
+                                                      BorderRadius.circular(100),
+                                                  child: Image.network(
+                                                    linkAvatar,
+                                                    fit: BoxFit.cover,
+                                                  ),
+                                                ),
+                                              )
+                                            : SizedBox(
+                                                width: 40,
+                                                height: 40,
+                                                child: ClipRRect(
+                                                  borderRadius:
+                                                      BorderRadius.circular(100),
+                                                  child: Image.asset(
+                                                    'assets/images/blank_image.png',
+                                                    fit: BoxFit.cover,
+                                                  ),
                                                 ),
                                               ),
-                                            )
-                                          : SizedBox(
-                                              width: 40,
-                                              height: 40,
-                                              child: ClipRRect(
-                                                borderRadius:
-                                                    BorderRadius.circular(100),
-                                                child: Image.asset(
-                                                  'assets/images/blank_image.png',
-                                                  fit: BoxFit.cover,
-                                                ),
-                                              ),
-                                            ),
-                                      const SizedBox(
-                                        width: 16,
-                                      ),
-                                      Text(
-                                        data[index]['name'],
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .titleMedium,
-                                      ),
-                                    ],
+                                        const SizedBox(
+                                          width: 16,
+                                        ),
+                                        Text(
+                                          data[index]['name'],
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .titleMedium,
+                                        ),
+                                      ],
+                                    ),
                                   ),
                                 ),
-                                Chip(
-                                    label: Text("${data[index]['order_status']}"
-                                        .capitalize!)),
+                                Expanded(
+                                  child: Chip(
+                                      label: Text("${data[index]['order_status']}"
+                                          .capitalize!)),
+                                ),
                               ],
                             ),
                             if (data[index]['order_status'] == 'delivered')

@@ -66,7 +66,8 @@ class _NewsWidgetState extends State<NewsWidget> {
                             builder: (context) => NewsDetailPage(
                               title: article.title,
                               imageUrl: article.imageUrl ?? '',
-                              description: article.description ?? 'no_desc'.tr,
+                              // description: article.description ?? 'no_desc'.tr,
+                              description: article.description,
                               publishedAt: article.publishedAt,
                               url: article.url,
                             ),

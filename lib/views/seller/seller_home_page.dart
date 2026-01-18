@@ -6,7 +6,6 @@ import 'package:clone_freelancer_mobile/core.dart';
 import 'package:clone_freelancer_mobile/models/chat_user_data.dart';
 import 'package:clone_freelancer_mobile/models/package.dart';
 import 'package:clone_freelancer_mobile/views/seller/Service/add_service_page.dart';
-import 'package:clone_freelancer_mobile/views/seller/Service/edit_service_page.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 

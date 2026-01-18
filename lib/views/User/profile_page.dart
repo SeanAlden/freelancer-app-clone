@@ -1093,7 +1093,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       padding: const EdgeInsets.all(16),
                       margin: const EdgeInsets.only(bottom: 20.0),
                       alignment: Alignment.topCenter,
-                      height: 235.0,
+                      height: 285.0,
                       // decoration: const BoxDecoration(
                       //   // Mengatur warna background profil di bagian atas
                       //   borderRadius: BorderRadius.only(
@@ -1194,46 +1194,48 @@ class _ProfilePageState extends State<ProfilePage> {
                           ),
                           box.read('token') != null
                               // Mengatur tampilan username dan email pengguna dibawah gambar profil
-                              ? Column(
-                                  children: [
-                                    Text(
-                                      // username
-                                      box.read('user')['name'],
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .headlineSmall
-                                          ?.copyWith(
-                                            color: Theme.of(context)
-                                                        .brightness ==
-                                                    Brightness.dark
-                                                ? Colors
-                                                    .white // Warna teks untuk mode gelap
-                                                : Colors
-                                                    .white, // Warna teks untuk mode terang
-                                          ),
-                                          overflow: TextOverflow.ellipsis,
-                                          maxLines: 1,
-                                    ),
-                                    Text(
-                                      // email
-                                      box.read('user')['email'],
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .titleLarge
-                                          ?.copyWith(
-                                            color: Theme.of(context)
-                                                        .brightness ==
-                                                    Brightness.dark
-                                                ? Colors
-                                                    .white // Warna teks untuk mode gelap
-                                                : Colors
-                                                    .white, // Warna teks untuk mode terang
-                                          ),
-                                          overflow: TextOverflow.ellipsis,
-                                          maxLines: 1,
-                                    ),
-                                  ],
-                                )
+                              ? Expanded(
+                                child: Column(
+                                    children: [
+                                      Text(
+                                        // username
+                                        box.read('user')['name'],
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .headlineSmall
+                                            ?.copyWith(
+                                              color: Theme.of(context)
+                                                          .brightness ==
+                                                      Brightness.dark
+                                                  ? Colors
+                                                      .white // Warna teks untuk mode gelap
+                                                  : Colors
+                                                      .white, // Warna teks untuk mode terang
+                                            ),
+                                            overflow: TextOverflow.ellipsis,
+                                            maxLines: 1,
+                                      ),
+                                      Text(
+                                        // email
+                                        box.read('user')['email'],
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .titleLarge
+                                            ?.copyWith(
+                                              color: Theme.of(context)
+                                                          .brightness ==
+                                                      Brightness.dark
+                                                  ? Colors
+                                                      .white // Warna teks untuk mode gelap
+                                                  : Colors
+                                                      .white, // Warna teks untuk mode terang
+                                            ),
+                                            overflow: TextOverflow.ellipsis,
+                                            maxLines: 1,
+                                      ),
+                                    ],
+                                  ),
+                              )
                               // : Text(
                               //     // Menampilkan "Guest" jika pengguna belum login
                               //     "Guest",

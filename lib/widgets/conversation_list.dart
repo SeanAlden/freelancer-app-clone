@@ -82,16 +82,20 @@ class _ConversationListState extends State<ConversationList> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween, // nama di sebelah kiri, dan waktu di kanan
                   children: [
                     // Menampilkan nama peserta chat
-                    Text(
-                      widget.name,
-                      style: Theme.of(context).textTheme.titleMedium, // Gaya sesuai tema 
+                    Expanded(
+                      child: Text(
+                        widget.name,
+                        style: Theme.of(context).textTheme.titleMedium, // Gaya sesuai tema 
+                      ),
                     ),
                     // Menampilkan waktu pengiriman pesan
-                    Text(
-                      widget.time,
-                      style: Theme.of(context).textTheme.labelMedium?.copyWith(
-                            fontWeight: FontWeight.normal, // Font Normal
-                          ),
+                    Expanded(
+                      child: Text(
+                        widget.time,
+                        style: Theme.of(context).textTheme.labelMedium?.copyWith(
+                              fontWeight: FontWeight.normal, // Font Normal
+                            ),
+                      ),
                     ),
                   ],
                 ),

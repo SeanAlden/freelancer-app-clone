@@ -4,7 +4,6 @@ import 'package:clone_freelancer_mobile/controllers/auth_controller.dart';
 import 'package:clone_freelancer_mobile/views/Auth/forgot_password.dart';
 import 'package:clone_freelancer_mobile/views/Auth/signup.dart';
 import 'package:get/get.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 // Widget LoginPage merupakan halaman login
 class LoginPage extends StatefulWidget {

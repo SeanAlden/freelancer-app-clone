@@ -1,4 +1,3 @@
-import 'package:clone_freelancer_mobile/views/User/qr_code_page.dart';
 import 'package:flutter/material.dart';
 import 'package:clone_freelancer_mobile/constant/globals.dart';
 import 'package:clone_freelancer_mobile/views/Auth/login.dart';
